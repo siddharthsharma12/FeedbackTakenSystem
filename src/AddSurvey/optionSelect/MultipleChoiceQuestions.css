@@ -1,0 +1,86 @@
+
+.firstinputdiv{
+  
+    margin-bottom: 28px;
+    display: flex;
+   
+}
+input.firstinput {
+    height: 35px;
+}
+input.firstin {
+    height: 35px;
+}
+.firstindiv{
+  
+    margin-bottom: 8px;
+    display: flex;
+   
+}
+.firstinputdiv input.firstinput {
+   width: 100% !important;
+}
+.firstindiv input.firstin {
+    width: 100% !important;
+    margin-bottom: 7px;
+ }
+span.material-icons {
+    margin-left: 30px;
+}
+
+.add-mu{
+    background: #0a0a0ac4;
+    padding: 4px;
+    color: white;
+    list-style: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+.add-mu:hover{
+    color: white;
+}
+.delete {
+    margin-left:547px !important;
+    margin-top: 0px !important;
+}
+
+/* .flexkrdoone{
+    display: flex;
+} */
+.flexkrdotwo{
+    display: flex;
+}
+.addopt{
+    margin-bottom: 30px;
+    margin-left: 10px;
+    margin-top: 15px;
+}
+.tp{
+    background: #06031ac4;
+    padding: 4px;
+    color: white;
+    list-style: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+.deleteone{
+    display: flex;
+}
+.divergence{
+    margin-left: 47px;
+    margin-bottom: 31px;
+    margin-top: 10px;
+    
+}
+
+.addbtn {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 30px;
+    margin-left: 41px;
+}
+.deleteone span.material-icons svg{
+    color: #ff000099 !important;
+    font-size: 15px !important;
+    font-weight: 200;
+}

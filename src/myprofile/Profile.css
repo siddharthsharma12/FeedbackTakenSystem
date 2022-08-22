@@ -1,0 +1,74 @@
+.width-fix.col {
+  background-color: var(--bglight);
+  width: 100%;
+  max-width: 230px;
+  flex: 0 0 230px;
+  padding: 20px 0;
+  margin-right: 15px;
+  min-height: 100vh;
+}
+.rightside-content {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 15px;
+}
+.changepass {
+	position: absolute;
+	right: 0;
+	bottom: -22px;
+	color: var(--skyblue);
+	font-size: 12px;
+	text-decoration: underline !important;
+	cursor: pointer;
+	font-weight: 400;
+}
+
+.edituser svg {
+  width: 15px;
+  height: 15px;
+  color: var(--lightblack);
+  margin-left: 3px;
+  display: inline-block;
+  margin-top: -4px;
+  cursor: pointer;
+}
+.set-profile {
+  padding-right: 200px;
+}
+.verify-email {
+  position: absolute;
+  right: 15px;
+  top: 56%;
+  cursor: pointer;
+  text-decoration: underline;
+}
+@media only screen and (max-width: 1199px) {
+  .set-profile {
+    padding-right: 100px;
+  }
+}
+@media only screen and (max-width: 991px) {
+  .set-profile {
+    padding-right: 30px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .leftside-content.width-fix.col {
+    display: none;
+  }
+  .sender-heading {
+    margin-bottom: 15px;
+    padding-top: 20px;
+  }
+  .sm-heading {
+    margin-bottom: 20px;
+    margin-top: 0;
+  }
+  .rightside-content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .set-profile {
+    padding-right: 0;
+  }
+}

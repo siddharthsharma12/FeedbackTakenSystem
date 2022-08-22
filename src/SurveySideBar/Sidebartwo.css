@@ -1,0 +1,109 @@
+.left-sidebar-two ul.user-menu {
+  padding-left: 0;
+}
+
+.left-sidebar-two{
+  margin-top: 50px;
+  margin-bottom: 180px;
+  margin-left: 45px;
+}
+
+
+.left-sidebar-two ul.user-menu > li {
+  list-style: none;
+  padding: 0 20px;
+  -webkit-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+.left-sidebar-two ul.user-menu > li > a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  border-bottom: 1px solid #f2f2f2;
+  padding: 20px 0;
+  -webkit-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+.left-sidebar-two ul.user-menu > li:last-child a {
+  border-bottom: 0;
+  -webkit-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+.left-sidebar-two ul.user-menu > li:hover {
+  background-color: #ffffff;
+  -webkit-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+.left-sidebar-two ul.user-menu > li:hover a {
+  color: var(--skyblue);
+  padding-left: 3px;
+  -webkit-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+.left-sidebar-two ul.user-menu > li > a svg {
+  max-width: 22px;
+  height: auto;
+  margin-right: 10px;
+  -webkit-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+.left-sidebar-two ul.user-menu > li a #myprofile g,
+.left-sidebar-two ul.user-menu > li a #usermanagement g,
+.left-sidebar-two ul.user-menu > li a #myplan #Path_175,
+.left-sidebar-two ul.user-menu > li a #activitylog g,
+.left-sidebar-two ul.user-menu > li a #myprofile path,
+.left-sidebar-two ul.user-menu > li a #usermanagement path,
+.left-sidebar-two ul.user-menu > li a #activitylog path,
+.left-sidebar-two ul.user-menu > li a #myplan #Path_171,
+.left-sidebar-two ul.user-menu > li a #myplan #Path_172,
+.left-sidebar-two ul.user-menu > li a #myplan #Path_173,
+.left-sidebar-two ul.user-menu > li a #myplan #Path_174 {
+  -webkit-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+.left-sidebar-two ul.user-menu > li:hover a #myprofile g,
+.left-sidebar-two ul.user-menu > li:hover a #usermanagement g,
+.left-sidebar-two ul.user-menu > li:hover a #myplan #Path_175,
+.left-sidebar-two ul.user-menu > li:hover a #activitylog g,
+.left-sidebar-two ul.user-menu > li:hover a #myprofile path,
+.left-sidebar-two ul.user-menu > li:hover a #usermanagement path,
+.left-sidebar-two ul.user-menu > li:hover a #activitylog path {
+  stroke: var(--skyblue) !important;
+  -webkit-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+.left-sidebar-two ul.user-menu > li:hover a #myplan #Path_171,
+.left-sidebar-two ul.user-menu > li:hover a #myplan #Path_172,
+.left-sidebar-two ul.user-menu > li:hover a #myplan #Path_173,
+.left-sidebar-two ul.user-menu > li:hover a #myplan #Path_174 {
+  fill: var(--skyblue) !important;
+  -webkit-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+.sidebar_two_heading {
+  font-size: 14px;
+  font-weight: bold;
+  color: #403e3e;
+  padding: 15px 20px;
+  margin-bottom: 0;
+}

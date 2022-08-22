@@ -1,0 +1,110 @@
+.width-fix.col {
+  background-color: var(--bglight);
+  width: 100%;
+  max-width: 230px;
+  flex: 0 0 230px;
+  padding: 20px 0;
+  margin-right: 15px;
+  min-height: 100vh;
+}
+
+.pln-invoice{
+  padding: 20px 30px;
+}
+.pln-invoice {
+  padding: 25px 20px;
+  border: 1px solid #DEDEDE;
+  border-radius: 6px;
+}
+.my-plan{
+  margin-bottom: 30px;
+  
+}
+.pricing-table{
+  border: 1px solid #DEDEDE;
+}
+
+/* .pricing-table .table > :not(caption) > * > * {
+  padding: 1.2rem .5rem !important;
+} */
+.pricing-table .table > thead {
+  vertical-align: bottom;
+  border-bottom: 1px solid #dedede;
+  padding: 1.2rem .5rem !important;
+}
+@media only screen and (max-width: 1199px) {
+}
+@media only screen and (max-width: 991px) {
+
+}
+@media only screen and (max-width: 767px) {
+  .leftside-content.width-fix.col {
+    display: none;
+  }
+  .pricing-table {
+    border: 0;
+    padding: 0 15px !important;
+  }  
+  /*---====table-responsive===---*/
+      table {
+         border: 0 !important;
+     }
+     table caption {
+         font-size: 1.3em;
+     }
+    table thead {
+         border: none;
+         clip: rect(0 0 0 0);
+         height: 1px;
+         margin: -1px;
+         overflow: hidden;
+         padding: 0;
+         position: absolute;
+         width: 1px;
+     }
+ 
+      table tr {
+         border: 1px solid #ddd;
+         display: block;
+         margin: 15px 0;
+         padding: 10px;
+     }
+ 
+     table td {
+         display: block;
+         font-size: 15px;
+         text-align: right !important;
+         width: 100%;
+         display: block;
+         min-block-size: 48px;
+         word-break: break-all;
+     }
+  table td::before {
+         content: attr(data-label);
+         float: left;
+         text-transform: uppercase;
+         padding-right: 15px;
+         font-weight: 600;
+     }
+  
+  table td:first-child {
+         border-top: 0;
+     }
+     table tr:last-child {
+      margin-bottom: 0;
+  }
+  table td:last-child {
+         border-bottom: 0;
+        
+     }
+     .table-borderless > :not(caption) > * > * {
+      border-bottom-width: 0;
+      text-align: right !important;
+      border: 0 !important;
+    }
+    .pricing-table {
+      border: 0;
+    }
+     /*--=====table-reponsive====---==================*/
+
+}

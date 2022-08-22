@@ -1,0 +1,119 @@
+
+.two-brackets.d-flex {
+  justify-content: center;
+}
+.template {
+  padding: 33px 10px;
+  background: white;
+}
+.template:hover{
+  border:1px solid #70c1e9 !important;
+  cursor: pointer !important;
+}
+.template p a{
+  font-size: 15px;
+  color :#474747;
+  font-weight: bold;
+}
+
+.scratch p a{
+  font-size: 15px;
+  color :#474747;
+  font-weight: bold;
+}
+.scratch:hover{
+  border:1px solid #70c1e9 !important;
+  cursor: pointer !important;
+}
+.scratch {
+  padding: 33px 10px;
+  background: white;
+  margin-left: 31px !important;
+}
+
+.add-screens.text-center h4 {
+  color :#474747;
+  font-size: 20px;
+}
+.add-screens.text-center {
+  padding-bottom: 20px;
+}
+.screens{
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+.survey-screen {
+  background: #f7f7f7;
+}
+
+.icon-customer {
+  font-size: 47px;
+}
+.icon-internal {
+  font-size: 47px;
+}
+
+/* three brackets css start========================================> */
+.three-brackets.d-flex {
+  justify-content: center;
+  margin-bottom: 45px;
+ }
+
+.excel {
+  padding: 33px 40px;
+  background: white;
+}
+.excel:hover{
+  border:1px solid #70c1e9 !important;
+  cursor: pointer !important;
+}
+.excel p a{
+  font-size: 15px;
+  color :#474747;
+  font-weight: bold;
+}
+
+.copy p a{
+  font-size: 15px;
+  color :#474747;
+  font-weight: bold;
+}
+.copy:hover{
+  border:1px solid #70c1e9 !important;
+  cursor: pointer !important;
+}
+.copy {
+  padding: 33px 20px;
+  background: white;
+  margin-left: 31px !important;
+}
+
+.format p a{
+  font-size: 15px;
+  color :#474747;
+  font-weight: bold;
+}
+.format:hover{
+  border:1px solid #70c1e9 !important;
+  cursor: pointer !important;
+}
+.format {
+  padding: 33px 20px;
+  background: white;
+  margin-left: 31px !important;
+}
+.quick-build.text-center h4 {
+  color :#474747;
+  font-size: 16px;
+  font-weight: 700;
+}
+.quick-build.text-center {
+  padding: 30px 0px;
+}
+
+
+
+
+
+
+/* three brackets css ends===========================================> */

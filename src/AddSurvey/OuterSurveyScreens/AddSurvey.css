@@ -1,0 +1,56 @@
+
+.Two-Brackets {
+    justify-content: center;
+    display: flex;
+    /* text-align: center; */
+}
+
+.customer {
+    padding: 53px 47px;
+    background: white;
+}
+.customer:hover{
+    border:1px solid #70c1e9 !important;
+    cursor: pointer !important;
+}
+.customer p a{
+    font-size: 17px;
+    color:#70c1e9;
+    font-weight: bold;
+}
+
+.internal p a{
+    font-size: 17px;
+    color:#78b7d7;
+    font-weight: bold;
+}
+.internal:hover{
+    border:1px solid #70c1e9 !important;
+    cursor: pointer !important;
+}
+.internal {
+    padding: 53px 54px;
+    background: white;
+    margin-left: 31px !important;
+}
+
+.add-survey.text-center h4 {
+    color:#70c1e9;
+    font-size: 20px;
+}
+.add-survey.text-center {
+    padding-bottom: 20px;
+}
+.add-section {
+   margin: 150px 0px !important;
+}
+.addsurvey-section {
+    background: #f7f7f7;
+}
+
+.icon-customer {
+    font-size: 47px;
+}
+.icon-internal {
+    font-size: 47px;
+}
