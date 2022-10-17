@@ -1,0 +1,49 @@
+.usermanagement{
+    margin: 20px 0px;
+}
+.search-right{
+    margin: 20px 0px;
+}
+.user{
+    margin: 20px 0px;
+}
+.usermanagement h4 {
+    color: #1cb4cc !important;
+    font-size: 19px;
+    font-weight: 600;
+}
+.search-team{
+    display: flex;
+    justify-content: flex-end;
+}
+button.dan.me-3.btn.ml-auto.d-block.mb-2{
+    padding: 10px;
+}
+table.table {
+    border: 1px solid #00000042;
+}
+.team-pick{
+    background: #00000005;
+}
+.dflexo {
+    display: -webkit-inline-box !important ;
+ }
+ .brand-filter-zero {
+    margin-left: 40px !important;
+}
+select.form-select-extra {
+    border: 0;
+}
+select.form-select-extra {
+    color: #00000082;
+    font-weight: 600;
+}
+.team p{
+    color: #00000082 !important;
+    font-weight: 600;
+}
+
+th{
+    color: #00000082 !important;
+    font-weight: 600;
+}

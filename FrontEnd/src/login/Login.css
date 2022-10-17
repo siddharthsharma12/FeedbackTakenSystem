@@ -1,0 +1,86 @@
+.login-form{
+   background-color:white;
+  height: 100vh;
+  
+ }
+ .login-heading h4{
+   margin-top: 170px;    
+   margin-left: 80px;
+ }
+
+ .login-heading p{
+   margin-left: 80px;
+  }
+
+  .forms-left{
+    margin-left: 80px;
+  }
+  .special-btn {
+    display: flex;
+    justify-content: center;
+    /* background: blue; */
+    background-color: #0d6efd;
+    padding: 5px 0px;
+
+}
+a.login-button {
+ 
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+.theme-image{
+    background-color: rgb(9, 9, 72);
+    max-width: 100%;
+}
+.image-head p{
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 108px;
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+.right-image  {
+   position: relative;
+   max-width: 100%;
+
+}
+
+.right-image img{
+  
+    width: 80%;
+    position: absolute;
+    right: 1%;
+  
+   
+}
+.form-check {
+  width: 35px;
+}
+
+/* forgot password css start==================================== */
+.dis {
+  display: flex !important;
+}
+.password-pop {
+  margin-left: 100px !important;
+  cursor: pointer;
+}
+button.login-button {
+  color: white;
+  background: none;
+}
+/* forgot password css ends====================================> */
+
+
+
+/* sign up css start==========================================> */
+
+.sign-pop {
+  margin-left: 110px !important;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* sign up pop-up ends=========================================> */

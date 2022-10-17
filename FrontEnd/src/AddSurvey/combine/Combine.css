@@ -1,0 +1,200 @@
+.all-in{
+  display: flex !important;
+  justify-content: center;
+}
+.side-circle {
+  border-right: 1px solid #00000026;
+}
+.canvas{
+  border-left:  1px solid #00000026;
+}
+.Toastify__zoom-enter svg {
+  margin: 0px !important;
+}
+.special-button button.next {
+  background: orange;
+  border-radius: 4px!important;
+  padding: 5px 23px;
+}
+.q-para{
+  font-size: 15px;
+    font-weight: 600;
+    color:#60bbe6;
+}
+.boolean-heading h4{
+  font-size: 16px;
+  font-weight: 700;
+  color: rgb(43 42 42 / 68%);
+}
+
+.offcanvas-title.h5 {
+  font-size: 19px;
+  font-weight: 600;
+  color: rgb(43 42 42 / 68%);
+  font-family: sans-serif;
+}
+.offcanvas-header {
+  border-bottom: 1px solid #ffc107;
+}
+
+.lorem-head {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 122px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+.lorem-head h3{
+     font-weight: 600;
+     font-size: 17px;
+    
+}
+.select-temp {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 122px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+.select-temp h3{
+     font-weight: 600;
+     font-size: 14px; 
+     color: #4db3e4;
+}
+
+button.AddButton {
+    padding: 12px 12px;
+    background: none !important;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 0 !important;
+    color: #60bbe6;
+  }
+  .combtn {
+    display: flex;
+    justify-content: flex-start;
+    padding: 2px 0px;
+}
+.combtn a{
+  color: #4db3e4;
+  cursor: pointer;
+}
+
+.combtn a:hover{
+  color: #4db3e4;
+  cursor: pointer;
+}
+.dd-flex {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0px;
+  background: #0000000a;
+}
+
+.removef {
+  margin-left: 106px;
+  margin-top: 7px;
+}y
+a.material {
+  color: white !important;
+  cursor: pointer;
+  background: #1a55d9d1;
+  padding: 6px 5px;
+  text-decoration: none;
+}
+.pls-ques {
+  display: flex;
+  justify-content: flex-end;
+}
+.multiple {
+  margin-top: 50px;
+}
+h4.bool {
+  font-size: 18px;
+}
+h4.multi {
+  font-size: 18px;
+}
+
+a.side-plus {
+  color: #000000ca;
+  cursor: pointer;
+}
+.dobar{
+  margin-left: 45px ;
+  margin-top: 55px ;
+  margin-bottom: 55px;
+}
+.dflexoo {
+  margin-left: 40px;
+  display: -webkit-inline-box !important;
+}
+.combone.col-lg-6.col-md-6 {
+  margin-top: 24px;
+}
+.combtwo.col-lg-6.col-md-6 {
+  margin-top: 24px;
+}
+.post-ques {
+  display: flex;
+  margin-top: 58px !important;
+  margin-bottom: 58px !important;
+  margin-left: 42px;
+ 
+}
+.best-flex {
+  display: flex;
+}
+.mainfunc.col-md-10.col-lg-10 {
+  border-left: 1px solid #5a58581a;
+  border-right: 1px solid #5a58581a;
+}
+button.next {
+  color: white;
+}
+.pagtwo{
+    display: flex;
+    justify-content: flex-start;
+}
+
+ul.paginations {
+  list-style: none;
+}
+a.pagination_links {
+  display: none;
+}
+
+.best-flexs{
+  width: 70px !important;
+}
+
+.bscircle{
+  background: #00000014;
+  border-radius: 48px;
+  height: 32px;
+  width: 34px;
+}
+.material-symbols-add {
+  color:#4db3e4;
+  
+  font-family: 'Material Symbols Outlined';
+  height: 36%;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 23px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  margin-top: 7px;
+ 
+}
+input.unique-first{
+  width: 3%!important;
+}
+
+
