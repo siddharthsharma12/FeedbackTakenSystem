@@ -40,7 +40,7 @@ function Header() {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
                 <ListGroup as="ul" bsPrefix className="me-auto navbar-nav">
-                <ListGroup.Item bsPrefix as="li"><Nav.Link as={Link} to="/Dashboard">Dashboard</Nav.Link></ListGroup.Item>
+                <ListGroup.Item bsPrefix as="li"><Nav.Link as={Link} to="/Dashboard">FaceBoard</Nav.Link></ListGroup.Item>
                 <ListGroup.Item bsPrefix as="li"><Nav.Link as={Link} to="/AddSurveys"> Add Surveys</Nav.Link></ListGroup.Item>
                 <ListGroup.Item bsPrefix as="li"><Nav.Link  as={Link} to="/IdeaBoards"> IdeaBoards</Nav.Link></ListGroup.Item>
                 </ListGroup>
