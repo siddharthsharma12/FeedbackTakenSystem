@@ -11,6 +11,7 @@ import { LogOut, reset } from "../ReduxLogin/authSlice";
 // import Setting from "../Settings/Setting";
 
 function Header() {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -25,10 +26,12 @@ function Header() {
   const htmlCode = () => {
 
     return (
+
       <span className="user-setting d-inline-block">
-      <span className="username">Rajeev</span>
-      <span className="usericon">G</span>
+      <span className="username">Siddharth</span>
+      <span className="usericon">S</span>
       </span>
+
     )
   }
   return (
