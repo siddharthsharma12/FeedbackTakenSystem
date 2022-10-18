@@ -32,7 +32,7 @@ const Login = () => {
   
   useEffect(() => {
     if (user || isSuccess) {
-      navigate("/Usermanagement");
+      navigate("/AddSurveys");
     }
     dispatch(reset());
   }, [user, isSuccess, dispatch, navigate]);
@@ -107,7 +107,7 @@ const Login = () => {
                           </Form.Text>
                         </Form.Group>
                     
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="">
                           Next
                         </Button>
                       </Form>
