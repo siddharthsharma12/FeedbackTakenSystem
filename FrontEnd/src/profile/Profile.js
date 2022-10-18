@@ -11,7 +11,8 @@ import Header from "../header/Header";
 // import Formextra from "./Validation"
 
 function Profile() {
-  const [show, setShow] = useState(false);
+    const [siddharth,setSiddharth] = useState(false)
+    const [show, setShow] = useState(false);
   // image preview part start===============================>
    const [imgPreview, setImgPreview] = useState(null);
   const [error, setError] = useState(false);

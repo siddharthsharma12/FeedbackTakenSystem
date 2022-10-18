@@ -25,7 +25,7 @@ function Header() {
   const htmlCode = () => {
     return (
       <span className="user-setting d-inline-block">
-      <span className="username">Gautham</span>
+      <span className="username">Siddharth</span>
       <span className="usericon">G</span>
       </span>
     )
