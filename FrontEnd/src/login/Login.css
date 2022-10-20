@@ -58,6 +58,10 @@ a.login-button {
 .form-check {
   width: 35px;
 }
+button.profile-item {
+  background: none;
+  padding: 15px 23px;
+}
 
 /* forgot password css start==================================== */
 .dis {

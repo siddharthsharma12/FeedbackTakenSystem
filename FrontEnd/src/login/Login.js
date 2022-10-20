@@ -63,7 +63,6 @@ const Login = () => {
   // sign up=========>
   useEffect(() => {
     if (user || isSuccess) {
-   
       navigate("/Usermanagement");
     }
     dispatch(reset());
@@ -143,7 +142,7 @@ const Login = () => {
                           </Form.Text>
                         </Form.Group>
                     
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="">
                           Next
                         </Button>
                       </Form>

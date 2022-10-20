@@ -7,10 +7,12 @@ import "./Profile.css";
 import { BsPersonFill } from "react-icons/bs";
 import Formextra from "../Validation/Formextra.js"
 import Header from "../header/Header";
+
 // import Formextra from "./Validation"
 
 function Profile() {
-  const [show, setShow] = useState(false);
+  
+    const [show, setShow] = useState(false);
   // image preview part start===============================>
    const [imgPreview, setImgPreview] = useState(null);
   const [error, setError] = useState(false);
