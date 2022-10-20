@@ -14,21 +14,13 @@ const users  = db.define('users', {
     },
     firstName: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notNull: {
-              msg: 'Please enter your firstName'
-            }
-          }
+        allowNull: true,
+      
     },
     lastName:{
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notNull: {
-              msg: 'Please enter your lastName'
-            }
-          }
+        allowNull: true,
+        
     },
     email: {
         type: DataTypes.STRING,

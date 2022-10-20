@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./Login.css"
 import { Container, Row, Col, Form, Button } from "react-bootstrap"
-import { LoginUser, reset } from "../ReduxLogin/authSlice";
+import { LoginUser, reset ,SignupUser} from "../ReduxLogin/authSlice";
+import Farzi from "../Farzi";
 // extra============================================>
 // import React, { useState } from 'react';
 // import Button from 'react-bootstrap/Button';
@@ -11,13 +12,22 @@ import Modal from 'react-bootstrap/Modal';
 // extra===========================================>
 
 const Login = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+   // sign up start================>
+   const [emailone,setEmailOne] = useState("");
+   const [passwordtwo,setPasswordTwo] = useState("");
+  //  const [pass,setPass] = useState("");
+  // sign ends===============>
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // extra==========================>
+ 
+  // pop up start===============>
   const [show, setShow] = useState(false);
   const [showing, setShowing] = useState(false);
+  // pop up ends========================>
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -30,18 +40,44 @@ const Login = () => {
     (state) => state.auth
   );
   
-  useEffect(() => {
-    if (user || isSuccess) {
-      navigate("/Usermanagement");
-    }
-    dispatch(reset());
-  }, [user, isSuccess, dispatch, navigate]);
-
+  // login=====================>
   const Auth = (e) => { 
     e.preventDefault();
     dispatch(
       LoginUser({ email, password }));
   };
+  // login=====================>
+
+  //  sign up =====================>
+ const SignUp = (e) => {
+  e.preventDefault();
+  dispatch(
+    SignupUser({ emailone, passwordtwo }));
+    console.log(emailone)
+};
+ 
+  // sign up=====================>
+
+   
+
+  // sign up=========>
+  useEffect(() => {
+    if (user || isSuccess) {
+   
+      navigate("/Usermanagement");
+    }
+    dispatch(reset());
+  }, [user, isSuccess, dispatch, navigate]);
+  // signup=======>
+
+  // login ===============>
+  // useEffect(() => {
+  //   if (user || isSuccess) {
+  //     navigate("/Usermanagement");
+  //   }
+  //   dispatch(reset());
+  // }, [user, isSuccess, dispatch, navigate]);
+  // login=============>
   return (
     <>
       <div>
@@ -137,7 +173,7 @@ const Login = () => {
                   <div className="sign-pop">
                   {/*  pop-up start ===========================*/}
                   <a className="sign-pop" onClick={handleShow}>
-                   Sign-Up?
+                   Sign-Up
                    </a>
           
                 <Modal show={show} onHide={handleClose}>
@@ -146,10 +182,15 @@ const Login = () => {
                   </Modal.Header>
                   <Modal.Body>
                      {/*  section details start =======================*/}
-                     <Form>
+                     <Form  onSubmit={SignUp}>
                      <Form.Group className="mb-3" controlId="formBasicEmail">
                        <Form.Label>Email address</Form.Label>
-                       <Form.Control type="email" placeholder="Enter email" />
+                       <Form.Control 
+                       type="text"
+                        placeholder="Enter email"
+                        value={emailone}
+                        onChange={(e) => setEmailOne(e.target.value)}
+                         />
                        <Form.Text className="text-muted">
                          We'll never share your email with anyone else.
                        </Form.Text>
@@ -157,17 +198,27 @@ const Login = () => {
                
                      <Form.Group className="mb-3" controlId="formBasicPassword">
                        <Form.Label>Password</Form.Label>
-                       <Form.Control type="password" placeholder="Password" />
+                       <Form.Control
+                        type="password"
+                         placeholder="Password"
+                         value={passwordtwo}
+                        onChange={(e) => setPasswordTwo(e.target.value)}
+                         />
                      </Form.Group>
 
-                     <Form.Group className="mb-3" controlId="formBasicPassword">
+                   {/*  <Form.Group className="mb-3" controlId="formBasicPassword">
                        <Form.Label>Confirm Password</Form.Label>
-                       <Form.Control type="password" placeholder="Confirm Password" />
-                     </Form.Group>
+                       <Form.Control
+                       type="password"
+                        placeholder="Confirm Password" 
+                        value={pass}
+                        onChange={(e) => setPass(e.target.value)}
+                        />
+                     </Form.Group> */}
                      <Form.Group className="mb-3" controlId="formBasicCheckbox">
                        <Form.Check type="checkbox" label="Check me out" />
                      </Form.Group>
-                     <Button variant="primary" type="submit">
+                     <Button variant="primary" type="submit" >
                        Submit
                      </Button>
                    </Form>

@@ -9,6 +9,25 @@ const initialState = {
     message: ""
 }
 
+
+export const SignupUser = createAsyncThunk("user/signupuser", async(user, thunkAPI) => {
+    try {
+        const response = await axios.post('http://localhost:5000/signupuser', {
+            email: user.emailone,
+            password: user.passwordtwo
+        });
+        return response.data;
+    } catch (error) {
+        if(error.response){
+            const message = error.response.data.msg;
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+});
+
+
+
+
 export const LoginUser = createAsyncThunk("user/loginuser", async(user, thunkAPI) => {
     try {
         const response = await axios.post('http://localhost:5000/login', {
@@ -46,7 +65,27 @@ export const authSlice = createSlice({
     reducers:{
         reset: (state) => initialState
     },
-    extraReducers:(builder) =>{
+
+
+    extraReducer:(builder) => {
+        builder.addCase(SignupUser.pending, (state) =>{
+            state.isLoading = true;
+        });
+        builder.addCase(SignupUser.fulfilled, (state, action) =>{
+            state.isLoading = false;
+            state.isSuccess = true;
+            state.user = action.payload;
+        });
+        builder.addCase(SignupUser.rejected, (state, action) =>{
+            state.isLoading = false;
+            state.isError = true;
+            state.message = action.payload;
+        });
+    },
+    
+    
+
+    extraReducers:(builder) => {
         builder.addCase(LoginUser.pending, (state) =>{
             state.isLoading = true;
         });
@@ -76,6 +115,7 @@ export const authSlice = createSlice({
             state.message = action.payload;
         })
     }
+
 });
 
 export const {reset} = authSlice.actions;
