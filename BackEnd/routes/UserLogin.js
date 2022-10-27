@@ -15,6 +15,7 @@ router.post('/signupuser', async(req, res)=>{
     if(!email || !password)
     
     return res.status(400).json({msg:"please fill all the field"})
+    
 
     
        
