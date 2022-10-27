@@ -11,6 +11,7 @@ import Modal from 'react-bootstrap/Modal';
 // extra===========================================>
 
 const Login = () => {
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const Login = () => {
   );
   
   useEffect(() => {
+    
     if (user || isSuccess) {
       navigate("/AddSurveys");
     }
@@ -42,6 +44,7 @@ const Login = () => {
     dispatch(
       LoginUser({ email, password }));
   };
+
   return (
     <>
       <div>
@@ -115,6 +118,7 @@ const Login = () => {
                     {/* forgot password ends =========================>*/}
                     
                     </Modal.Body>
+
                     <Modal.Footer>
                    
                     </Modal.Footer>

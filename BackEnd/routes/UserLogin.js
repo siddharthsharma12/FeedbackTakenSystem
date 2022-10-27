@@ -2,8 +2,8 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import users from "../models/UserModel.js";
-
 const router = express.Router();
+
 
 router.post('/createuser', async(req, res)=>{
       
