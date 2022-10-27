@@ -1,11 +1,11 @@
-POST  http://localhost:5000/createuser
+POST  http://localhost:5000/signupuser
 Content-Type: application/json
 
 {
-   "firstName": "lucifer",
-   "lastName":"thomes",
-   "email": "lucifer@gmail.com",
-   "password": "lucifer",
+   " firstName": "",
+   "lastName": "",
+   "email": "test@gmail.com",
+   "password": "test",
    "image": ""
 }
 

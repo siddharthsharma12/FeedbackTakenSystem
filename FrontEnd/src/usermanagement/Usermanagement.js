@@ -31,6 +31,7 @@ import Header from "../header/Header";
 // currentPosts, setCurrentPosts,searchQuery, setSearchQuery,order, setorder,currentPage, setCurrentPage,posts, setPosts,addPost, setAddPost,editPostId, setEditPostId,editFormData, setEditFormData,selectedItem, setSelectedItem
 const PER_PAGE = 5;
 function Usermanagement({}) {
+  
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
