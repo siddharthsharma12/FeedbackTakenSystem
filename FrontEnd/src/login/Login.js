@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css"
 import { Container, Row, Col, Form, Button } from "react-bootstrap"
 import { LoginUser, reset ,SignupUser} from "../ReduxLogin/authSlice";
-import Farzi from "../Farzi";
 // extra============================================>
 // import React, { useState } from 'react';
 // import Button from 'react-bootstrap/Button';
@@ -70,13 +69,15 @@ const Login = () => {
   // signup=======>
 
   // login ===============>
-  // useEffect(() => {
-  //   if (user || isSuccess) {
-  //     navigate("/Usermanagement");
-  //   }
-  //   dispatch(reset());
-  // }, [user, isSuccess, dispatch, navigate]);
+  useEffect(() => {
+    if (user || isSuccess) {
+      navigate("/Usermanagement");
+    }
+    dispatch(reset());
+  }, [user, isSuccess, dispatch, navigate]);
   // login=============>
+
+
   return (
     <>
       <div>

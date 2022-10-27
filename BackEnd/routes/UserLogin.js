@@ -6,6 +6,8 @@ import users from "../models/UserModel.js";
 const router = express.Router();
 
 // sign up start====================================================>
+
+
 router.post('/signupuser', async(req, res)=>{
       
     const {email, password} = req.body;
@@ -18,6 +20,7 @@ router.post('/signupuser', async(req, res)=>{
        
     const salt = await bcrypt.genSalt(10)
     const hashpassword = await bcrypt.hash(password, salt);
+   
     
   try {
     await users.create({

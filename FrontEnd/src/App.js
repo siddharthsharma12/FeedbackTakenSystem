@@ -32,7 +32,7 @@ import Nps from "./AddSurvey/SurveyScreens/TemplatesScreen/Nps";
 import Favourate from "./AddSurvey/SurveyScreens/TemplatesScreen/Favourate";
 import Promote from "./AddSurvey/SurveyScreens/TemplatesScreen/Promote";
 import Login from "./login/Login"
-// import Farzi from "./Farzi"
+
 
 
 
