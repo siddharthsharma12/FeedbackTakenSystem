@@ -11,7 +11,6 @@ import Modal from 'react-bootstrap/Modal';
 // extra===========================================>
 
 const Login = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
    // sign up start================>
@@ -39,12 +38,20 @@ const Login = () => {
     (state) => state.auth
   );
   
-  // login=====================>
+   // login=====================>
   const Auth = (e) => { 
     e.preventDefault();
     dispatch(
       LoginUser({ email, password }));
   };
+
+  useEffect(() => {
+    if (user || isSuccess) {
+      navigate("/Usermanagement");
+    }
+    dispatch(reset());
+  }, [user, isSuccess, dispatch, navigate]);
+
   // login=====================>
 
   //  sign up =====================>
@@ -54,28 +61,23 @@ const Login = () => {
     SignupUser({ emailone, passwordtwo }));
     console.log(emailone)
 };
+
+useEffect(() => {
+  if (user || isSuccess) {
+    navigate("/Usermanagement");
+  }
+  dispatch(reset());
+}, [user, isSuccess, dispatch, navigate]);
  
   // sign up=====================>
 
    
 
-  // sign up=========>
-  useEffect(() => {
-    if (user || isSuccess) {
-      navigate("/Usermanagement");
-    }
-    dispatch(reset());
-  }, [user, isSuccess, dispatch, navigate]);
-  // signup=======>
+  
+  
+  
+ 
 
-  // login ===============>
-  useEffect(() => {
-    if (user || isSuccess) {
-      navigate("/Usermanagement");
-    }
-    dispatch(reset());
-  }, [user, isSuccess, dispatch, navigate]);
-  // login=============>
 
 
   return (
@@ -151,6 +153,7 @@ const Login = () => {
                     {/* forgot password ends =========================>*/}
                     
                     </Modal.Body>
+
                     <Modal.Footer>
                    
                     </Modal.Footer>

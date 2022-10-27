@@ -28,7 +28,7 @@ function Header() {
     return (
 
       <span className="user-setting d-inline-block">
-      <span className="username">Rajeev</span>
+      <span className="username">Transfunnel</span>
       <span className="usericon">S</span>
       </span>
 

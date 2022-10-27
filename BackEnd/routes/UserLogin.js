@@ -2,20 +2,15 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import users from "../models/UserModel.js";
-
 const router = express.Router();
 
-// sign up start====================================================>
-
-
-router.post('/signupuser', async(req, res)=>{
+// sign up start=================================================>
+router.post('/createuser', async(req, res)=>{
       
-    const {email, password} = req.body;
+    const {firstName, lastName, email, password} = req.body;
     
-    if(!email || !password)
-    
+    if(!firstName || !lastName || !email || !password)
     return res.status(400).json({msg:"please fill all the field"})
-    
 
     
        
