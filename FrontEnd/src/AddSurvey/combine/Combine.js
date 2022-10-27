@@ -173,7 +173,7 @@ function App({ components, setComponents}) {
             </div>
            
             {/*  pagination starts ==========================*/}
-            <div className="pagtwo">
+          {/*  <div className="pagtwo">
               <Col lg={2} md={2} className="react-pag">
                 <ReactPaginate
                   // previousLabel={"<"}
@@ -187,7 +187,7 @@ function App({ components, setComponents}) {
                   activeClassName={"pagination_link--actives"}
                 />
               </Col>
-            </div>
+          </div> */}
           {/*  pagination ends ===========================================*/}
           </div>
          {/* side navbar part ends========================================*/}
