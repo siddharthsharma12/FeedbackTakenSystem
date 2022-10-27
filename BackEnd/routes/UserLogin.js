@@ -4,15 +4,13 @@ import jwt from "jsonwebtoken";
 import users from "../models/UserModel.js";
 const router = express.Router();
 
+// sign up start=================================================>
 router.post('/createuser', async(req, res)=>{
       
     const {firstName, lastName, email, password} = req.body;
     
     if(!firstName || !lastName || !email || !password)
     return res.status(400).json({msg:"please fill all the field"})
-
-    
-       
     const salt = await bcrypt.genSalt(10)
     const hashpassword = await bcrypt.hash(password, salt);
    
