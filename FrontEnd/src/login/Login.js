@@ -38,21 +38,19 @@ const Login = () => {
     (state) => state.auth
   );
   
-  useEffect(() => {
-    
-    if (user || isSuccess) {
-      navigate("/AddSurveys");
-    }
-    dispatch(reset());
-  }, [user, isSuccess, dispatch, navigate]);
-
-
-  // login=====================>
+   // login=====================>
   const Auth = (e) => { 
     e.preventDefault();
     dispatch(
       LoginUser({ email, password }));
   };
+
+  useEffect(() => {
+    if (user || isSuccess) {
+      navigate("/Usermanagement");
+    }
+    dispatch(reset());
+  }, [user, isSuccess, dispatch, navigate]);
 
   // login=====================>
 
@@ -63,28 +61,22 @@ const Login = () => {
     SignupUser({ emailone, passwordtwo }));
     console.log(emailone)
 };
+
+useEffect(() => {
+  if (user || isSuccess) {
+    navigate("/Usermanagement");
+  }
+  dispatch(reset());
+}, [user, isSuccess, dispatch, navigate]);
  
   // sign up=====================>
 
    
 
-  // sign up=========>
-  useEffect(() => {
-    if (user || isSuccess) {
-      navigate("/Usermanagement");
-    }
-    dispatch(reset());
-  }, [user, isSuccess, dispatch, navigate]);
-  // signup=======>
-
-  // login ===============>
-  useEffect(() => {
-    if (user || isSuccess) {
-      navigate("/Usermanagement");
-    }
-    dispatch(reset());
-  }, [user, isSuccess, dispatch, navigate]);
-  // login=============>
+  
+  
+  
+ 
 
 
 
