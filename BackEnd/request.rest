@@ -2,19 +2,19 @@ POST  http://localhost:5000/signupuser
 Content-Type: application/json
 
 {
-   " firstName": "",
-   "lastName": "",
-   "email": "test@gmail.com",
-   "password": "test",
+   " firstName": "admin",
+   "lastName": "admin",
+   "email": "admin@gmail.com",
+   "password": "admin",
    "image": ""
 }
 
 
-###
+############################################ login part
 POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-   "email": "test@gmail.com",
-   "password": "test"
+   "email": "admin@gmail.com",
+   "password": "admin"
 }

@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+// import { unstable_renderSubtreeIntoContainer } from "react-dom";
+import { User } from "react-feather";
 
 const initialState = {
     user: null,
@@ -13,8 +15,8 @@ const initialState = {
 export const SignupUser = createAsyncThunk("user/signupuser", async(user, thunkAPI) => {
     try {
         const response = await axios.post('http://localhost:5000/signupuser', {
-            email: user.emailone,
-            password: user.passwordtwo
+            email: user.email,
+            password: user.password
         });
         return response.data;
     } catch (error) {
@@ -65,8 +67,6 @@ export const authSlice = createSlice({
     reducers:{
         reset: (state) => initialState
     },
-
-
     extraReducer:(builder) => {
         builder.addCase(SignupUser.pending, (state) =>{
             state.isLoading = true;

@@ -41,8 +41,7 @@ const Login = () => {
    // login=====================>
   const Auth = (e) => { 
     e.preventDefault();
-    dispatch(
-      LoginUser({ email, password }));
+    dispatch(LoginUser({ email, password }));
   };
 
   useEffect(() => {
@@ -58,16 +57,16 @@ const Login = () => {
  const SignUp = (e) => {
   e.preventDefault();
   dispatch(
-    SignupUser({ emailone, passwordtwo }));
+    SignupUser({ emailone, passwordtwo}));
     console.log(emailone)
 };
 
-useEffect(() => {
-  if (user || isSuccess) {
-    navigate("/Usermanagement");
-  }
-  dispatch(reset());
-}, [user, isSuccess, dispatch, navigate]);
+// useEffect(() => {
+//   if (user || isSuccess) {
+//     navigate("/");
+//   }
+//   dispatch(reset());
+// }, [user, isSuccess, dispatch, navigate]);
  
   // sign up=====================>
 
@@ -221,7 +220,7 @@ useEffect(() => {
                      <Form.Group className="mb-3" controlId="formBasicCheckbox">
                        <Form.Check type="checkbox" label="Check me out" />
                      </Form.Group>
-                     <Button variant="primary" type="submit" >
+                     <Button variant="primary" type="submit" onClick={handleClose} >
                        Submit
                      </Button>
                    </Form>
