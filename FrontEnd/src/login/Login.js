@@ -11,11 +11,11 @@ import Modal from 'react-bootstrap/Modal';
 // extra===========================================>
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [emailone, setEmailOne] = useState("");
+  // const [passwordone, setPasswordOne] = useState("");
    // sign up start================>
-   const [emailone,setEmailOne] = useState("");
-   const [passwordtwo,setPasswordTwo] = useState("");
+   const [email,setEmail] = useState("");
+   const [password,setPassword] = useState("");
   //  const [pass,setPass] = useState("");
   // sign ends===============>
   const dispatch = useDispatch();
@@ -54,19 +54,16 @@ const Login = () => {
   // login=====================>
 
   //  sign up =====================>
- const SignUp = (e) => {
+ const signup = (e) => {
   e.preventDefault();
-  dispatch(
-    SignupUser({ emailone, passwordtwo}));
-    console.log(emailone)
+  dispatch(SignupUser({ email, password}));
 };
-
-// useEffect(() => {
-//   if (user || isSuccess) {
-//     navigate("/");
-//   }
-//   dispatch(reset());
-// }, [user, isSuccess, dispatch, navigate]);
+useEffect(() => {
+  if (user || isSuccess) {
+    navigate("/");
+  }
+  dispatch(reset());
+}, [user, isSuccess, dispatch, navigate]);
  
   // sign up=====================>
 
@@ -103,7 +100,8 @@ const Login = () => {
                         type="text"
                         placeholder="Enter Your Email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)} />
+                        onChange={(e) => setEmail(e.target.value)} 
+                        />
 
 
                     </Form.Group>
@@ -184,14 +182,14 @@ const Login = () => {
                   </Modal.Header>
                   <Modal.Body>
                      {/*  section details start =======================*/}
-                     <Form  onSubmit={SignUp}>
+                     <Form  onSubmit={signup}>
                      <Form.Group className="mb-3" controlId="formBasicEmail">
                        <Form.Label>Email address</Form.Label>
                        <Form.Control 
                        type="text"
                         placeholder="Enter email"
-                        value={emailone}
-                        onChange={(e) => setEmailOne(e.target.value)}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                          />
                        <Form.Text className="text-muted">
                          We'll never share your email with anyone else.
@@ -203,8 +201,8 @@ const Login = () => {
                        <Form.Control
                         type="password"
                          placeholder="Password"
-                         value={passwordtwo}
-                        onChange={(e) => setPasswordTwo(e.target.value)}
+                         value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                          />
                      </Form.Group>
 

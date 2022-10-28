@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-// import { unstable_renderSubtreeIntoContainer } from "react-dom";
+import { unstable_renderSubtreeIntoContainer } from "react-dom";
 import { User } from "react-feather";
 
 const initialState = {
@@ -12,9 +12,9 @@ const initialState = {
 }
 
 
-export const SignupUser = createAsyncThunk("user/signupuser", async(user, thunkAPI) => {
+export const SignupUser = createAsyncThunk("user/SignupUser", async(user, thunkAPI) => {
     try {
-        const response = await axios.post('http://localhost:5000/signupuser', {
+        const response = await axios.post('http://localhost:5000/SignupUser', {
             email: user.email,
             password: user.password
         });
@@ -60,6 +60,7 @@ export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
 export const LogOut = createAsyncThunk("user/LogOut", async() => {
     await axios.delete('http://localhost:5000/logout');
 });
+
 
 export const authSlice = createSlice({
     name: "auth",

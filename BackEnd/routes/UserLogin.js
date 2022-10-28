@@ -5,19 +5,15 @@ import users from "../models/UserModel.js";
 const router = express.Router();
 
 // sign up start=================================================>
-router.post('/signupuser', async(req, res)=>{
+router.post('/SignupUser', async(req, res)=>{
       
     const {email, password} = req.body;
     
     if(!email || !password)
-    return res.status(400).json({msg:"please fill all the field"})
-
-    
-       
+    return res.status(400).json({msg:"please fill all the field"})  
     const salt = await bcrypt.genSalt(10)
     const hashpassword = await bcrypt.hash(password, salt);
    
-    
   try {
     await users.create({
         email: email,
