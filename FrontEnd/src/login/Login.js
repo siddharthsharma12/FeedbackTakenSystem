@@ -1,26 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./Login.css"
 import { Container, Row, Col, Form, Button } from "react-bootstrap"
 import { LoginUser, reset ,SignupUser} from "../ReduxLogin/authSlice";
-// extra============================================>
-// import React, { useState } from 'react';
-// import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-// extra===========================================>
+import HCaptcha from "@hcaptcha/react-hcaptcha";
+import Axios from "axios";
+import AppConfig from "../App.config";
+
+
+
 
 const Login = () => {
-  // const [emailone, setEmailOne] = useState("");
-  // const [passwordone, setPasswordOne] = useState("");
+   const [token, setToken] = useState("");
+   const [error, setError] = useState("");
    // sign up start================>
    const [email,setEmail] = useState("");
    const [password,setPassword] = useState("");
-  //  const [pass,setPass] = useState("");
-  // sign ends===============>
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  // extra==========================>
+   //  const [pass,setPass] = useState("");
+   // sign ends===============>
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
+   const captcha = useRef();
+   // extra==========================>
  
   // pop up start===============>
   const [show, setShow] = useState(false);
@@ -45,6 +48,7 @@ const Login = () => {
   };
 
   useEffect(() => {
+
     if (user || isSuccess) {
       navigate("/Usermanagement");
     }
@@ -57,26 +61,44 @@ const Login = () => {
  const signup = (e) => {
   e.preventDefault();
   dispatch(SignupUser({ email, password}));
-};
-useEffect(() => {
-  if (user || isSuccess) {
-    navigate("/");
-  }
-  dispatch(reset());
-}, [user, isSuccess, dispatch, navigate]);
+  // if (user || isSuccess) {
+  //   navigate("/Usermanagement");
+  // }
+  // token work start======>
+   if (!token){
+    setError ("you must verify the captcha");
+    return;
+   }
+   setError("");
+  //  setLoading(true)
+   Axios.post("/signup-with-hcaptcha" ,{
+    token,
+    email: "ghjsfgjs@fgdg.dsgds"
+   })
+   .then (resp => {
+    alert("sign up success")
+   })
+   .catch(({response}) => {
+    setError(response.data.error);
+   })
+   .finally(() => {
+    captcha.current.resetCaptcha();
+    setToken("")
+    // setLoading(false);
+   });
+  // token work ends======>
+  };
+
+// useEffect(() => {
+//   if (user || isSuccess) {
+//     navigate("/Usermanagement");
+//   }
+//   dispatch(reset());
+// }, [user, isSuccess, dispatch, navigate]);
  
   // sign up=====================>
 
-   
-
-  
-  
-  
- 
-
-
-
-  return (
+    return (
     <>
       <div>
         <Container fluid>
@@ -102,9 +124,7 @@ useEffect(() => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)} 
                         />
-
-
-                    </Form.Group>
+                       </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                       <Form.Label>Password</Form.Label>
@@ -164,7 +184,7 @@ useEffect(() => {
                     type="submit"
                     className="login-button">
                     {isLoading ? "Loading..." : "Login"}
-                  </button>
+                   </button>
                     </div>
                     
                   </Form>
@@ -215,12 +235,27 @@ useEffect(() => {
                         onChange={(e) => setPass(e.target.value)}
                         />
                      </Form.Group> */}
-                     <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                  {/*   <Form.Group className="mb-3" controlId="formBasicCheckbox">
                        <Form.Check type="checkbox" label="Check me out" />
-                     </Form.Group>
-                     <Button variant="primary" type="submit" onClick={handleClose} >
-                       Submit
+                    </Form.Group> */}
+                      <div className="form-group">
+                    <HCaptcha
+                    ref={captcha}
+                    sitekey={AppConfig.hCaptchaSiteToken}
+                    onVerify={token => setToken(token)}
+                    onExpire={e => setToken("")}
+                    />
+                    </div> 
+                    {error && <p className="text-danger"> {error} </p>} 
+                     <Button 
+                     variant="primary"
+                      type="submit" 
+                      // onClick={handleClose}
+                      >
+                      {""}
+                      Sign-Up{""}
                      </Button>
+                   
                    </Form>
                   {/*  section details ends =======================*/}
                   </Modal.Body>
