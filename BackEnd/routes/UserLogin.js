@@ -1,10 +1,12 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-// import verify from "hcaptcha";
+import verify from "hcaptcha";
 // import axios from "axios";
 import users from "../models/UserModel.js";
 const router = express.Router();
+
+
 
 // sign up start=================================================>
 router.post('/SignupUser', async (req, res) => {
@@ -41,47 +43,50 @@ router.post('/SignupUser', async (req, res) => {
 
 // sign up ends====================================================>
 
-// captcha
+// captcha start==================================================>
 
-// router.post("/signup-with-hcaptcha", async (req, res, next) => {
+router.post("/signup-with-hcaptcha", async (req, res, next) => {
 
-//   if (!req.body.token) {
+  if (!req.body.token) {
 
-//     return res.status(400).json({ error: "Token is missing" });
+    return res.status(400).json({ error: "Token is missing" });
 
-//   }
+  }
 
 
 
-//   try {
+  try {
 
-//     let { success } = await verify(
+    let { success } = await verify(
 
-//       process.env.hcaptchaSecret,
+      process.env.hcaptchaSecret,
 
-//       req.body.token
+      req.body.token
 
-//     );
+    );
 
-//     if (success) {
+    if (success) {
 
-//       return res.json({ success: true });
+      return res.json({ success: true });
 
-//     } else {
+    } else {
 
-//       return res.status(400).json({ error: "Invalid Captcha" });
+      return res.status(400).json({ error: "Invalid Captcha" });
 
-//     }
+    }
 
-//   } catch (e) {
+  } catch (e) {
 
-//     return res.status(400).json({ error: "Captcha Error. Try again." });
+    return res.status(400).json({ error: "Captcha Error. Try again." });
 
-//   }
+  }
 
-// });
+});
 
-//  captcha
+//  captcha ends==================================================================>
+
+
+
 // login start====================================================>
 router.post('/login', async (req, res) => {
   const user = await users.findOne({ where: { email: req.body.email } });

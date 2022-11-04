@@ -14,8 +14,6 @@ export default {
 
     },
 
- 
-
     hCaptchaSiteToken:"b6fa7182-83ae-4913-a91c-6e858c62d5a4"
 
 }
