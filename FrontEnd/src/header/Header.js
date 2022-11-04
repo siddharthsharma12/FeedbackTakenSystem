@@ -1,20 +1,23 @@
-import React from "react";
+import React, { useDebugValue } from "react";
 import { Settings, PlusCircle, Edit  } from "react-feather";
 import { Navbar, Container, Nav, ListGroup, NavDropdown, Accordion } from "react-bootstrap";
-import {Link} from "react-router-dom"
+import {Link} from "react-router-dom";
 import "./Header.css";
 // extra
 import { NavLink, useNavigate } from "react-router-dom";
 // import { IoPerson, IoPricetag, IoHome, IoLogOut } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { LogOut, reset } from "../ReduxLogin/authSlice";
+import { LoginUser, LogOut, reset } from "../ReduxLogin/authSlice";
 // import Setting from "../Settings/Setting";
 
 function Header() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
+  // const { user } = useSelector((state) => state);
+  // const {user} = useSelector((state) => state);
+  const { user: currentUser} = useSelector((state) => state.auth);
+
 
   const logout = () => {
     dispatch(LogOut());
@@ -28,7 +31,7 @@ function Header() {
     return (
 
       <span className="user-setting d-inline-block">
-      <span className="username">Transfunnel</span>
+      <h3 className="username">{currentUser}</h3>
       <span className="usericon">S</span>
       </span>
 
@@ -61,7 +64,7 @@ function Header() {
                         <ListGroup bsPrefix className="d-flex">
                           <span as="span" className="text-sea">G</span>
                           <h6 as="h6" className="mb-0">
-                          <p as="p" className="d-block mb-1 text-black">Gautham</p>Ramachandra</h6>
+                          <p as="p" className="d-block mb-1 text-black">{currentUser}</p></h6>
                           </ListGroup>
                          <a className="text-black"> <Edit /></a>
                      </ListGroup>

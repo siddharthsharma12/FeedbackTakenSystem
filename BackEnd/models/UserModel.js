@@ -25,10 +25,11 @@ const users  = db.define('users', {
     email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
         validate: {
             notEmpty: true,
             isEmail: true,
-        }
+        },
     },
     password: {
         type: DataTypes.STRING,
@@ -41,6 +42,13 @@ const users  = db.define('users', {
         type: DataTypes.BLOB,
         allowNull: true
     },
+    role:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate:{
+            notEmpty: true
+        }
+    }
 }, {
     freezeTableName: true
 } )

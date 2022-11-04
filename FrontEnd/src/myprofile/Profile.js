@@ -26,13 +26,13 @@ function Profile() {
                     <Row>
                     <Col xl={6} lg={6} md={12} sm={6} xs={12}>
                        <Form.Group className="form-group">
-                            <Form.Label className="text-lightblack font-14">User Name  <span className="edituser"><Edit /></span> </Form.Label>
-                            <Form.Control id="" type="text" placeholder="User Name" />
+                            <Form.Label className="text-lightblack font-14">User Email  <span className="edituser"><Edit /></span> </Form.Label>
+                            <Form.Control id="" type="email" placeholder="User Email" />
                           </Form.Group>
                       </Col>
                       <Col xl={6} lg={6} md={12} sm={6} xs={12}>
                           <Form.Group className="form-group position-relative">
-                          <Form.Label className="text-lightblack font-14">Password <span  className="edituser"><Edit /></span> </Form.Label>
+                          <Form.Label className="text-lightblack font-14">Pas <span  className="edituser"><Edit /></span> </Form.Label>
                             <Form.Control id="" type="password" placeholder="Password" />
                               <span className="changepass">Change Password</span>
                           </Form.Group>
@@ -41,7 +41,7 @@ function Profile() {
                           <Form.Group className="form-group">
                           <Form.Label className="text-lightblack font-14">TimeZone</Form.Label>
                             <Form.Select>
-                              <option value="-12:00">(GMT -12:00) Eniwetok, Kwajalein</option>
+                              <option value="-12:00">(GMT -12:00) Rajasthan</option>
                               <option value="-11:00">(GMT -11:00) Midway Island, Samoa</option>
                               <option value="-10:00">(GMT -10:00) Hawaii</option>
                               <option value="-09:50">(GMT -9:30) Taiohae</option>

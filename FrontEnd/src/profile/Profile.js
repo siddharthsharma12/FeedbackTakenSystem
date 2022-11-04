@@ -8,15 +8,16 @@ import { BsPersonFill } from "react-icons/bs";
 import Formextra from "../Validation/Formextra.js"
 import Header from "../header/Header";
 
+
 // import Formextra from "./Validation"
 
 function Profile() {
-  
+    
     const [show, setShow] = useState(false);
   // image preview part start===============================>
    const [imgPreview, setImgPreview] = useState(null);
   const [error, setError] = useState(false);
-  
+ 
   const handleImageChange = (e) => {
     const selected = e.target.files[0];
     const ALLOWED_TYPES = ["image/png", "image/jpeg", "image/jpg"];
@@ -131,7 +132,7 @@ function Profile() {
                             <Col xl={6} lg={6} md={12} sm={6} xs={12}>
                               <Form.Group className="form-group">
                                 <Form.Label className="text-lightblack font-14">Registered Email </Form.Label>
-                                <Form.Control id="" type="text" placeholder="User Name" />
+                                <Form.Control id="" type="text" placeholder="User Email" />
                               </Form.Group>
                             </Col>
                             <Col xl={6} lg={6} md={12} sm={6} xs={12}>

@@ -2,11 +2,13 @@ POST  http://localhost:5000/SignupUser
 Content-Type: application/json
 
 {
-   " firstName": "",
+   "firstName": "",
    "lastName": "",
-   "email": "admin@gmail.com",
-   "password": "admin",
-   "image": ""
+   "email": "test123@gmail.com",
+   "password": "test",
+   "confirmpassword": "test",
+   "image": "",
+   "role": "human"
 }
 
 

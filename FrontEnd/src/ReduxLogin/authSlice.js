@@ -11,6 +11,21 @@ const initialState = {
     message: ""
 }
 
+// export default axios.create({
+//     baseURL: "http://localhost:8080/",
+//     headers: {
+//         'Content-Type': 'application/json',
+//         'Accept': 'application/json'
+//     }
+// });
+
+
+// const instance = axios.create({
+//     withCredentials: true
+// });
+// instance.get("http://localhost:5000")
+//     .then(response => console.log(response.data));
+
 
 export const SignupUser = createAsyncThunk("user/SignupUser", async(user, thunkAPI) => {
     try {
@@ -44,6 +59,7 @@ export const LoginUser = createAsyncThunk("user/loginuser", async(user, thunkAPI
         }
     }
 });
+
 
 export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
     try {
@@ -101,7 +117,7 @@ export const authSlice = createSlice({
             state.message = action.payload;
         })
 
-        // Get User Login
+ //  user protect route
         builder.addCase(getMe.pending, (state) =>{
             state.isLoading = true;
         });
