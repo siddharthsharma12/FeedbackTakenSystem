@@ -1,24 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Container, Col,ListGroup } from "react-bootstrap";
 import "./Pick.css";
 
-function Pick() {
+function Pick({ setValidated,format, setFormat,questions, setQuestions ,required, setRequired}) {
   
-  const [gender, setGender] = useState();
-  const [questions, setQuestions] = useState();
-  const [required, setRequired] = useState();
-  const [comment, setComment] = useState();
-  const [checked, setChecked] = useState(false);
+ 
+  const [responseAnonymous, setResponseAnonymous] = useState(false);
+
 
   const handleData = (e) => {
+    console.log((format && questions && required));
     e.preventDefault();
-    console.log(gender, checked, comment, required, questions);
+    console.log(format, responseAnonymous, required, questions);
   };
 
-  //  console.log(gender)
-  //  console.log(questions)
-  //  console.log(required)
-  //  console.log(comment)
+  const handleFormat = (value) => {
+    console.log(format ,value);
+      if(format === value) {
+         setFormat(null);
+         return;
+      }
+      setFormat(value);
+      }
+
+      const handlequestions = (value) => {
+        console.log(questions ,value);
+          if(questions === value) {
+             setQuestions(null);
+             return;
+          }
+          setQuestions(value);
+          }
+
+          const handlerequired = (value) => {
+            console.log(required ,value);
+              if(required === value) {
+                 setRequired(null);
+                 return;
+              }
+              setRequired(value);
+              }
+
+
+  // useEffect(() => {
+  //    if(format && questions && required ) {
+  //     setValidated(true);
+  //    }else{
+  //     setValidated(false);
+  //    }
+  // }, [format, questions, required])
+  
 
   return (
     <>
@@ -44,9 +75,10 @@ function Pick() {
                   <input
                       className="first"
                       type="radio"
-                      name="gender"
+                      name="format"
                       value="Normal"
-                      onChange={(e) => setGender(e.target.value)}
+                      checked={format === "Normal"}
+                      onClick={(e) => handleFormat(e.target.value)}
                     />
                    Normal
                   </div>
@@ -54,9 +86,10 @@ function Pick() {
                     <input
                       className="second"
                       type="radio"
-                      name="gender"
+                      name="format"
                       value="Quiz"
-                      onChange={(e) => setGender(e.target.value)}
+                      checked={format === "Quiz"}
+                      onClick={(e) => handleFormat(e.target.value)}
                     />
                     Quiz
                     </div>
@@ -74,7 +107,8 @@ function Pick() {
                   type="radio"
                   name="questions"
                   value="Randomize"
-                  onChange={(e) => setQuestions(e.target.value)}
+                   checked={questions === "Randomize"}
+                      onClick={(e) => handlequestions(e.target.value)}
                   />
                   Randomize
                   </div>
@@ -85,7 +119,8 @@ function Pick() {
                       type="radio"
                       name="questions"
                       value="Add-Logic"
-                      onChange={(e) => setQuestions(e.target.value)}
+                      checked={questions === "Add-Logic"}
+                      onClick={(e) => handlequestions(e.target.value)}
                     />
                     Add-Logic
                     </div>
@@ -106,7 +141,8 @@ function Pick() {
                         type="radio"
                         name="required"
                         value="All"
-                        onChange={(e) => setRequired(e.target.value)}
+                        checked={required === "All"}
+                        onClick={(e) => handlerequired(e.target.value)}
                       />
                       All
                       </div>
@@ -116,8 +152,9 @@ function Pick() {
                         className="second"
                         type="radio"
                         name="required"
-                        value="Specify-later"
-                        onChange={(e) => setRequired(e.target.value)}
+                        value="specify"
+                        checked={required === "specify"}
+                      onClick={(e) => handlerequired(e.target.value)}
                       />
                       Specify
                       </div>
@@ -125,9 +162,10 @@ function Pick() {
                   </Col>
 
                   <Col md={6} lg={6}>
-                    <div className="choose-format">
+               { /*    <div className="choose-format">
+                    <input type="text" placeholder="comment" />
                       <p className="chooseformat">Comment Length</p>
-                    </div>
+                </div> */}
                   </Col>
                 </Row>
               </div>
@@ -136,7 +174,7 @@ function Pick() {
                 <input
                   type="checkbox"
                   className="next"
-                  onChange={(e) => setChecked(e.target.checked)}
+                  onChange={(e) => setResponseAnonymous(e.target.responseAnonymous)}
                 />
                 Keep Survey Response Anonymous
               </Row>

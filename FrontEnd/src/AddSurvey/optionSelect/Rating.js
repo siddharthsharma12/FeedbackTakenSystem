@@ -38,7 +38,7 @@ const styles = {
   },
 };
 
-function Boolean({ id, components, setComponents }) {
+function Rating({ id, components, setComponents }) {
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
   const stars = Array(5).fill(0);
@@ -161,4 +161,4 @@ function Boolean({ id, components, setComponents }) {
   );
 }
 
-export default Boolean;
+export default Rating;

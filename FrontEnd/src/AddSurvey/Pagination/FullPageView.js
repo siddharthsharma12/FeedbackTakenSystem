@@ -6,7 +6,9 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import "./FullPageView.css";
 import Header from "../../header/Header";
 
+
 const FullPageView = ({ components, setComponents }) => {
+
   const removeUser = (index) => {
     const filtered = [...components];
     filtered.splice(index, 1);

@@ -1,9 +1,67 @@
-import React from "react";
-import { ListGroup, Container, Row, Col } from "react-bootstrap";
+import React, { useState } from "react";
+import {
+  ListGroup,
+  Container,
+  Row,
+  Col,
+  Nav,
+  Button,
+  Modal,
+} from "react-bootstrap";
 import "./Review.css";
 import { FcInvite } from "react-icons/fc";
+import { Link, NavLink } from "react-router-dom";
+import Table from "react-bootstrap/Table";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Logic from "../Logic/Logic";
 
-const Review = () => {
+
+const Review = ({ components, setComponents, selectedRecepients }) => {
+  const [showreview, setShowReview] = useState(false);
+  const [showpreview, setShowPreview] = useState(false);
+  const handleCloseReview = () => setShowReview(false);
+  const handleShowReview = () => setShowReview(true);
+
+  {
+    /* preview part start ================================>*/
+  }
+  // remove user starts========================>
+  const removeUser = (index) => {
+    const filtered = [...components];
+    filtered.splice(index, 1);
+    setComponents(filtered);
+  };
+  //   remove user ends=============================>
+
+  /* drag and drop functionality start===========================> */
+
+  const reorder = (list, startIndex, endIndex) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return result;
+  };
+
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+
+    const reorderedItems = reorder(
+      components,
+      result.source.index,
+      result.destination.index
+    );
+
+    setComponents(reorderedItems);
+  };
+
+  /* drag and drop functionality ends===========================> */
+
+  {
+    /*  preview part ends=============================>  */
+  }
+
   return (
     <>
       <Container>
@@ -26,14 +84,89 @@ const Review = () => {
             <Col md={6} lg={6}>
               <div className="left-ques">
                 <p>
-                  <span className="ten">10</span>Total Questions
+                  <span className="ten">{components.length}</span>Total
+                  Questions
                 </p>
               </div>
             </Col>
 
             <Col md={6} lg={6} className="right-ques">
               <div className="right-review">
-                <a>Preview</a>
+                {/*   preview pop up start =====================>*/}
+                <a variant="primary" onClick={() => setShowPreview(true)}>
+                  Preview
+                </a>
+
+                <Modal
+                  show={showpreview}
+                  onHide={() => setShowPreview(false)}
+                  dialogClassName="modal-90w"
+                  aria-labelledby="example-custom-modal-styling-title"
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title id="example-custom-modal-styling-title">
+                    The Final Preview
+                    </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    {/* Preview body start ========================>*/}
+                    <Container>
+                      <div className="All">
+                        <p>Final Preview Of All The Questions</p>
+                      </div>
+                      <Row>
+                        <div className="col-md-12 col-lg-12">
+                          {/*  Mapping start ======================================*/}
+                          <DragDropContext onDragEnd={onDragEnd}>
+                            <Droppable droppableId="droppable">
+                              {(provided) => (
+                                <div
+                                  {...provided.droppableProps}
+                                  ref={provided.innerRef}
+                                >
+                                  {components.map((component, index) => (
+                                    <Draggable
+                                      draggableId={component.id}
+                                      key={component.id}
+                                      index={index}
+                                    >
+                                      {(provided) => (
+                                        <div
+                                          className="flex-flex"
+                                          ref={provided.innerRef}
+                                          {...provided.draggableProps}
+                                          {...provided.dragHandleProps}
+                                        >
+                                          <Logic
+                                            removeUser={removeUser}
+                                            id={component.id}
+                                            components={components}
+                                            setComponents={setComponents}
+                                            key={component.id}
+                                          />
+                                        </div>
+                                      )}
+                                    </Draggable>
+                                  ))}
+
+                                  {/*  dropsection starts======================================================> */}
+                                  {provided.placeholder}
+                                </div>
+                              )}
+                            </Droppable>
+                          </DragDropContext>
+
+                          {/*add component part  Mapping ends =======================================*/}
+                        </div>
+                      </Row>
+                    </Container>
+
+                    {/* Preview body ends========================>*/}
+                  </Modal.Body>
+                </Modal>
+
+                {/*  <a><Nav.Link as={Link} to="/Preview">Preview</Nav.Link></a> */}
+                {/*   preview pop up start =====================>*/}
               </div>
             </Col>
           </Row>
@@ -54,14 +187,60 @@ const Review = () => {
                   <Col md={4} lg={4}>
                     <div className="white-block-one">
                       <p>
-                        <span className="block-one-head">41</span>
+                        <span className="block-one-head">
+                          {selectedRecepients.length}
+                        </span>
                       </p>
                       <p>
                         <span className="block-one-para">Added</span>
                       </p>
                     </div>
                     <div className="review-para">
-                      <p>Review</p>
+                      {/*review modal start ========================>*/}
+                      <a variant="primary" onClick={() => setShowReview(true)}>
+                      Review
+                    </a>
+                  {/*  <a onClick={handleShowReview}>Review</a> */}
+                      {/*review modal ends ========================>*/}
+
+                      {/*   modalbody start ================================>*/}
+                      <Modal
+                      show={showreview}
+                      onHide={() => setShowReview(false)}
+                      dialogClassName="modal-90w"
+                      aria-labelledby="example-custom-modal-styling-title"
+                    >
+                    <Modal.Header closeButton>
+                  
+                  </Modal.Header>
+                        <Modal.Body>
+                        <div className="reci-head">
+                        <h5>Selected Recepients</h5>
+                        </div>
+                          <Table striped bordered hover>
+                            <thead>
+                              <tr>
+                                <th>name</th>
+                                <th>email</th>
+                                <th>jobtitle</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {selectedRecepients.map((recepient) => {
+                                return (
+                                  <tr key={recepient.id}>
+                                    <td>{recepient.name}</td>
+                                    <td>{recepient.email}</td>
+                                    <td>{recepient.jobtitle}</td>
+                                  </tr>
+                                );
+                              })}
+                            </tbody>
+                          </Table>
+                        </Modal.Body>
+                        </Modal>
+
+                      {/*   modalbody ends ================================>*/}
                     </div>
                   </Col>
                   <Col md={4} lg={4}>
@@ -128,8 +307,21 @@ const Review = () => {
             </Col>
           </Row>
         </ListGroup>
-        
+
+        <ListGroup>
+          <Row>
+            <div className="flat-btn">
+              <Button className="button-confirm">Confirm and Send</Button>
+              <Button className="button-confirm-one">
+                Confirm and Schedule
+              </Button>
+            </div>
+          </Row>
+        </ListGroup>
       </Container>
+      {/* confirm and send part start===========================> */}
+
+      {/*  confirm and send part ends ===============================> */}
     </>
   );
 };

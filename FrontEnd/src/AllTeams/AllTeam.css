@@ -1,0 +1,109 @@
+input.unique {
+    margin: 0px !important;
+    width: auto !important;
+}
+
+label.select-cat {
+    margin: 20px 0px;
+}
+
+.all-btn{
+    margin: 30px 0px;
+    display: flex;
+    justify-content: space-between;
+}
+button.saveit.btn.btn-primary {
+    margin-top: 10px;
+}
+
+/* input one start=============================================> */
+
+.flexo{
+    display: flex;
+}
+
+.input-one{
+    border: 1px solid #0000002e;
+    cursor: pointer;
+    padding: 5px 26px;
+    border-radius: 6px;
+}
+.input-one:hover{
+    border: 1px solid #4db3e4 !important;
+    cursor: pointer;
+}
+.input-one input.first {
+   width: 12px !important;
+}
+/* input one over==============================================> */
+
+/* input two start=============================================> */
+.input-two {
+    margin-left: 81px;
+    border: 1px solid #0000002e;
+    cursor: pointer;
+    padding: 5px 26px;
+    border-radius: 6px;
+}
+input.second {
+    margin: 0px 8px;
+}
+ .input-two input.second {
+    width: 12px !important;
+} 
+/* input two end=============================================> */
+
+button.add-c.btn.btn-primary {
+    margin-top: 20px;
+}
+
+
+
+/* sidebar part start ===============================================>*/
+.width-fix.col {
+    background-color: var(--bglight);
+    width: 100%;
+    max-width: 230px;
+    flex: 0 0 230px;
+    padding: 20px 0;
+    margin-right: 15px;
+    min-height: 100vh;
+  }
+  .rightside-content {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 15px;
+  }
+
+
+/* sidebar part ends====================================================> */
+.nav-tabs {
+    border-bottom: none;
+}
+button.add-new.btn.btn-primary {
+    background: orange;
+    border: none;
+}
+.modal-90w {
+    max-width: 100% !important;
+    margin: 1.75rem auto !important;
+  }
+  /* a.edit-css {
+    margin: 100px 0px !important;
+  } */
+  i.fa-solid.fa-pen-to-square {
+    /* margin: 10px; */
+    cursor: pointer;
+}
+.modal-91w {
+    max-width: 50% !important;
+    /* margin: 1.75rem auto !important; */
+  }
+  label.unilabel {
+    margin: 12px 6px;
+}
+button.unilabel.btn.btn-primary {
+    margin: 20px 6px;
+    background-color: orange;
+    border: none;
+}

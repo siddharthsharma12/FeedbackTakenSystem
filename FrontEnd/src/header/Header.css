@@ -1,3 +1,16 @@
+
+.username {
+   font-size: 10px !important;
+}
+button.profile-item {
+  background: none !important;
+  padding: 20px 0px !important;
+  margin-left: 24px !important;
+}
+p.d-block.mb-1.text-black {
+  padding-top: 18px !important;
+}
+/* common css starts ======================================================>*/
 .ft_header .navbar-light .navbar-nav .nav-link {
   color: rgb(71, 71, 71);
 }

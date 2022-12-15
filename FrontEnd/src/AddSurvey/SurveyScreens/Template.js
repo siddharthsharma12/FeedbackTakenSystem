@@ -5,11 +5,14 @@ import "./Template.css";
 import { Link } from "react-router-dom";
 import { FcReadingEbook,FcReading,FcCollaboration,FcPortraitMode,FcInspection,FcBullish,FcIdea,FcFile,FcCollapse } from "react-icons/fc";
 // import Header from "../header/Header"
+import Header from "../../header/Header";
+
 
 const Template = () => {
-  return (
+  
+   return (
     <>
-   
+     <Header/>
       <ListGroup bsPrefix="my-template">
         <Container fluid>
           <Row>

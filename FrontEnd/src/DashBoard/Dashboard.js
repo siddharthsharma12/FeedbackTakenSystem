@@ -19,20 +19,8 @@ export default function Dashboard() {
 
   return (
     <div>
-   {/*  <h2>String: {message}</h2>
-
-      <input
-        // id="message"
-        // name="message"
-        onChange={handleChange}
-        autoComplete="off"
-      />
-
-      <br />
-      <br />
-
-      <button onClick={handleClick}>Check if input empty</button>*/}
-  </div> 
+    
+    </div> 
   
   );
 }

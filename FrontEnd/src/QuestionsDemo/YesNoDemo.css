@@ -1,0 +1,24 @@
+
+.flexodot {
+    display: flex !important;
+}
+.input-dot{
+    border: 1px solid white;
+    display: flex;
+    margin-top: 20px;
+    padding: 7px 20px ;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.input-dotone{
+    border: 1px solid white;
+    display: flex;
+    margin-top: 20px;
+    padding: 7px 20px ;
+    margin-left: 60px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.firstinputr{
+    margin-top: 40px;
+}

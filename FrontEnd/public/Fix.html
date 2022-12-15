@@ -1,4 +1,933 @@
-<!-- usermangment starts======================================================== -->
+<!-- login part start -->
+import React, { useState, useEffect } from "react";
+import {
+  MDBCard,
+  MDBCardBody,
+  MDBInput,
+  MDBCardFooter,
+  MDBValidation,
+  MDBBtn,
+  MDBIcon,
+  MDBSpinner,
+} from "mdb-react-ui-kit";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { googleSignIn, Login ,reset} from "../CopyRedux/authSlice";
+import { GoogleLogin } from "react-google-login";
+import "./LoginCopy.css";
+import { ToastContainer } from "react-bootstrap";
+
+
+const initialState = {
+  email: "",
+  password: "",
+};
+
+
+const LoginCopy = () => {
+
+
+  const [formValue, setFormValue] = useState(initialState);
+  const { loading, error } = useSelector((state) => ({ ...state.auth }));
+  const { email, password } = formValue;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    error && toast.error(error);
+  }, [error]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (email && password) {
+      dispatch(Login({ formValue, navigate, toast }));
+    }
+  };
+
+  const onInputChange = (e) => {
+    let { name, value } = e.target;
+    setFormValue({ ...formValue, [name]: value });
+  };
+
+  const googleSuccess = (resp) => {
+    const email = resp?.profileObj?.email;
+    const name = resp?.profileObj?.name;
+    const token = resp?.tokenId;
+    const googleId = resp?.googleId;
+    const result = { email, name, token, googleId };
+    // dispatch(googleSignIn({ result, navigate, toast }));
+  };
+  const googleFailure = (error) => {
+    toast.error(error);
+  };
+
+
+
+
+  return (
+    <>
+   <ToastContainer/>
+    <div
+      style={{
+        margin: "auto",
+        padding: "15px",
+        maxWidth: "450px",
+        alignContent: "center",
+        marginTop: "120px",
+      }}
+    >
+      <MDBCard alignment="center">
+        <MDBIcon fas icon="user-circle" className="fa-2x" />
+        <h5>Sign In</h5>
+        <MDBCardBody>
+     {/*   {isError && (
+          <p
+            style={{ color: "red", fontsize: "12px" }}
+            className="has-text-centered"
+          >
+            {message}
+          </p>
+     )} */}
+          <MDBValidation onSubmit={handleSubmit} noValidate className="row g-3">
+            <div className="col-md-12">
+              <MDBInput
+                label="Email"
+                type="email"
+                value={email}
+                name="email"
+                onChange={onInputChange}
+                required
+                invalid
+                validation="Please provide your email"
+              />
+            </div>
+            <div className="col-md-12">
+              <MDBInput
+                label="Password"
+                type="password"
+                value={password}
+                name="password"
+                onChange={onInputChange}
+                required
+                invalid
+                validation="Please provide your password"
+              />
+            </div>
+            <div className="col-12">
+             {/* <MDBBtn style={{ width: "100%" }} className="mt-2">
+                {loading && (
+                  <MDBSpinner
+                    size="sm"
+                    role="status"
+                    tag="span"
+                    className="me-2"
+                  />
+                )}
+                Login
+                </MDBBtn> */}
+                <div className="login-button">
+                 <button className="btn-login">Login</button>
+                </div>
+                </div>
+          </MDBValidation>
+          <br />
+          <GoogleLogin
+            clientId="your client id"
+            render={(renderProps) => (
+              <MDBBtn
+                style={{ width: "100%" }}
+                color="danger"
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+              >
+                <MDBIcon className="me-2" fab icon="google" /> Google Sign In
+              </MDBBtn>
+            )}
+            onSuccess={googleSuccess}
+            onFailure={googleFailure}
+            cookiePolicy="single_host_origin"
+          />
+        </MDBCardBody>
+        <MDBCardFooter>
+          <Link to="/Register">
+            <p>Don't have an account ? Sign Up</p>
+          </Link>
+        </MDBCardFooter>
+      </MDBCard>
+    </div>
+    </>
+  );
+};
+
+export default LoginCopy;
+<!-- login part ends -->
+
+
+
+<!-- advance code start ============================================-->
+import {
+  ListGroup,
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Tabs,
+  Tab,
+  Modal,
+} from "react-bootstrap";
+import { toast, ToastContainer } from "react-toastify";
+import { Edit } from "react-feather";
+import Sidebar from "../sidebar/Sidebar";
+import "./Usermanagement.css";
+// development part start===========================================>
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import nextId from "react-id-generator";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import ReactPaginate from "react-paginate";
+import { Accordion,Table } from "react-bootstrap";
+import { BsArrowDownUp } from "react-icons/bs";
+import { AiOutlineMinusCircle } from "react-icons/ai";
+import { GrPowerReset } from "react-icons/gr";
+import ReadTable from "../usermanagement/ReadTable";
+import Handleformone from "../usermanagement/Handleformone";
+import Header from "../header/Header";
+import { Navigate } from "react-router-dom";
+// import { DeleteUser } from "..authSlice/CopyRedux/AuthSlice";
+import {DeleteUser} from "../CopyRedux/authSlice"
+import { useDispatch, useSelector } from "react-redux";
+// import ReadTable from "../usermanagement/ReadTable";
+// development part ends============================================>
+
+// currentPosts, setCurrentPosts,searchQuery, setSearchQuery,order, setorder,currentPage, setCurrentPage,posts, setPosts,addPost, setAddPost,editPostId, setEditPostId,editFormData, setEditFormData,selectedItem, setSelectedItem
+const PER_PAGE = 5;
+
+function Usermanagement({}) {
+  const [clicked, setClicked] = useState(null);
+  // const [posts, setPosts] = useState([]);
+  const [show, setShow] = useState(false);
+
+ 
+  {
+    /* usermanagement coding part start ================================*/
+  }
+  // all addtable states start =================================>
+  const [Usermanagement, setUserManagement] = useState([]);
+
+  const [addPost, setAddPost] = useState({
+    email: "",
+    role: "",
+  });
+
+  const [editPostId, setEditPostId] = useState(null);
+  const [editFormData, setEditFormData] = useState({
+    email: "",
+    role: "",
+  });
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [order, setorder] = useState("ASC");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPosts, setCurrentPosts] = useState([]);
+
+  // all addtable states ends====================================>
+
+  // Global form functionality start=================================>
+  const [forms, setForms] = useState("form one");
+  const [handleformonevisible, setHandleFormOneVisible] = useState(false);
+
+  // Global Form functionality ends==================================>
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  // sorting part start================================>
+  const sorting = (col) => {
+    if (order === "ASC") {
+      const sorted = [...Usermanagement].sort((a, b) =>
+        a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+      );
+      setUserManagement(sorted);
+      setorder("DSC");
+    }
+    if (order === "DSC") {
+      const sorted = [...Usermanagement].sort((a, b) =>
+        a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
+      );
+      setUserManagement(sorted);
+      setorder("ASC");
+    }
+  };
+  // sorting part ends=========================================>
+
+// advance part start==================>
+
+
+const getUsers = async () => {
+  const response = await axios.get("http://localhost:5000/Usermanagement");
+  setUserManagement(response.data);
+  console.log(" all users")
+};
+
+useEffect(() => {
+  getUsers();
+}, []);
+
+//  const DeleteUser = (id) =>
+
+// fetch(`http://localhost:5000/${id}`,{   
+//     method:'DELETE',
+//     headers:{
+//        'Content-Type': 'application/json'
+//     }
+    
+// });
+
+const DeleteUser = async(uuid) => {
+  console.log("hello")
+   await axios.delete(`http://localhost:5000/${uuid}`);
+   console.log("bye")
+   getUsers();
+  console.log(uuid)
+};
+
+// const handleDelete = (e,id) => {
+//   // e.preventDefault();
+//   dispatch(DeleteUser({id}));
+// };
+
+
+
+// advance part ends======================>
+
+
+  //Add Data To Table start==================================>
+  const handleAddPost = (e) => {
+    e.preventDefault();
+
+    const newPost = {
+      id: nextId(),
+      email: addPost.email,
+      role: addPost.role,
+    };
+    const newPosts = [...Usermanagement, newPost];
+    setUserManagement(newPosts);
+    console.log(newPosts);
+    toast.success("User Added Successfully");
+  };
+  //Add Data To Table ends==================================>
+
+  //Get Form Values start=============================>
+  const handleChange = (input) => (e) => {
+    e.preventDefault();
+    console.log(addPost);
+    setAddPost({ ...addPost, [input]: e.target.value });
+  };
+  //Get Form Values ends=============================>
+
+  //Edit data into table starts====================================>
+  const handleEditFormClick = (input) => (e) => {
+    e.preventDefault();
+    console.log(editFormData);
+    setEditFormData({ ...editFormData, [input]: e.target.value });
+  };
+  //Edit data into table ends====================================>
+
+  //onclick Edit data into table start====================================>
+  const handleEditPostForm = (e, user) => {
+    e.preventDefault();
+    setEditPostId(user.id);
+    console.log(user.id);
+
+    const formValues = {
+      // id:editPostId,
+      email: user.email,
+      role: user.role,
+    };
+    setEditFormData(formValues);
+  };
+
+  //onclick Edit Form Data ends=====================================================>
+
+  //Save Edit Form Data start==========================================>
+  const handleFormSave = (e,user) => {
+
+    e.preventDefault();
+    const savePost = {
+      id: editPostId,
+      email: editFormData.email,
+      role: editFormData.role,
+    };
+    const newPosts = [...Usermanagement];
+    const formIndex = Usermanagement.findIndex((user) => user.id === editPostId);
+    newPosts[formIndex] = savePost;
+    setUserManagement(newPosts);
+    setEditPostId(null);
+    // setSelectedItem(null);
+    console.log(editPostId);
+  };
+  //Save Edit Form Data ends==========================================>
+
+
+  //pop-up  Delete Data start===================================================>
+  // const handleDelete = (e,user) => {
+
+  //   e.preventDefault();
+  //   const newPosts = [...Usermanagement];
+  //   const formIndex = Usermanagement.findIndex((user) => user.id === editPostId);
+  //   newPosts.splice(formIndex, 1);
+  //   setUserManagement(newPosts);
+  //   setSelectedItem(null);
+  //   console.log(newPosts); 
+  //  };
+
+  // pop-up Delete Data ends===================================================>
+
+
+  //Get Data From JSON Placeholder===========================>
+  // const fetchUrl = "http://localhost:5000/Usermanagement";
+
+  // useEffect(() => {
+  //     async function fetchData  () {
+  //     const data = await axios.get(fetchUrl);
+  //     setUserManagement(data.data);
+  //     console.log(data.data);
+  //     return data;
+  //    }
+  //   fetchData();
+  //   }, [fetchUrl]);
+
+
+
+  //Get Data From JSON Placeholder===========================>
+
+  // searching part using useEffect=============================>
+  useEffect(() => {
+    setCurrentPage(0);
+    if (!searchQuery) {
+      setCurrentPosts(Usermanagement);
+      return;
+    }
+    const tempPosts = Usermanagement.filter(
+      (row) => row.title.toLowerCase().indexOf(searchQuery) > -1
+    );
+    setCurrentPosts(tempPosts);
+  }, [searchQuery, Usermanagement]);
+  // searching part using useEffect=============================>
+
+  // selecting functionality using useeffect start====================>
+  useEffect(() => {
+    forms === "form one"
+      ? setHandleFormOneVisible(true)
+      : setHandleFormOneVisible(false);
+    // team === "team two" ? setTeamTwoVisible(true) : setTeamTwoVisible(false);
+  }, [forms]);
+  // selecting functionality using useeffect ends====================>
+
+  //  Pagination part start=====================================>
+  const handlePageClick = ({ selected: selectedPage }) => {
+    console.log("selectedPage", selectedPage);
+    setCurrentPage(selectedPage);
+  };
+  const offset = currentPage * PER_PAGE;
+
+  const pageCount = Math.ceil(currentPosts.length / PER_PAGE);
+  console.log("hello i am current posts", currentPosts);
+  //  Pagination part ends=====================================>
+
+  // Global form handling start============================>
+  const handleOnChange = (e) => {
+    setForms(e.target.value);
+  };
+  // Global from handling ends================================>
+
+  {/* usermanagement coding part ends ================================*/}
+
+  return (
+    <>
+    <ToastContainer/>
+    <Header/>
+      <ListGroup bsPrefix className="myprofile">
+        <Container fluid>
+          <Row>
+            <Col className="leftside-content width-fix">
+              <Sidebar />
+            </Col>
+            {/* usermanagement HTML part start ================================*/}
+            <Col>
+              <ListGroup bsPrefix="rightside-content">
+                {/* search form starts ========================================>*/}
+                <div className="d-flex-user">
+                  <Row>
+                    <Col md={6} lg={6} className="userhead-right">
+                      <div className="usermanagement">
+                        <h4>User Management</h4>
+                      </div>
+                    </Col>
+                   
+                    <Col md={6} lg={6} className="search-right">
+                   <div className="search d-flex">
+                    <div className="search">
+                        <form className="row g-3 ms-auto">
+                          <div className="col-auto">
+                            <input
+                              type="text"
+                              className="form-control ms-auto"
+                              placeholder="search data"
+                              value={searchQuery}
+                              onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                          </div>
+                        </form>
+                      </div>
+                      {/*  Add button pop-up start =========================================>*/}
+                      <div className="btn-one">
+                      <Button variant="warning" onClick={handleShow} >
+                        Add +
+                      </Button>
+                      </div>
+                      </div>
+                      {/*  Add button pop-up ends =========================================>*/}
+                   
+                     
+                    </Col>
+                  </Row>
+                </div>
+
+                {/* search form ends ========================================>*/}
+
+                {/* usermanagement Tabs part start ================================*/}
+
+                <Tabs
+                  defaultActiveKey="mydetails"
+                  id="uncontrolled-tab-example"
+                  className="myprofiletab"
+                >
+                  <Tab eventKey="mydetails" title="Users">
+                    <div className="common-tab">
+                      {/* first table start==================================================> */}
+                      <Accordion>
+                        <Accordion.Item eventKey="0">
+                          <Accordion.Header>Administrators</Accordion.Header>
+                          <Accordion.Body>
+                            <Container>
+                              <Row>
+                                <div className="Dhasu">
+                                  <ReactHTMLTableToExcel
+                                    id="test-table-xls-button"
+                                    className="download-table-xls-button"
+                                    table="table-to-xls"
+                                    filename="tablexls"
+                                    sheet="tablexls"
+                                    buttonText="Export"
+                                  />
+                                </div>
+
+                                <table
+                                  className="table table-bordered border-primary table-responsive"
+                                  id="table-to-xls"
+                                >
+                                  {
+                                    !selectedItem ? (
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">
+                                            <input
+                                              type="checkbox"
+                                              // onChange={(e) => {
+                                              //   setSelectedAll((prev) => !prev);
+                                              // }}
+                                              // checked={selectAll}
+                                            />
+                                          </th>
+
+                                          <th scope="col">ID</th>
+                                          <th
+                                            className="arrow-one"
+                                            scope="col"
+                                            onClick={() => sorting("email")}
+                                          >
+                                          Email
+                                            <BsArrowDownUp />
+                                          </th>
+                                          <th
+                                            className="arrow-one"
+                                            scope="col"
+                                            onClick={() => sorting("role")}
+                                          >
+                                         Role
+                                            <BsArrowDownUp />
+                                          </th>
+                                         {/* <th
+                                            className="arrow-one"
+                                            scope="col"
+                                            onClick={() => sorting("body")}
+                                          >
+                                            JobTitle
+                                    <BsArrowDownUp /> 
+                                          </th>*/}
+                                        </tr>
+                                      </thead>
+                                    ) : (
+                                      // edit row part start=========================>
+                                      <thead>
+                                        <th></th>
+                                        <th>
+                                          <div className="d-flex">
+                                            <a
+                                              type="button"
+                                              className=" btn-pro-max mb-2"
+                                              data-bs-toggle="modal"
+                                              data-bs-target="#editModalForm"
+                                              onClick={(e) =>
+                                                handleEditPostForm(
+                                                  e,
+                                                  selectedItem
+                                                )
+                                              }
+                                            >
+                                              <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+                                            <span className="ed">Edit</span>
+                                          </div>
+                                        </th>
+                                        <th>
+                                          <div className="Reset">
+                                             <GrPowerReset/>
+                                            <span className="ed">Reset</span>
+                                          </div>
+                                        </th>
+                                        <th>
+                                          <div className="Deactivate">
+                                             <AiOutlineMinusCircle />
+                                            <span className="ed">
+                                              Deactivate
+                                            </span>
+                                          </div>
+                                        </th>
+
+                                        <th></th>
+                                      </thead>
+                                    )
+
+                                    // edit row part ends===========================>
+                                  }
+                                  <tbody>
+                                     {/* dynamic table part start========================> */}
+                                     {Usermanagement.map((user) => (
+                                      <tr key={user.uuid}>
+                                        <th scope="row">
+                                          <input
+                                            type="checkbox"
+                                          //   checked={clicked === user.id}
+                                          //   onChange={(e) => {
+                                          //     if (clicked === user.id) {
+                                          //       setSelectedItem(null);
+                                          //       setClicked(null);
+                                          //     } else {
+                                          //       setClicked(user.id);
+                                          //     }
+                                          //   }}
+                                          //  onClick={() => setSelectedItem(user)}
+                                          />
+                                        </th>
+                              
+                                        <td>{user.id}</td> 
+                                        <td>{user.email}</td>
+                                        <td>{user.role}</td>
+                                        <td>
+                                        <button
+                                        type="submit"
+                                        data-bs-dismiss="modal"
+                                        className="btn btn-danger float-start"
+                                        // onClick={handleDelete(user.id)}
+                                        onClick={() => DeleteUser(user.uuid)}
+                                        >
+                                        Delete
+                                      </button>
+                                      </td>
+                                      
+                                      </tr>
+                                    ))}
+
+                                    {/* dynamic table part ends========================> */}
+                                  </tbody>
+                                </table>
+
+                                <div className="pag">
+                                  <Col lg={4} md={4}>
+                                    <ReactPaginate
+                                      previousLabel={"<"}
+                                      nextLabel={">"}
+                                      pageCount={pageCount}
+                                      onPageChange={handlePageClick}
+                                      containerClassName={"pagination"}
+                                      previousLinkClassName={"pagination_link"}
+                                      nextLinkClassName={"pagination_link"}
+                                      disabledClassName={
+                                        "pagination_link--disabled"
+                                      }
+                                      activeClassName={
+                                        "pagination_link--active"
+                                      }
+                                    />
+                                  </Col>
+                                </div>
+
+                                {/*Add Modal start========================================= */}
+
+                                <Modal show={show} onHide={handleClose}>
+                                  <Modal.Header className="modal-header-one" closeButton>
+                                    <Modal.Title>Add Contact</Modal.Title>
+                                  </Modal.Header>
+                                  <Modal.Body>
+                                    {/*  dropdown functionality start =========================*/}
+                                    <div className="dropdown">
+                                      <select
+                                        className="form-select"
+                                        value={forms}
+                                        onChange={handleOnChange}
+                                      >
+                                        <option value="Forms">select</option>
+                                        <option value="form one">
+                                          Administrators
+                                        </option>
+                                        <option value="form two">
+                                          SurveyCreators
+                                        </option>
+                                      </select>
+                                    </div>
+                                    {/*  dropdown functionality ends =========================*/}
+                                    {/*  component render start =====================*/}
+                                    {handleformonevisible && (
+                                      <Handleformone
+                                        handleAddPost={handleAddPost}
+                                        handleChange={handleChange}
+                                        handleClose={handleClose}
+                                      />
+                                    )}
+                                    {/*  component render ends =====================*/}
+                                  </Modal.Body>
+                                 
+                                </Modal>
+                                {/*Add Modal ends=========================================*/}
+
+                                {/*Edit Row Modal===================================*/}
+                                <div
+                                  className="modal fade"
+                                  id="editModalForm"
+                                  tabIndex="-1"
+                                  aria-labelledby="exampleModalLabel"
+                                  aria-hidden="true"
+                                >
+                                  <div className="modal-dialog">
+                                    <div className="modal-content">
+                                      <div className="modal-header">
+                                        <h5
+                                          className="modal-title"
+                                          id="exampleModalLabel"
+                                        >
+                                          Edit Row
+                                        </h5>
+                                        <button
+                                          type="button"
+                                          className="btn-close"
+                                          data-bs-dismiss="modal"
+                                          aria-label="Close"
+                                        ></button>
+                                      </div>
+
+                                      <div className="modal-body">
+                                        <form onSubmit={handleFormSave}>
+                                          <div className="mb-3">
+                                            <label className="form-label">
+                                             email
+                                            </label>
+                                            <input
+                                              type="text"
+                                              className="form-control"
+                                              name="email"
+                                              value={editFormData.email}
+                                              required
+                                              onChange={handleEditFormClick(
+                                                "email"
+                                              )}
+                                            />
+                                          </div>
+
+                                          <div className="mb-3">
+                                            <label className="form-label">
+                                             Role
+                                            </label>
+                                            <textarea
+                                              rows="4"
+                                              cols="50"
+                                              className="form-control"
+                                              name="role"
+                                              value={editFormData.role}
+                                              required
+                                              onChange={handleEditFormClick(
+                                                "role"
+                                              )}
+                                            ></textarea>
+                                          </div>
+
+                                          <div className="modal-footer d-block">
+                                            <button
+                                              type="submit"
+                                              data-bs-dismiss="modal"
+                                              className="btn btn-success float-end"
+                                            >
+                                              Save 
+                                            </button>
+
+                                         {/*   <button
+                                            type="submit"
+                                            data-bs-dismiss="modal"
+                                            className="btn btn-danger float-start"
+                                            // onClick={handleDelete(user.id)}
+                                            onClick={() => handleDelete(user.id)}
+                                          >
+                                            Delete Row
+                                         </button> */}
+
+                                          </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                {/*Edit Row Modal===================================> */}
+                              </Row>
+                            </Container>
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      </Accordion>
+                      {/* first table  part ends================================================================> */}
+                    </div>
+                  </Tab>
+                   {/*============   Roles part start =========================*/}
+                   <Tab eventKey="senderdetail" title="Roles">
+                   <Table striped bordered hover variant="blue" className="roles-table">
+                   <thead>
+                     <tr>
+                     
+                       <th>Roles</th>
+                       <th>Dashboard</th>
+                       <th>Customer Surveys</th>
+                       <th>Internal Surveys</th>
+                       <th>Individual Surveys</th>
+                       <th>Usermanagement</th>
+                       <th>Settings</th>
+                       <th>Billing</th>
+                      
+                     </tr>
+                   </thead>
+                   <tbody>
+ 
+                     <tr>
+                      
+                       <td>Admin</td>
+                        <td><input type="checkbox"  checked/></td>
+                        <td><input type="checkbox"/></td>
+                        <td><input type="checkbox"/></td>
+                        <td><input type="checkbox"/></td>
+                        <td><input type="checkbox"/></td>
+                        <td><input type="checkbox"/></td>
+                        <td><input type="checkbox"/></td>
+                     </tr>
+ 
+                     <tr>
+                   
+                     <td>Manager AllSurveys</td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     </tr>
+ 
+                     <tr>
+                   
+                     <td>Manager CustomerSurveys</td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     </tr>
+ 
+                     <tr>
+                   
+                     <td>Manager InternalSurveys</td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     </tr>
+ 
+                     <tr>
+                    
+                     <td>Individual</td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     <td><input type="checkbox"/></td>
+                     </tr>
+                   </tbody>
+                 </Table>
+                   </Tab>
+                    {/*============   Roles part start ========*/}
+
+                  <Tab eventKey="senderdetailtwo" title="Deactivated"></Tab>
+
+                </Tabs>
+
+                {/* usermanagement Tabs part ends ================================*/}
+              </ListGroup>
+            </Col>
+            {/* usermanagement HTML part ends ================================*/}
+          </Row>
+        </Container>
+      </ListGroup>
+    </>
+  );
+}
+
+export default Usermanagement;
+<!-- advance code ends ============================================-->
+ 
+ 
+ 
+ 
+ <ReadTable
+ Usermanagement={currentPosts.slice(
+   offset,
+   offset + PER_PAGE
+ )}
+
+ setSelectedItem={setSelectedItem}
+ handleEditPostForm={handleEditPostForm}
+
+/>
+
+
+
+
+
 import {
     ListGroup,
     Container,
@@ -8,7 +937,10 @@ import {
     Button,
     Tabs,
     Tab,
+    Modal,
+    Table
   } from "react-bootstrap";
+  import { toast, ToastContainer } from "react-toastify";
   import { Edit } from "react-feather";
   import Sidebar from "../sidebar/Sidebar";
   import "./Usermanagement.css";
@@ -23,11 +955,19 @@ import {
   import { AiOutlineMinusCircle } from "react-icons/ai";
   import { GrPowerReset } from "react-icons/gr";
   import ReadTable from "../usermanagement/ReadTable";
+  import Handleformone from "../usermanagement/Handleformone";
+  import Header from "../header/Header";
   // development part ends============================================>
+  
   
   // currentPosts, setCurrentPosts,searchQuery, setSearchQuery,order, setorder,currentPage, setCurrentPage,posts, setPosts,addPost, setAddPost,editPostId, setEditPostId,editFormData, setEditFormData,selectedItem, setSelectedItem
   const PER_PAGE = 5;
   function Usermanagement({}) {
+    
+    const [show, setShow] = useState(false);
+  
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     {
       /* usermanagement coding part start ================================*/
     }
@@ -50,6 +990,12 @@ import {
     const [currentPosts, setCurrentPosts] = useState([]);
   
     // all addtable states ends====================================>
+  
+    // Global form functionality start=================================>
+    const [forms, setForms] = useState("form one");
+    const [handleformonevisible, setHandleFormOneVisible] = useState(false);
+  
+    // Global Form functionality ends==================================>
   
     // sorting part start================================>
     const sorting = (col) => {
@@ -82,6 +1028,7 @@ import {
       const newPosts = [...posts, newPost];
       setPosts(newPosts);
       console.log(newPosts);
+      toast.success("User Added Successfully");
     };
     //Add Data To Table ends==================================>
   
@@ -124,11 +1071,8 @@ import {
         title: editFormData.title,
         body: editFormData.body,
       };
-  
       const newPosts = [...posts];
-  
       const formIndex = posts.findIndex((post) => post.id === editPostId);
-  
       newPosts[formIndex] = savePost;
       setPosts(newPosts);
       setEditPostId(null);
@@ -176,6 +1120,15 @@ import {
     }, [searchQuery, posts]);
     // searching part using useEffect=============================>
   
+    // selecting functionality using useeffect start====================>
+    useEffect(() => {
+      forms === "form one"
+        ? setHandleFormOneVisible(true)
+        : setHandleFormOneVisible(false);
+      // team === "team two" ? setTeamTwoVisible(true) : setTeamTwoVisible(false);
+    }, [forms]);
+    // selecting functionality using useeffect ends====================>
+  
     //  Pagination part start=====================================>
     const handlePageClick = ({ selected: selectedPage }) => {
       console.log("selectedPage", selectedPage);
@@ -187,12 +1140,20 @@ import {
     console.log("hello i am current posts", currentPosts);
     //  Pagination part ends=====================================>
   
+    // Global form handling start============================>
+    const handleOnChange = (e) => {
+      setForms(e.target.value);
+    };
+    // Global from handling ends================================>
+  
     {
       /* usermanagement coding part ends ================================*/
     }
   
     return (
       <>
+      <ToastContainer/>
+      <Header/>
         <ListGroup bsPrefix className="myprofile">
           <Container fluid>
             <Row>
@@ -204,25 +1165,44 @@ import {
                 <ListGroup bsPrefix="rightside-content">
                   {/* search form starts ========================================>*/}
                   <div className="d-flex-user">
-                    <div className="usermanagement">
-                      <h4>User Management</h4>
-                    </div>
-                    <div className="search">
-                      <form className="row g-3 ms-auto">
-                        <div className="col-auto">
-                          <input
-                            type="text"
-                            className="form-control ms-auto"
-                            placeholder="search data"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                          />
+                    <Row>
+                      <Col md={6} lg={6} className="userhead-right">
+                        <div className="usermanagement">
+                          <h4>User Management</h4>
                         </div>
-                      </form>
-                    </div>
+                      </Col>
+                      
+                      <Col md={6} lg={6} className="search-right">
+                     <div className="search d-flex">
+                      <div className="search">
+                          <form className="row g-3 ms-auto">
+                            <div className="col-auto">
+                              <input
+                                type="text"
+                                className="form-control ms-auto"
+                                placeholder="search data"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                              />
+                            </div>
+                          </form>
+                        </div>
+                        {/*  Add button pop-up start =========================================>*/}
+                        <div className="btn-one">
+                        <Button variant="warning" onClick={handleShow} >
+                          Add +
+                        </Button>
+                        </div>
+                        </div>
+                        {/*  Add button pop-up ends =========================================>*/}
+                     
+                        
+                      </Col>
+                    </Row>
                   </div>
   
                   {/* search form ends ========================================>*/}
+  
                   {/* usermanagement Tabs part start ================================*/}
   
                   <Tabs
@@ -239,17 +1219,6 @@ import {
                             <Accordion.Body>
                               <Container>
                                 <Row>
-                                  <div className="d-flex flex-row">
-                                    <button
-                                      type="button"
-                                      className="dan me-3 btn  ml-auto d-block mb-2"
-                                      data-bs-toggle="modal"
-                                      data-bs-target="#addModalForm"
-                                    >
-                                      Add +
-                                    </button>
-                                  </div>
-  
                                   <div className="Dhasu">
                                     <ReactHTMLTableToExcel
                                       id="test-table-xls-button"
@@ -281,18 +1250,20 @@ import {
   
                                             <th scope="col">ID</th>
                                             <th
+                                              className="arrow-one"
                                               scope="col"
                                               onClick={() => sorting("title")}
                                             >
                                               Title
-                                              {/*  <BsArrowDownUp /> */}
+                                              <BsArrowDownUp />
                                             </th>
                                             <th
+                                              className="arrow-one"
                                               scope="col"
                                               onClick={() => sorting("body")}
                                             >
                                               Body
-                                              {/*  <BsArrowDownUp /> */}
+                                              <BsArrowDownUp />
                                             </th>
                                           </tr>
                                         </thead>
@@ -321,13 +1292,13 @@ import {
                                           </th>
                                           <th>
                                             <div className="Reset">
-                                              {/* <GrPowerReset/> */}
+                                               <GrPowerReset/> 
                                               <span className="ed">Reset</span>
                                             </div>
                                           </th>
                                           <th>
                                             <div className="Deactivate">
-                                              {/* <AiOutlineMinusCircle /> */}
+                                               <AiOutlineMinusCircle /> 
                                               <span className="ed">
                                                 Deactivate
                                               </span>
@@ -376,73 +1347,41 @@ import {
                                   </div>
   
                                   {/*Add Modal start========================================= */}
-                                  <div
-                                    className="modal fade"
-                                    id="addModalForm"
-                                    tabIndex="-1"
-                                    aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true"
-                                  >
-                                    <div className="modal-dialog">
-                                      <div className="modal-content">
-                                        <div className="modal-header">
-                                          <h5
-                                            className="modal-title"
-                                            id="exampleModalLabel"
-                                          >
-                                            Add New Post
-                                          </h5>
-                                          <button
-                                            type="button"
-                                            className="btn-close"
-                                            data-bs-dismiss="modal"
-                                            aria-label="Close"
-                                          ></button>
-                                        </div>
-                                        <div className="modal-body">
-                                          <form onSubmit={handleAddPost}>
-                                            <div className="mb-3">
-                                              <label className="form-label">
-                                                Title
-                                              </label>
-                                              <input
-                                                type="text"
-                                                className="form-control"
-                                                name="title"
-                                                placeholder="title"
-                                                onChange={handleChange("title")}
-                                                required
-                                              />
-                                            </div>
-                                            <div className="mb-3">
-                                              <label className="form-label">
-                                                Body
-                                              </label>
-                                              <textarea
-                                                rows="4"
-                                                cols="50"
-                                                className="form-control"
-                                                name="body"
-                                                placeholder="body"
-                                                required
-                                                onChange={handleChange("body")}
-                                              ></textarea>
-                                            </div>
-                                            <div className="modal-footer d-block">
-                                              <button
-                                                type="submit"
-                                                data-bs-dismiss="modal"
-                                                className="btn btn-primary float-end"
-                                              >
-                                                Submit
-                                              </button>
-                                            </div>
-                                          </form>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
   
+                                  <Modal show={show} onHide={handleClose}>
+                                    <Modal.Header className="modal-header-one" closeButton>
+                                      <Modal.Title>Add Contact</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                      {/*  dropdown functionality start =========================*/}
+                                      <div className="dropdown">
+                                        <select
+                                          className="form-select"
+                                          value={forms}
+                                          onChange={handleOnChange}
+                                        >
+                                          <option value="Forms">select</option>
+                                          <option value="form one">
+                                            Administrators
+                                          </option>
+                                          <option value="form two">
+                                            SurveyCreators
+                                          </option>
+                                        </select>
+                                      </div>
+                                      {/*  dropdown functionality ends =========================*/}
+                                      {/*  component render start =====================*/}
+                                      {handleformonevisible && (
+                                        <Handleformone
+                                          handleAddPost={handleAddPost}
+                                          handleChange={handleChange}
+                                          handleClose={handleClose}
+                                        />
+                                      )}
+                                      {/*  component render ends =====================*/}
+                                    </Modal.Body>
+                                   
+                                  </Modal>
                                   {/*Add Modal ends=========================================*/}
   
                                   {/*Edit Row Modal===================================*/}
@@ -535,622 +1474,96 @@ import {
                           </Accordion.Item>
                         </Accordion>
                         {/* first table  part ends================================================================> */}
-  
-                        {/* second table  part starts================================================================> */}
-                        <Accordion>
-                          <Accordion.Item eventKey="1">
-                            <Accordion.Header>Survey Creators</Accordion.Header>
-                            <Accordion.Body>
-                              <Container>
-                                <Row>
-                                  <div className="d-flex flex-row">
-                                    <button
-                                      type="button"
-                                      className="dan me-3 btn  ml-auto d-block mb-2"
-                                      data-bs-toggle="modal"
-                                      data-bs-target="#addModalForm"
-                                    >
-                                      Add +
-                                    </button>
-                                  </div>
-  
-                                  <div className="Dhasu">
-                                    <ReactHTMLTableToExcel
-                                      id="test-table-xls-button"
-                                      className="download-table-xls-button"
-                                      table="table-to-xls"
-                                      filename="tablexls"
-                                      sheet="tablexls"
-                                      buttonText="Export"
-                                    />
-                                  </div>
-  
-                                  <table
-                                    className="table table-bordered border-primary table-responsive"
-                                    id="table-to-xls"
-                                  >
-                                    {
-                                      !selectedItem ? (
-                                        <thead>
-                                          <tr>
-                                            <th scope="col">
-                                              <input
-                                                type="checkbox"
-                                                // onChange={(e) => {
-                                                //   setSelectedAll((prev) => !prev);
-                                                // }}
-                                                // checked={selectAll}
-                                              />
-                                            </th>
-  
-                                            <th scope="col">ID</th>
-                                            <th
-                                              scope="col"
-                                              onClick={() => sorting("title")}
-                                            >
-                                              Title
-                                              {/*  <BsArrowDownUp /> */}
-                                            </th>
-                                            <th
-                                              scope="col"
-                                              onClick={() => sorting("body")}
-                                            >
-                                              Body
-                                              {/*  <BsArrowDownUp /> */}
-                                            </th>
-                                          </tr>
-                                        </thead>
-                                      ) : (
-                                        // edit row part start=========================>
-                                        <thead>
-                                          <th></th>
-                                          <th>
-                                            <div className="d-flex">
-                                              <a
-                                                type="button"
-                                                className=" btn-pro-max mb-2"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#editModalForm"
-                                                onClick={(e) =>
-                                                  handleEditPostForm(
-                                                    e,
-                                                    selectedItem
-                                                  )
-                                                }
-                                              >
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                              </a>
-                                              <span className="ed">Edit</span>
-                                            </div>
-                                          </th>
-                                          <th>
-                                            <div className="Reset">
-                                              {/* <GrPowerReset/> */}
-                                              <span className="ed">Reset</span>
-                                            </div>
-                                          </th>
-                                          <th>
-                                            <div className="Deactivate">
-                                              {/* <AiOutlineMinusCircle /> */}
-                                              <span className="ed">
-                                                Deactivate
-                                              </span>
-                                            </div>
-                                          </th>
-  
-                                          <th></th>
-                                        </thead>
-                                      )
-  
-                                      // edit row part ends===========================>
-                                    }
-                                    <tbody>
-                                      {/* dynamic table part start========================> */}
-                                      <ReadTable
-                                        posts={currentPosts.slice(
-                                          offset,
-                                          offset + PER_PAGE
-                                        )}
-                                        setSelectedItem={setSelectedItem}
-                                        handleEditPostForm={handleEditPostForm}
-                                      />
-  
-                                      {/* dynamic table part ends========================> */}
-                                    </tbody>
-                                  </table>
-  
-                                  <div className="pag">
-                                    <Col lg={4} md={4}>
-                                      <ReactPaginate
-                                        previousLabel={"<"}
-                                        nextLabel={">"}
-                                        pageCount={pageCount}
-                                        onPageChange={handlePageClick}
-                                        containerClassName={"pagination"}
-                                        previousLinkClassName={"pagination_link"}
-                                        nextLinkClassName={"pagination_link"}
-                                        disabledClassName={
-                                          "pagination_link--disabled"
-                                        }
-                                        activeClassName={
-                                          "pagination_link--active"
-                                        }
-                                      />
-                                    </Col>
-                                  </div>
-  
-                                  {/*Add Modal start========================================= */}
-                                  <div
-                                    className="modal fade"
-                                    id="addModalForm"
-                                    tabIndex="-1"
-                                    aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true"
-                                  >
-                                    <div className="modal-dialog">
-                                      <div className="modal-content">
-                                        <div className="modal-header">
-                                          <h5
-                                            className="modal-title"
-                                            id="exampleModalLabel"
-                                          >
-                                            Add New Post
-                                          </h5>
-                                          <button
-                                            type="button"
-                                            className="btn-close"
-                                            data-bs-dismiss="modal"
-                                            aria-label="Close"
-                                          ></button>
-                                        </div>
-                                        <div className="modal-body">
-                                          <form onSubmit={handleAddPost}>
-                                            <div className="mb-3">
-                                              <label className="form-label">
-                                                Title
-                                              </label>
-                                              <input
-                                                type="text"
-                                                className="form-control"
-                                                name="title"
-                                                placeholder="title"
-                                                onChange={handleChange("title")}
-                                                required
-                                              />
-                                            </div>
-                                            <div className="mb-3">
-                                              <label className="form-label">
-                                                Body
-                                              </label>
-                                              <textarea
-                                                rows="4"
-                                                cols="50"
-                                                className="form-control"
-                                                name="body"
-                                                placeholder="body"
-                                                required
-                                                onChange={handleChange("body")}
-                                              ></textarea>
-                                            </div>
-                                            <div className="modal-footer d-block">
-                                              <button
-                                                type="submit"
-                                                data-bs-dismiss="modal"
-                                                className="btn btn-primary float-end"
-                                              >
-                                                Submit
-                                              </button>
-                                            </div>
-                                          </form>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-  
-                                  {/*Add Modal ends=========================================*/}
-  
-                                  {/*Edit Row Modal===================================*/}
-                                  <div
-                                    className="modal fade"
-                                    id="editModalForm"
-                                    tabIndex="-1"
-                                    aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true"
-                                  >
-                                    <div className="modal-dialog">
-                                      <div className="modal-content">
-                                        <div className="modal-header">
-                                          <h5
-                                            className="modal-title"
-                                            id="exampleModalLabel"
-                                          >
-                                            Edit Row
-                                          </h5>
-                                          <button
-                                            type="button"
-                                            className="btn-close"
-                                            data-bs-dismiss="modal"
-                                            aria-label="Close"
-                                          ></button>
-                                        </div>
-  
-                                        <div className="modal-body">
-                                          <form onSubmit={handleFormSave}>
-                                            <div className="mb-3">
-                                              <label className="form-label">
-                                                Title
-                                              </label>
-                                              <input
-                                                type="text"
-                                                className="form-control"
-                                                name="title"
-                                                value={editFormData.title}
-                                                required
-                                                onChange={handleEditFormClick(
-                                                  "title"
-                                                )}
-                                              />
-                                            </div>
-  
-                                            <div className="mb-3">
-                                              <label className="form-label">
-                                                Body
-                                              </label>
-                                              <textarea
-                                                rows="4"
-                                                cols="50"
-                                                className="form-control"
-                                                name="body"
-                                                value={editFormData.body}
-                                                required
-                                                onChange={handleEditFormClick(
-                                                  "body"
-                                                )}
-                                              ></textarea>
-                                            </div>
-  
-                                            <div className="modal-footer d-block">
-                                              <button
-                                                type="submit"
-                                                data-bs-dismiss="modal"
-                                                className="btn btn-success float-end"
-                                              >
-                                                Save Row
-                                              </button>
-  
-                                              <button
-                                                type="submit"
-                                                data-bs-dismiss="modal"
-                                                className="btn btn-danger float-start"
-                                                onClick={handleDelete}
-                                              >
-                                                Delete Row
-                                              </button>
-                                            </div>
-                                          </form>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  {/*Edit Row Modal===================================> */}
-                                </Row>
-                              </Container>
-                            </Accordion.Body>
-                          </Accordion.Item>
-                        </Accordion>
-                        {/* second table  part ends================================================================> */}
-  
-                        {/* Third table  part starts================================================================> */}
-                        <Accordion>
-                          <Accordion.Item eventKey="2">
-                            <Accordion.Header>Individuals</Accordion.Header>
-                            <Accordion.Body>
-                              <Container>
-                                <Row>
-                                  <div className="d-flex flex-row">
-                                    <button
-                                      type="button"
-                                      className="dan me-3 btn  ml-auto d-block mb-2"
-                                      data-bs-toggle="modal"
-                                      data-bs-target="#addModalForm"
-                                    >
-                                      Add +
-                                    </button>
-                                  </div>
-  
-                                  <div className="Dhasu">
-                                    <ReactHTMLTableToExcel
-                                      id="test-table-xls-button"
-                                      className="download-table-xls-button"
-                                      table="table-to-xls"
-                                      filename="tablexls"
-                                      sheet="tablexls"
-                                      buttonText="Export"
-                                    />
-                                  </div>
-  
-                                  <table
-                                    className="table table-bordered border-primary table-responsive"
-                                    id="table-to-xls"
-                                  >
-                                    {
-                                      !selectedItem ? (
-                                        <thead>
-                                          <tr>
-                                            <th scope="col">
-                                              <input
-                                                type="checkbox"
-                                                // onChange={(e) => {
-                                                //   setSelectedAll((prev) => !prev);
-                                                // }}
-                                                // checked={selectAll}
-                                              />
-                                            </th>
-  
-                                            <th scope="col">ID</th>
-                                            <th
-                                              scope="col"
-                                              onClick={() => sorting("title")}
-                                            >
-                                              Title
-                                              {/*  <BsArrowDownUp /> */}
-                                            </th>
-                                            <th
-                                              scope="col"
-                                              onClick={() => sorting("body")}
-                                            >
-                                              Body
-                                              {/*  <BsArrowDownUp /> */}
-                                            </th>
-                                          </tr>
-                                        </thead>
-                                      ) : (
-                                        // edit row part start=========================>
-                                        <thead>
-                                          <th></th>
-                                          <th>
-                                            <div className="d-flex">
-                                              <a
-                                                type="button"
-                                                className=" btn-pro-max mb-2"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#editModalForm"
-                                                onClick={(e) =>
-                                                  handleEditPostForm(
-                                                    e,
-                                                    selectedItem
-                                                  )
-                                                }
-                                              >
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                              </a>
-                                              <span className="ed">Edit</span>
-                                            </div>
-                                          </th>
-                                          <th>
-                                            <div className="Reset">
-                                              {/* <GrPowerReset/> */}
-                                              <span className="ed">Reset</span>
-                                            </div>
-                                          </th>
-                                          <th>
-                                            <div className="Deactivate">
-                                              {/* <AiOutlineMinusCircle /> */}
-                                              <span className="ed">
-                                                Deactivate
-                                              </span>
-                                            </div>
-                                          </th>
-  
-                                          <th></th>
-                                        </thead>
-                                      )
-  
-                                      // edit row part ends===========================>
-                                    }
-                                    <tbody>
-                                      {/* dynamic table part start========================> */}
-                                      <ReadTable
-                                        posts={currentPosts.slice(
-                                          offset,
-                                          offset + PER_PAGE
-                                        )}
-                                        setSelectedItem={setSelectedItem}
-                                        handleEditPostForm={handleEditPostForm}
-                                      />
-  
-                                      {/* dynamic table part ends========================> */}
-                                    </tbody>
-                                  </table>
-  
-                                  <div className="pag">
-                                    <Col lg={4} md={4}>
-                                      <ReactPaginate
-                                        previousLabel={"<"}
-                                        nextLabel={">"}
-                                        pageCount={pageCount}
-                                        onPageChange={handlePageClick}
-                                        containerClassName={"pagination"}
-                                        previousLinkClassName={"pagination_link"}
-                                        nextLinkClassName={"pagination_link"}
-                                        disabledClassName={
-                                          "pagination_link--disabled"
-                                        }
-                                        activeClassName={
-                                          "pagination_link--active"
-                                        }
-                                      />
-                                    </Col>
-                                  </div>
-  
-                                  {/*Add Modal start========================================= */}
-                                  <div
-                                    className="modal fade"
-                                    id="addModalForm"
-                                    tabIndex="-1"
-                                    aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true"
-                                  >
-                                    <div className="modal-dialog">
-                                      <div className="modal-content">
-                                        <div className="modal-header">
-                                          <h5
-                                            className="modal-title"
-                                            id="exampleModalLabel"
-                                          >
-                                            Add New Post
-                                          </h5>
-                                          <button
-                                            type="button"
-                                            className="btn-close"
-                                            data-bs-dismiss="modal"
-                                            aria-label="Close"
-                                          ></button>
-                                        </div>
-                                        <div className="modal-body">
-                                          <form onSubmit={handleAddPost}>
-                                            <div className="mb-3">
-                                              <label className="form-label">
-                                                Title
-                                              </label>
-                                              <input
-                                                type="text"
-                                                className="form-control"
-                                                name="title"
-                                                placeholder="title"
-                                                onChange={handleChange("title")}
-                                                required
-                                              />
-                                            </div>
-                                            <div className="mb-3">
-                                              <label className="form-label">
-                                                Body
-                                              </label>
-                                              <textarea
-                                                rows="4"
-                                                cols="50"
-                                                className="form-control"
-                                                name="body"
-                                                placeholder="body"
-                                                required
-                                                onChange={handleChange("body")}
-                                              ></textarea>
-                                            </div>
-                                            <div className="modal-footer d-block">
-                                              <button
-                                                type="submit"
-                                                data-bs-dismiss="modal"
-                                                className="btn btn-primary float-end"
-                                              >
-                                                Submit
-                                              </button>
-                                            </div>
-                                          </form>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-  
-                                  {/*Add Modal ends=========================================*/}
-  
-                                  {/*Edit Row Modal===================================*/}
-                                  <div
-                                    className="modal fade"
-                                    id="editModalForm"
-                                    tabIndex="-1"
-                                    aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true"
-                                  >
-                                    <div className="modal-dialog">
-                                      <div className="modal-content">
-                                        <div className="modal-header">
-                                          <h5
-                                            className="modal-title"
-                                            id="exampleModalLabel"
-                                          >
-                                            Edit Row
-                                          </h5>
-                                          <button
-                                            type="button"
-                                            className="btn-close"
-                                            data-bs-dismiss="modal"
-                                            aria-label="Close"
-                                          ></button>
-                                        </div>
-  
-                                        <div className="modal-body">
-                                          <form onSubmit={handleFormSave}>
-                                            <div className="mb-3">
-                                              <label className="form-label">
-                                                Title
-                                              </label>
-                                              <input
-                                                type="text"
-                                                className="form-control"
-                                                name="title"
-                                                value={editFormData.title}
-                                                required
-                                                onChange={handleEditFormClick(
-                                                  "title"
-                                                )}
-                                              />
-                                            </div>
-  
-                                            <div className="mb-3">
-                                              <label className="form-label">
-                                                Body
-                                              </label>
-                                              <textarea
-                                                rows="4"
-                                                cols="50"
-                                                className="form-control"
-                                                name="body"
-                                                value={editFormData.body}
-                                                required
-                                                onChange={handleEditFormClick(
-                                                  "body"
-                                                )}
-                                              ></textarea>
-                                            </div>
-  
-                                            <div className="modal-footer d-block">
-                                              <button
-                                                type="submit"
-                                                data-bs-dismiss="modal"
-                                                className="btn btn-success float-end"
-                                              >
-                                                Save Row
-                                              </button>
-  
-                                              <button
-                                                type="submit"
-                                                data-bs-dismiss="modal"
-                                                className="btn btn-danger float-start"
-                                                onClick={handleDelete}
-                                              >
-                                                Delete Row
-                                              </button>
-                                            </div>
-                                          </form>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  {/*Edit Row Modal===================================> */}
-                                </Row>
-                              </Container>
-                            </Accordion.Body>
-                          </Accordion.Item>
-                        </Accordion>
-                        {/* Third table  part ends================================================================> */}
                       </div>
                     </Tab>
+                    {/*============   Roles part start =========================*/}
                     <Tab eventKey="senderdetail" title="Roles">
+                    <Table striped bordered hover variant="blue" className="roles-table">
+                    <thead>
+                      <tr>
+                      
+                        <th>Roles</th>
+                        <th>Dashboard</th>
+                        <th>Customer Surveys</th>
+                        <th>Internal Surveys</th>
+                        <th>Individual Surveys</th>
+                        <th>Usermanagement</th>
+                        <th>Settings</th>
+                        <th>Billing</th>
+                       
+                      </tr>
+                    </thead>
+                    <tbody>
+  
+                      <tr>
+                       
+                        <td>Admin</td>
+                         <td><input type="checkbox"/></td>
+                         <td><input type="checkbox"/></td>
+                         <td><input type="checkbox"/></td>
+                         <td><input type="checkbox"/></td>
+                         <td><input type="checkbox"/></td>
+                         <td><input type="checkbox"/></td>
+                         <td><input type="checkbox"/></td>
+                      </tr>
+  
+                      <tr>
                     
+                      <td>Manager AllSurveys</td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      </tr>
+  
+                      <tr>
+                    
+                      <td>Manager CustomerSurveys</td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      </tr>
+  
+                      <tr>
+                    
+                      <td>Manager InternalSurveys</td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      </tr>
+  
+                      <tr>
+                     
+                      <td>Individual</td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      <td><input type="checkbox"/></td>
+                      </tr>
+                    </tbody>
+                  </Table>
                     </Tab>
+                     {/*============   Roles part start ========*/}
+  
+                      {/*============   Deactiavted part start ========*/}
                     <Tab eventKey="senderdetailtwo" title="Deactivated">
                     
                     </Tab>
+                       {/*============   Deactiavted part ends ========*/}
                   </Tabs>
   
                   {/* usermanagement Tabs part ends ================================*/}
@@ -1165,1113 +1578,95 @@ import {
   }
   
   export default Usermanagement;
-<!-- usermangment ends======================================================== -->
 
 
 
 
-  <!-- Read table start================================================= -->
+
+
+  {Usermanagement.map((user) => (
+    <tr key={user.uuid}>
+      <th scope="row">
+        <input
+          type="checkbox"
+          checked={clicked === user.id}
+          onChange={(e) => {
+            if (clicked === user.id) {
+              setSelectedItem(null);
+              setClicked(null);
+            } else {
+              setClicked(user.id);
+            }
+          }}
+         onClick={() => setSelectedItem(user)}
+        />
+      </th>
+
+      <td>{user.id}</td> 
+      <td>{user.email}</td>
+      <td>{user.role}</td>
+   <td>
+      <button
+      type="submit"
+      data-bs-dismiss="modal"
+      className="btn btn-danger float-start"
+      onClick={() => DeleteUser(user.uuid)}
+      >
+      Delete
+      </button>
+   </td> 
+   </tr>
+  ))}
+
+
+
+
+
+
+
+
+
+
+
 
   import React, { useState } from "react";
 
-  const ReadTable = ({
-    posts,
-    setSelectedItem,
-   }) => {
-  const [clicked, setClicked] = useState(null);
-  
-   console.log();
-    return (
-      <>
-        {posts.map((post) => (
-          <tr key={post.id}>
-            <th scope="row">
-              <input
-                type="checkbox"
-                checked={clicked === post.id}
-                onChange={(e) => {
-                  if (clicked === post.id) {
-                    setSelectedItem(null);
-                    setClicked(null);
-                  } else {
-                    setClicked(post.id);
-                  }
-                }}
-               onClick={() => setSelectedItem(post)}
-              />
-            </th>
-  
-            <td>{post.id}</td>
-            <td>{post.title}</td>
-            <td>{post.body}</td>
-          </tr>
-        ))}
-      </>
-    );
-  };
-  
-  export default ReadTable;
-  
+const ReadTable = ({
+  posts,
+  setSelectedItem,
+ }) => {
+const [clicked, setClicked] = useState(null);
 
+ console.log();
+  return (
+    <>
+      {posts.map((post) => (
+        <tr key={post.id}>
+          <th scope="row">
+            <input
+              type="checkbox"
+              checked={clicked === post.id}
+              onChange={(e) => {
+                if (clicked === post.id) {
+                  setSelectedItem(null);
+                  setClicked(null);
+                } else {
+                  setClicked(post.id);
+                }
+              }}
+             onClick={() => setSelectedItem(post)}
+            />
+          </th>
 
-
-
-
-  <!-- read table start =====================================================-->
-  
-
-
-  {/*  dropdown functionality start =========================*/}
-  <div className="skr">
-  <select
-   className="form-select"
-   value={forms}
-   onChange={handleOnChange}
-   >
-   <option value="Forms">select</option>
-   <option value="form one">Administrators</option>
-   <option value="form two">SurveyCreators</option>
-   </select>
-</div>
-{/*  dropdown functionality ends =========================*/}
-{/*  component render start =====================*/}
-{handleformonevisible &&  <Handleformone  handleAddPost={handleAddPost}  handleChange={handleChange}/>}
- {/*  component render ends =====================*/}
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- import React from "react";
-import { Container, Col, Row } from "react-bootstrap";
-import "./MultipleChoiceQuestions.css";
-import {ImCross} from "react-icons/im"
-
-const uniqueID = () => {
-  const chr4 = () => Math.random().toString(16).slice(-4);
-  return `${
-    chr4() + chr4()
-  }-${chr4()}-${chr4()}-${chr4()}-${chr4()}${chr4()}${chr4()}`;
+          <td>{post.id}</td>
+          <td>{post.title}</td>
+          <td>{post.body}</td>
+        </tr>
+      ))}
+    </>
+  );
 };
 
-
-function MultipleChoiceQuestions({ id, components, setComponents }) {
-  // on questionchange question part starts=============================================>
-
-  const onQuestionChange = (e) => {
-    setComponents((prev) => {
-      return prev.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            question: { ...item.question, title: e.target.value },
-          };
-        }
-        return item;
-      });
-    });
-  };
-
-   const getQuestion = () => {
-    const foundComponent = components.find((component) => component.id === id);
-    return foundComponent.question.title;
-   };
-  // on questionchange question part ends=============================================>
-
-  // on optionchange part starts==================================================>
-  const onOptionChange = (e, optId) => {
-    setComponents((prev) => {
-      return prev.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            question: {
-              ...item.question,
-              options: item.question.options.map((opt) => {
-                if (opt.id === optId) {
-                  return { ...opt, title: e.target.value };
-                }
-                return opt;
-              }),
-            },
-          };
-        }
-        return item;
-      });
-    });
-  };
-
-  const getOptionValue = (optId) => {
-    const foundComponent = components.find((component) => component.id === id);
-    return foundComponent.question.options.find((item) => item.id === optId)
-      .title;
-  };
-
-  const getOptions = () => {
-    const foundComponent = components.find((component) => component.id === id);
-    return foundComponent.question.options;
-  };
-  // on optionchange part ends==================================================>
-
-  //  delete option part starts==============================================>
-  const deleteOption = (optId) => {
-    setComponents((prev) => {
-      return prev.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            question: {
-              ...item.question,
-              options: item.question.options.filter((opt) => opt.id !== optId),
-            },
-          };
-        }
-        return item;
-      });
-    });
-  };
-  // delete option parts ends=================================================>
-
-  // add option part start====================================================>
-  const addOption = (e) => {
-    e.preventDefault()
-    setComponents((prev) => {
-    return prev.map((item) => {
-       if (item.id === id) {
-          return {
-            ...item,
-            question: {
-              ...item.question,
-              options: [
-                ...item.question.options,
-                { id: uniqueID(), title: "" },
-              ],
-            },
-          };
-        }
-        return item;
-      });
-    });
-  };
-  // add option part ends==========================================================>
-
-  return (
-    <div>
-      <Container>
-        <Row>
-          <div
-            className="Design"
-            style={{
-              padding: "0px 0px",
-            }}
-          >
-            <Col md={12} lg={12}>
-              <div className="flex">
-                <div className="firstinputdiv">
-                  <input
-                    className="firstinput"
-                    type="text"
-                    name="question"
-                    placeholder="Enter Your Question Here"
-                    onChange={(e) => onQuestionChange(e)}
-                    value={getQuestion()}
-                  />
-                </div>
-              </div>
-
-              {/* option input start================================= */}
-
-              <Row>
-              <form onSubmit={addOption}>
-                {getOptions().map((option) => (
-                  
-                  <Col md={12} lg={12} key={option.id}>
-                    <div className="flexkrdoone">
-                      <div className="firstindiv">
-                      <span class="material-symbols-outlined-two">
-                       drag_indicator
-                        </span>
-                        <input
-                          className="firstin"
-                          type="text"
-                          name={`option${option.id}`}
-                          placeholder="option"
-                          onChange={(e) => onOptionChange(e, option.id)}
-                          value={getOptionValue(option.id) || ""}
-                        />
-                        <div className="deleteone">
-                        <span
-                          className="material-icons"
-                          style={{ color: "green", cursor: "pointer" }}
-                          onClick={() => deleteOption(option.id)}
-                        >
-                        <ImCross/>
-                        </span>
-                      </div>
-                      </div>
-                     
-                    </div>
-                  </Col>
-                ))}
-               
-                <div className="addopt">
-                  <button className="tp"  onClick={() => addOption()}>
-                    +
-                  </button>
-                </div>
-                </form>
-              </Row>
-
-              {/* option input start================================= */}
-            </Col>
-          </div>
-        </Row>
-      </Container>
-    </div>
-  );
-}
-
-export default MultipleChoiceQuestions;
-
-
-
-
-<!-- COMBINE VALIDATION START=============================================-->
-import React, { useState,useEffect } from "react";
-import { Container, Row, Col, Offcanvas, Button } from "react-bootstrap";
-import { v4 as uuid } from "uuid";
-import "./Combine.css";
-import Logic from "../Logic/Logic";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import { SiAmazonalexa } from "react-icons/si";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { NavLink } from "react-router-dom";
-import ReactPaginate from "react-paginate";
-import Dragdrop from "./Dragdrop";
-import {VscCircleLargeOutline} from "react-icons/vsc";
-
-
-
-const PER_PAGE = 2;
-
-function App({ components, setComponents}) {
-  // pagination===============================================>
-  const [currentPage, setCurrentPage] = useState(0);
+export default ReadTable;
 
   
-  // off canvas functionality start===========================>
-
-
-  const [show, setShow] = useState(false);
-  const handleClose = () =>setShow(false);
-  const handleShow = () => setShow(true);
-
-
-  // post data with post selection part start==============================>
-  const [postsData, setPostsData] = useState([
-    {
-      id: uuid(),
-      question: { type: "Boolean", title: "Hubspot Is Best For Marketing Automation?" },
-    },
-    {
-      id: uuid(),
-      question: { type: "Boolean", title: "React Js Is a Front-End Technology " },
-    },
-  ]);
-  const [selectedPosts, setSelectedPosts] = useState([]);
-
-   // data storage functionality start======================================>
-  
-  //  data storage functionality ends=========================================>
-
-  // post data with post selection part ends==========================================================>
-
-  function addComponent() {
-    setComponents((prev) => [
-      ...prev,
-      { id: uuid(), question: { type: "Boolean", title: "" }},
-    ]);
-  }
-
-  /* drag and drop functionality start===========================> */
-
-  const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-    return result;
-  };
-
-  const onDragEnd = (result) => {
-    if (!result.destination) {
-      return;
-    }
-   
-    const reorderedItems = reorder(
-      components,
-      result.source.index,
-      result.destination.index
-    );
-    setComponents(reorderedItems);
-  };
-   
-  /* drag and drop functionality ends===================================> */
-   
-  //on submit functionality start=====================================>
-  const handleData = (e) => {
-    e.preventDefault();
-    setSelectedPosts([]);
-    setComponents((prev) => [...prev, ...selectedPosts]);
-    toast.success("Questions Added Successfully");
-  };
-  //on submit functionality ends=====================================>
-
-  // select functionality start=======================================>
-
-  const handleSelect = (e, id, question) => {
-    setSelectedPosts((prev) => {
-      const foundIndex = prev.findIndex((item) => item.id === id);
-
-      // if index is not find(if question is not selected) then add this
-      if (foundIndex === -1) {
-        return [...prev, { id, question }];
-      }
-      // if index is find(if question is  selected) then remove this
-      return prev.filter((item) => item.id !== id);
-    });
-  };
-  //select functionality ends================================================>
-
-
-  //pagination start========================================================>
-   const handlePageClick = ({ selected: selectedPage }) => {
-    console.log("selectedPage", selectedPage);
-    setCurrentPage(selectedPage);
-    };
-  const offset = currentPage * PER_PAGE;
-
-  const current = components.slice(offset, offset + PER_PAGE);
-
-  const pageCount = Math.ceil(components.length / PER_PAGE);
-  // pagination ends===========================================================>
-
-  // input validation in react==================================>
-  
-
-  // input validation in react================================>
-
-
-  return (
-    <>
-      <ToastContainer/>
-      <Container>
-      <Row>
-      <Col md={6} lg={6}>
-      <div className="lorem-head">
-      <h3>Lorem ipsum doler sit amet</h3>
-      </div>
-      </Col>
-      <Col md={6} lg={6}>
-      <div className="select-temp">
-      <h3>Select Template</h3>
-      </div>
-      </Col>
-      </Row>
-      </Container>
-    
-      {/* side navbar part start ==========================*/}
-      <Container fluid>
-       <Row>
-        <div className="all-in">
-          <div className="side-circle ">
-            <div className="best-flexs">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/FullPageView"
-              >
-              <div className="bscircle" />
-              </NavLink>
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/PageTwo"
-              >
-              <div className="bscircle"/>
-              </NavLink>
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/PageThree"
-              >
-                <div className="bscircle"/>
-              </NavLink>
-            </div>
-           
-            {/*  pagination starts ==========================*/}
-            <div className="pagtwo">
-              <Col lg={2} md={2} className="react-pag">
-                <ReactPaginate
-                  // previousLabel={"<"}
-                  // nextLabel={">"}
-                  pageCount={pageCount}
-                  onPageChange={handlePageClick}
-                  containerClassName={"paginations"}
-                  previousLinkClassName={"pagination_links"}
-                  nextLinkClassName={"pagination_links"}
-                  disabledClassName={"pagination_link--disabled"}
-                  activeClassName={"pagination_link--actives"}
-                />
-              </Col>
-            </div>
-          {/*  pagination ends ===========================================*/}
-          </div>
-         {/* side navbar part ends========================================*/}
-
-         {/* question drag and drop part start ==============================>*/}
-           <Dragdrop
-             questions={current}
-             onDragEnd={onDragEnd}
-             components={components}
-             setComponents={setComponents}
-             addComponent={addComponent}
-           />
-          {/* question drag and drop part ends ==============================>*/}
-
-
-          
-        {/*off canvas part start ================================================*/}
-
-          <div className="canvas">
-            <div className=" pls-ques">
-              <a className="side-plus" onClick={handleShow}>
-                <AiOutlinePlusCircle/>
-              </a>
-            </div>
-
-            <Offcanvas show={show} onHide={handleClose}>
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Recommended Questions</Offcanvas.Title>
-              </Offcanvas.Header>
-              <Offcanvas.Body>
-                {/*  question part start========================================*/}
-
-                <div className="input">
-                  <form onSubmit={handleData}>
-                    <Row>
-                      <div className="q-para">
-                        <p>Questions Category</p>
-                      </div>
-                      {/* Bolean questions start ================================*/}
-                      <div className="bool">
-                        <Col md={12} lg={12}>
-                        <div className="boolean-heading">
-                        <h4>Boolean Questions</h4>
-                        </div>
-                       
-
-                          {postsData.map((postItem) => (
-                            <div className="flexo">
-                              <input
-                                className="unique-first"
-                                type="checkbox"
-                                value={postItem.question.title}
-                                onChange={(e) =>
-                                  handleSelect(
-                                    e,
-                                    postItem.id,
-                                    postItem.question
-                                  )
-                                }
-                                checked={
-                                  selectedPosts.findIndex(
-                                    (item) => item.id === postItem.id
-                                  ) !== -1
-                                }
-                              />
-                              <label
-                                class="form-check-label"
-                                for="flexCheckDefault"
-                              >
-                                {postItem.question.title}
-                              </label>
-                            </div>
-                          ))}
-                        </Col>
-                      </div>
-                      {/* Boolean questions ends ================================*/}
-                    </Row>
-
-                    <Row>
-                      <div className="special-button">
-                        <button type="Submit" className="next" onClick={handleClose}>
-                          Add +
-                        </button>
-                      </div>
-                    </Row>
-                  </form>
-                </div>
-              </Offcanvas.Body>
-            </Offcanvas>
-          </div>
-
-          {/* off canvas part ends================================================= */}
-          </div>
-        </Row>
-      </Container>
-    </>
-  );
-}
-
-export default App;
-
-
-
-
-<!-- COMBINE VALIDATION ENDS============================================= -->
-
-
-<!-- logic part start ===================================================-->
-import { v4 as uuid } from "uuid";
-import Boolean from "../optionSelect/Boolean";
-import MultipleChoiceQuestions from "../optionSelect/MultipleChoiceQuestions";
-import "./Logic.css";
-import { AiOutlineDelete, AiFillControl } from "react-icons/ai";
-import { BiGitBranch } from "react-icons/bi";
-import { FcAbout } from "react-icons/fc";
-// import Rating from "../optionSelect/Rating";
-
-
-export default function App({ id, components, setComponents }) {
-  // onselection handle change start========================================================>
-  const handleOnChange = (e) => {
-    setComponents((prev) => {
-      return prev.map((item) => {
-        if (item.id === id) {
-          if (e.target.value === "Boolean") {
-            return { ...item, question: { title: "", type: "Boolean" } };
-          } 
-           else {
-            return {
-              ...item,
-              question: {
-                title: "",
-                type: "MultipleChoice",
-                options: [
-                  { id: uuid(), value: "" },
-                  { id: uuid(), value: "" },
-                ],
-              },
-            };
-          }
-
-        }
-        return item;
-      });
-    });
-  };
-  // else if (e.target.value === "Boolean") {
-  //   return { ...item, question: { title: "", type: "Boolean" } };
-  //   //  block of code to be executed if the condition1 is false and condition2 is true
-  // } 
-   
-  // onselection handle change ends========================================================>
-
-  const getQuestionType = () => {
-    const foundComponent = components.find((component) => component.id === id);
-    return foundComponent.question.type;
-  };
-
-  // delete functionality start====================================================>
-  const removeComponent = () => {
-    setComponents((prev) => {
-      return prev.filter((item) => item.id !== id);
-    });
-  };
-  // delete functionality ends=====================================================>
-
-  return (
-    <>
-      <section className="logic">
-        <div className="container">
-       
-          <div className="row ">
-            <div className="mt-4 mb-4 col-md-6 col-lg-6">
-              <div className="main d-flex">
-              <span class="material-symbols-apps">
-                    apps
-                </span>
-                <span class="material-symbols-outlined">done</span>
-                <div className="dflexo">
-                  <select
-                    className="form-select-dropdown"
-                    value={getQuestionType()}
-                    onChange={handleOnChange}
-                  >
-                    <option value="selectQuestion">Select your Question</option>
-                    <option value="Boolean">Boolean</option>
-                    <option value="MultipleChoice">
-                      MultipleChoiceQuestions
-                    </option>
-                  
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            {/*   remove button part start=========================== */}
-            <div className="mt-4 mb-4 col-md-6 col-lg-6 right-logic">
-              <div className="removef">
-                <a
-                  className="mat"
-                  onClick={() => {
-                    const confirmBox = window.confirm(
-                      "Do you really want to delete this Question?"
-                    );
-                    if (confirmBox === true) {
-                      removeComponent();
-                    }
-                  }}
-                >
-                  <AiOutlineDelete />
-                </a>
-
-                {/* add logic start ==================================*/}
-                <a className="addlogic">
-                  <BiGitBranch/>
-                  <span className="span-logic">Add Logic</span>
-                </a>
-              </div>
-            </div>
-            {/*  remove button ends ============================ */}
-                {/*  get question part start */}
-                {(() => {
-                  if (getQuestionType() === "Boolean") {
-                    return (
-                      <div>
-                      <Boolean
-                      id={id}
-                      components={components}
-                      setComponents={setComponents}
-                    />
-                      </div>
-                    )
-                  } else  {
-                    return (
-                      <div>
-                      <MultipleChoiceQuestions
-                      id={id}
-                      components={components}
-                      setComponents={setComponents}
-                    />
-                      </div>
-                    )
-                  }
-                })()}
-                {/*  get question part ends */}
-          </div>
-        </div>
-      </section>
-    </>
-  );
-}
-
-
-{/* {getQuestionType() === "Boolean" ? (
-  <Boolean
-    id={id}
-    components={components}
-    setComponents={setComponents}
-  />
-) : (
-  <MultipleChoiceQuestions
-    id={id}
-    components={components}
-    setComponents={setComponents}
-  />
-) } */}
-
-
-
-<!-- l0gic part ends ====================================================-->
-
-
-<!-- search query part start============================================= -->
-
-
-// new add team section start==================================>
-
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import nextId from "react-id-generator";
-// import { useHistory } from "react-router-dom";
-import ReadTable from './ReadTable';
-import {Row,Container} from 'react-bootstrap';
-import ReactHTMLTableToExcel from 'react-html-table-to-excel';
-import Pagination from './Pagination';
-import "./Addteam.css";
-// import _ from "lodash"
-
-function Addteam() {
-    // add team func part start=================================>
-    // let history = useHistory();
-
-  const [posts, setPosts] = useState([])
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(10);
-
-
-  const [addPost, setAddPost] = useState({
-    userId: 10,
-    title: '',
-    body: ''
-  })
-
-  //Get ID
-  const [editPostId, setEditPostId] = useState(null)
-
-  const [editFormData, setEditFormData] = useState({
-    userId: 10,
-    title: '',
-    body: ''
-  })
-  
-
-  //Get Form Values
-  const handleChange = (input) => (e) => {
-    e.preventDefault()
-    console.log(addPost);
-    setAddPost({ ...addPost, [input]: e.target.value });
-  }
-
-
-  //Add Data To Table
-  const handleAddPost = (e) => {
-    e.preventDefault()
-
-    const newPost = {
-      id: nextId(),
-      userId: addPost.userId,
-      title: addPost.title,
-      body: addPost.body
-    }
-
-    const newPosts = [...posts, newPost]
-    setPosts(newPosts)
-    // history.push('/')
-    console.log(newPosts);
-  }
-
-  //Edit data
-  const handleEditPostForm = (e, post) => {
-    e.preventDefault()
-    setEditPostId(post.id)
-    console.log(post.id);
-
-    const formValues = {
-      userId: post.userId,
-      title: post.title,
-      body: post.body
-    }
-
-    setEditFormData(formValues)
-  }
-
-  //Edit Form Data
-  const handleEditFormClick = (input) => (e) => {
-    e.preventDefault()
-    console.log(editFormData);
-    setEditFormData({ ...editFormData, [input]: e.target.value });
-  }
-
-  //Save Form Data
-  const handleFormSave = (e) => {
-    e.preventDefault()
-
-    const savePost = {
-      id: editPostId,
-      userId: editFormData.userId,
-      title: editFormData.title,
-      body: editFormData.body
-    }
-
-    const newPosts = [...posts]
-
-    const formIndex = posts.findIndex((post) => post.id === editPostId);
-
-    newPosts[formIndex] = savePost
-
-    setPosts(newPosts)
-    setEditPostId(null)
-    console.log(editPostId);
-  }
-
-  //Delete Data
-  const handleDelete = (e) => {
-    e.preventDefault()
-    const newPosts = [...posts]
-
-    const formIndex = posts.findIndex((post) => post.id === editPostId);
-
-    newPosts.splice(formIndex, 1);
-
-    setPosts(newPosts)
-
-    console.log(newPosts);
-  }
-
-
-  //Search Filter Data
-  const [searchQuery, setSearchQuery] = useState("")
-  function search() {
-    return posts.filter(row => row.title.toLowerCase().indexOf(searchQuery) > - 1)
-
-  }
-                                                                                
-  //Get Data From JSON Placeholder
-  const fetchUrl = "https://jsonplaceholder.typicode.com/posts"
-  useEffect(() => {
-    async function fetchData() {
-    
-      const data = await axios.get(fetchUrl)
-      setPosts(data.data)
-      console.log(data.data);
-   
-      return data
-    }
-    fetchData()
-  }, [fetchUrl])  
-
-   
-  
-
-
-  // pagination start
-  // Get current posts
-  const indexOfLastPost = currentPage * postsPerPage;
-  // const [loading, setLoading] = useState(false);
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-
-  // Change page
-  const paginate = pageNumber => setCurrentPage(pageNumber);
-  // pagination end
-
-  
-    // add team func part ends===================================>
-  return (
-    <div>
-    {/* Add Team part start==================================================> */}
-  
-    <Container>
-        <Row>
-
-      
-    <div className="d-flex flex-row">
-        <button type="button" className="me-3 btn btn-primary ml-auto d-block mb-2" data-bs-toggle="modal" data-bs-target="#addModalForm">
-          Add Data +
-        </button>
-
-        <form className="row g-3 ms-auto">
-          <div className="col-auto">
-            <input
-              type="text"
-              className="form-control ms-auto"
-              placeholder="search data"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-        </form>
-
-      </div>
-      <div className='Dhasu'>
-      <ReactHTMLTableToExcel
-          id="test-table-xls-button"
-                    className="download-table-xls-button"
-                    table="table-to-xls"
-                    filename="tablexls"
-                    sheet="tablexls"
-                    buttonText="Export"
-                    />
-      </div>
-     
-      <table className="table table-bordered border-primary table-responsive"  id="table-to-xls">
-        <thead>
-          <tr>
-           <th scope="col">User ID</th>
-            <th scope="col">ID</th>
-            <th scope="col">Title</th>
-            <th scope="col">Body</th>
-            <th scope="col">Action</th>
-           
-          </tr>
-        </thead>
-        <tbody>
-        {/* dynamic table part start========================> */}
-          <ReadTable
-            posts={ search(posts) ,currentPosts}
-           
-            handleEditPostForm={handleEditPostForm}
-            />
-              {/* dynamic table part ends========================> */}
-             
-        </tbody>
-      </table>
-
-      <Pagination
-      postsPerPage={postsPerPage}
-      totalPosts={posts.length}
-      paginate={paginate}
-    />
-   
-    
-      
-
-      {/*Add Modal */}
-      <div className="modal fade" id="addModalForm" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">Add New Post</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <form onSubmit={handleAddPost}>
-                <div className="mb-3">
-                  <label className="form-label">User ID</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="userId"
-                    placeholder={addPost.userId}
-                    required
-                    onChange={handleChange("userId")}
-                    disabled
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Title</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="title"
-                    placeholder="title"
-                    required
-                    onChange={handleChange("title")}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Body</label>
-                  <textarea
-                    rows="4"
-                    cols="50"
-                    className="form-control"
-                    name="body"
-                    placeholder="body"
-                    required
-                    onChange={handleChange("body")}
-                  ></textarea>
-                </div>
-                <div className="modal-footer d-block">
-                  <button type="submit" data-bs-dismiss="modal" className="btn btn-warning float-end">Submit</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/*Edit Row Modal */}
-      <div className="modal fade" id="editModalForm" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">Edit Row</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <form onSubmit={handleFormSave}>
-                <div className="mb-3">
-                  <label className="form-label">User ID</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="userId"
-                    value={editFormData.userId}
-                    required
-                    onChange={handleEditFormClick("userId")}
-                    disabled
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Title</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="title"
-                    value={editFormData.title}
-                    required
-                    onChange={handleEditFormClick("title")}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Body</label>
-                  <textarea
-                    rows="4"
-                    cols="50"
-                    className="form-control"
-                    name="body"
-                    value={editFormData.body}
-                    required
-                    onChange={handleEditFormClick("body")}
-                  ></textarea>
-                </div>
-                <div className="modal-footer d-block">
-                  <button
-                    type="submit"
-                    data-bs-dismiss="modal"
-                    className="btn btn-success float-end"
-                  >Save Row</button>
-
-                  <button
-                    type="submit"
-                    data-bs-dismiss="modal"
-                    className="btn btn-danger float-start"
-                    onClick={handleDelete}
-                  >Delete Row</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      </Row>
-    </Container>
-    {/* Add team part ends */}
-  
-    </div>
-  )
-}
-
-export default Addteam
-
-  // new addteam section ends===============>
-
-
-<!-- Search Query part ends=============================================== -->
-

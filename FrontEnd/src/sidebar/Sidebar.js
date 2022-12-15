@@ -15,6 +15,7 @@ function Sidebar() {
                 <ListGroup.Item bsPrefix as="li"><Nav.Link  as={Link} to="/MyPlan"  className="text-lightblack font-14 font-regular"><Myplan />My Plan</Nav.Link></ListGroup.Item>
                 <ListGroup.Item bsPrefix as="li"><Nav.Link  as={Link} to="/Usermanagement"  className="text-lightblack font-14 font-regular"><Usermanagement />User Management</Nav.Link></ListGroup.Item>
                 <ListGroup.Item bsPrefix as="li"><Nav.Link  as={Link} to="/ActivityLog"  className="text-lightblack font-14 font-regular"><Activitylog />Activity Log</Nav.Link></ListGroup.Item>
+                <ListGroup.Item bsPrefix as="li"><Nav.Link  as={Link} to="/AllTeam"  className="text-lightblack font-14 font-regular"><Activitylog />Contact List</Nav.Link></ListGroup.Item>
                
             </ListGroup>
           </ListGroup>

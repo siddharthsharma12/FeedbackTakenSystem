@@ -5,14 +5,24 @@ import Review from "../Review/Review";
 // import Teampick from "../TeamRecepients/Teampick";
 import Contacttable from "../TeamRecepients/ContactTable/Contacttable"
 import Combine from "../combine/Combine";
+import TeamRecipients from "../TeamRecepients/ContactTable/TeamRecipients";
 import "./Multimain.css";
 import { Container, Row,Col,ListGroup } from "react-bootstrap";
 
 
-function MultiMain({ components, setComponents }) {
+function MultiMain({ components, setComponents, teams }) {
   // react js start==========>
   const [activestep, setActiveStep] = useState(1);
+  const [format, setFormat] = useState(null);
+  const [questions, setQuestions] = useState(null);
+  const [required, setRequired] = useState(null);
+  const [validated, setValidated] = useState(false);
+  const[selectedtemplate,setSelectedTemplate] =useState(null);
+  const [selectedRecepients, setSelectedRecepeients] = useState([]);
+  const [questionvalidated,setQuestionValidated] = useState(false);
+
   function getSteps() {
+
     return [
       "step-wizard-item",
       "step-wizard-item",
@@ -21,31 +31,47 @@ function MultiMain({ components, setComponents }) {
       "step-wizard-item",
       "step-wizard-item",
     ];
+
   }
+
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  {/*  if(validated) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      setValidated(false);
+    } */}
+     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
+
   const handleprev = () => {
     setActiveStep((backActiveStep) => backActiveStep - 1);
   };
+  
   const steps = getSteps();
+
   function getStepsContent(stepIndex) {
+
     switch (stepIndex) {
       case 1:
-        return <Pick/>;
+        return <Pick format={format} setFormat={ setFormat} questions={questions} setQuestions={setQuestions} required={required} setRequired={setRequired}/>
       case 2:
         return (
-          <Combine components={components} setComponents={setComponents} />
+          <Combine components={components}
+           setComponents={setComponents}
+           selectedtemplate ={selectedtemplate}
+           setSelectedTemplate ={ setSelectedTemplate}
+           />
         );
       case 3:
-        return <Contacttable/>;
+        return <TeamRecipients teams={teams} selectedRecepients={selectedRecepients} setSelectedRecepeients={setSelectedRecepeients} />;
       case 4:
-        return <Review/>;
+        return <Review components={components} setComponents={setComponents} selectedRecepients={selectedRecepients} />;
       default:
         return "Done";
+
     }
+
   }
-  // react js ends===========>
+  // react js ends===========================================================>
 
   return (
     <>
@@ -137,7 +163,7 @@ function MultiMain({ components, setComponents }) {
        
           <div className="wiz-button ">
             {activestep === steps.length ? (
-              "The Steps"
+            "the Steps"
             ) : (
               <>
                 {getStepsContent(activestep)}

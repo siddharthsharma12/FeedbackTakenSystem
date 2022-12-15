@@ -1,0 +1,41 @@
+/* fisrts page design start ==================================>*/
+.orange {
+    background-image: url(/src/images/pre1.png)!important;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    
+  }
+  .ques-one h5 {
+    color: white;
+    
+  }
+  .ques-one {
+    margin-left: 50px;
+    margin-top: 150px;
+  }
+  .black-one{
+    border: 1px solid #ddd4d42e;
+      cursor: pointer;
+      padding: 5px 26px;
+      border-radius: 6px;
+      margin-left: 120px;
+      background: navajowhite;
+      margin-top: 30px !important;
+  }
+  .black-one input.first {
+    /* width: 46px !important; */
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+  
+  }
+  /* .block.col-lg-6.col-md-6 {
+    margin-left: 50px;
+    margin-top: 32px;
+  } */
+  /* .extra p{
+    color: white;
+    font-size: 13px;
+  } */
+  /* fisrts page design ends ==================================>*/

@@ -16,8 +16,8 @@ export default function App({ id, components, setComponents }) {
       return prev.map((item) => {
         if (item.id === id) {
         // boolean part start=========================>
-          if (e.target.value === "Boolean") {
-            return { ...item, question: { title: "", type: "Boolean" } };
+          if (e.target.value === "YesNo") {
+            return { ...item, question: { title: "", type: "YesNo" } };
           } 
           // boolean part ends===========================>
          
@@ -42,11 +42,6 @@ export default function App({ id, components, setComponents }) {
           return { ...item, question: { title: "", type: "Rating" } };
         }
         // rating part ends===========================>
-
-         // rating part start=========================>
-          else {
-            return { ...item, question: { title: "", type: "Yesno" } };
-          }
           // rating part ends===========================>
        
         }
@@ -93,12 +88,12 @@ export default function App({ id, components, setComponents }) {
                     onChange={handleOnChange}
                   >
                     <option value="selectQuestion">Select your Question</option>
-                    <option value="Boolean">Boolean</option>
+                  
                     <option value="MultipleChoice">
                       MultipleChoiceQuestions
                     </option>
                     <option value="Rating">Rating</option>
-                    <option value="Yesno">Yes/No</option>
+                    <option value="YesNo">Yes/No</option>
                   
                   </select>
                 </div>
@@ -132,18 +127,7 @@ export default function App({ id, components, setComponents }) {
             {/*  remove button ends ============================ */}
                 {/*  get question part start ===================*/}
                 {(() => {
-                  if (getQuestionType() === "Boolean") {
-                  {/*oolean part start===================*/}
-                    return (
-                      <div>
-                      <Boolean
-                      id={id}
-                      components={components}
-                      setComponents={setComponents}
-                    />
-                      </div>
-                    )} 
-                    else if (getQuestionType() === "MultipleChoice") {
+                if (getQuestionType() === "MultipleChoice") {
                     return (
                       <div>
                       <MultipleChoiceQuestions
@@ -168,7 +152,7 @@ export default function App({ id, components, setComponents }) {
                     )
                   } 
 
-                   else  {
+                   else  if (getQuestionType() === "YesNo"){
                     return (
                       <div>
                       <Yesno
@@ -188,17 +172,3 @@ export default function App({ id, components, setComponents }) {
   );
 }
 
-
-{/* {getQuestionType() === "Boolean" ? (
-  <Boolean
-    id={id}
-    components={components}
-    setComponents={setComponents}
-  />
-) : (
-  <MultipleChoiceQuestions
-    id={id}
-    components={components}
-    setComponents={setComponents}
-  />
-) } */}

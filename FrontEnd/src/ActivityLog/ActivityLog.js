@@ -5,6 +5,7 @@ import Sidebar from "../sidebar/Sidebar";
 import "./ActivityLog.css";
 import Header from "../header/Header";
 
+
 const ActivityLog = () => {
  
   const employeeList = [

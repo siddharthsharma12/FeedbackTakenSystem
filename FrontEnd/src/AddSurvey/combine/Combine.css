@@ -197,4 +197,124 @@ input.unique-first{
   width: 3%!important;
 }
 
+/* pop-up details start============================== */
+.pop-row.row {
+  border: 1px solid #00000024;
+  margin-bottom: 10px;
+}
+.preone img {
+  width: 100%;
+}
+.lorem-headingone h5{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  /* align-items: center !important; */
+}
+.lorem-paraone p {
+  display: flex;
+  justify-content: center;
+}
+.modal-body{
+  height: auto;
+  aspect-ratio: 16/9;
+}
 
+a.usethisone {
+  color: #0d2e4f;
+  background: #00000017;
+  padding: 5px 43px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+a.usethistwo {
+  color: white;
+  background: #0d2e4f;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.useit {
+  margin-top: 21px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+/* pop-up details ends ===============================*/
+
+
+/* fisrts page design start ==================================>*/
+.orange {
+  background-image: url(/src/images/pre1.png)!important;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  
+}
+.ques-one h5 {
+  color: white;
+  
+}
+.ques-one {
+  margin-left: 50px;
+  margin-top: 150px;
+}
+.black-one{
+  border: 1px solid #ddd4d42e;
+    cursor: pointer;
+    padding: 5px 26px;
+    border-radius: 6px;
+    margin-left: 120px;
+    background: navajowhite;
+    margin-top: 30px !important;
+}
+.black-one input.first {
+  /* width: 46px !important; */
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+
+}
+.modal-90w {
+  max-width: 100% !important;
+  margin: 1.75rem auto !important;
+}
+.fade.modal.show {
+  padding: 0px !important;
+}
+.yo{
+  margin-top: 10px;
+}
+.modal.show .modal-dialog {
+  transform: none !important;
+  margin-top: auto !important;
+}
+
+button.select.btn.btn-primary {
+  margin-left: 10px;
+}
+button.usethis.btn.btn-primary {
+  background: #000000b8;
+  border: 1px solid  #181818b8 !important;
+  margin-top: 4px;
+}
+/* button.btn.btn-primary {
+  background: #4db3e4;
+  border: 1px solid #4db3e4 !important;
+
+} */
+button.add-all.btn.btn-primary {
+  background: #4d82e4;
+  color: white;
+  border: 1px solid #4db3e4 !important;
+  font-weight: 700;
+}
+
+/* fisrts page design ends ==================================>*/
+
+.first-set.modal-body {
+  background: #ffa500d9;
+}
+.add-all {
+  margin-top: 70px;
+}

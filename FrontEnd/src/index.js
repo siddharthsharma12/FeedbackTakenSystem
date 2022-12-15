@@ -5,18 +5,18 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./index.css";
 import App from "./App";
 import {Provider} from "react-redux";
-import { store } from './ReduxLogin/Store'
+import  store from "./CopyRedux/store";
 
 ReactDOM.render (
+
   <React.StrictMode>
   <Provider store={store}>
     <App/>
   </Provider>
   </React.StrictMode>,
+
   document.getElementById("root")
 );
 
 
-{/*<React.StrictMode>
-    <App/>
-  </React.StrictMode>, */}
+

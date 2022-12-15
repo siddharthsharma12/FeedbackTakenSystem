@@ -77,16 +77,18 @@
     display: flex;
     justify-content: center;
 }
-.block-one-para{
+
+.block-one-para {
   display: flex;
   justify-content: center;
   padding-bottom: 10px;
 }
 
-.review-para p {
+.review-para a {
   display: flex;
   justify-content: center;
   color: rgb(112 194 232);
+  cursor: pointer;
  
 }
 .view{
@@ -138,6 +140,45 @@
   color: #bdbbb9;
 }
 
+/* confirm button css start===========================>*/
+.flat-btn {
+  display: flex;
+  justify-content: end;
+  margin-top: 80px;
+}
+.button-confirm-one {
+  margin-left: 30px;
+}
+.button-confirm{
+  background-color: white !important;
+  color:rgb(0, 136, 255);
+  border: 1px solid rgb(0, 136, 255);
+}
+.button-confirm:hover{
+  color:rgb(0, 136, 255) !important;
+}
+/* confirm button css start===========================>*/
 
 
+.modal-90w {
+  max-width: 100% !important;
+  margin: 1.75rem auto !important;
+}
+.reci-head h5{
+  font-size: 16px;
+  color: rgb(41, 39, 39);
+}
 
+/* extra preview start =====================================>*/
+.full{
+  background-color: rgb(243, 241, 241);
+}
+.All p {
+  color: #4db3e4 !important;
+  font-size: 15px !important;
+  padding: 10px 0px;
+  font-weight: bold;
+}
+
+
+/* extra preview ends =====================================>*/

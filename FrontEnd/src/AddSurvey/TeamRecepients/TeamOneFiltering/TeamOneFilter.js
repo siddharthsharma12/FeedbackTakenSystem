@@ -80,12 +80,20 @@ export default function TeamOneFilter() {
       mobile: "7509785432",
     },
   ];
+   
+  // select all functionalities start===========================>
+  // const [isCheckAll, setIsCheckAll] = useState(false);
+
+  // select all functionalities ends=============================>
+
 
   // List of all cars satisfing all the filters
   const [filteredList, setFilteredList] = useState(employeeList);
 
   const [selectedDesignation, setSelectedDesignation] = useState("");
   const [selectedCompany, setSelectedCompany] = useState("");
+
+  
 
   // filterby Designation start===================================>
   const filterByDesignation = (filteredData) => {
@@ -131,7 +139,22 @@ export default function TeamOneFilter() {
   }, [selectedDesignation, selectedCompany]);
 
   // all actions perform here========================>
-
+  // select all functionality start===================>
+  const handleChange=(e)=>{ 
+    const { name, checked}= e.target;
+  if(name==="allselect")
+  {
+  const checkedvalue = filteredList.map( (item)=>{ return {...item, isChecked:checked}});
+  console.log(checkedvalue);
+  setFilteredList(checkedvalue);
+  } else{
+   const checkedvalue = filteredList.map( (item)=>
+   item.name ===name? {...item, isChecked:checked}:item);
+   console.log(checkedvalue);
+   setFilteredList(checkedvalue);
+  }
+}
+  // slect all functionality ends=====================>
   return (
     <>
       
@@ -170,7 +193,11 @@ export default function TeamOneFilter() {
           <thead>
             <tr className="team-pick">
               <th scope="col">
-                <input type="checkbox" />
+                <input type="checkbox"
+                  name="allselect"
+                  onChange={handleChange}
+                  checked={!filteredList.some((item) => item?.isChecked !== true)}
+                  />
               </th>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
@@ -181,10 +208,14 @@ export default function TeamOneFilter() {
           </thead>
           {/* second part start ==============================================*/}
           <tbody>
-            {filteredList.map((item, index) => (
+            {filteredList.map((item) => (
               <tr key={item.id}>
                 <th scope="row">
-                  <input type="checkbox" />
+                  <input type="checkbox"
+                    name={item.name}   
+                    checked={item?.isChecked || false}
+                    onChange={handleChange}
+                  />
                 </th>
                 <td>{item.name}</td>
                 <td>{item.email}</td>

@@ -181,6 +181,9 @@ i.fa-solid.fa-pen-to-square {
 .Deactivate{
   cursor: pointer;
 }
+.roles-table{
+  margin-top: 30px;
+}
 
 /* imported development table css ends==========================> */
 

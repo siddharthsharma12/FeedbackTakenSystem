@@ -16,13 +16,13 @@ import IdeaBoards from "./IdeaBoard.js/IdeaBoards";
 import ActivityLog from "./ActivityLog/ActivityLog";
 import Setting from "./Settings/Setting";
 import Template from "./AddSurvey/SurveyScreens/Template";
-import Scratch from "./AddSurvey/SurveyScreens/Scratch"
-import Excel from "./AddSurvey/SurveyScreens/Excel"
-import Copy from "./AddSurvey/SurveyScreens/Copy"
-import Format from "./AddSurvey/SurveyScreens/Format"
-import FullPageView from './AddSurvey/Pagination/FullPageView';
-import PageTwo from './AddSurvey/Pagination/PageTwo';
-import PageThree from './AddSurvey/Pagination/PageThree';
+import Scratch from "./AddSurvey/SurveyScreens/Scratch";
+import Excel from "./AddSurvey/SurveyScreens/Excel";
+import Copy from "./AddSurvey/SurveyScreens/Copy";
+import Format from "./AddSurvey/SurveyScreens/Format";
+import FullPageView from "./AddSurvey/Pagination/FullPageView";
+import PageTwo from "./AddSurvey/Pagination/PageTwo";
+import PageThree from "./AddSurvey/Pagination/PageThree";
 import AddSurveys from "./AddSurvey/OuterSurveyScreens/AddSurveys";
 import Customers from "./AddSurvey/OuterSurveyScreens/Customers";
 import Internal from "./AddSurvey/OuterSurveyScreens/Internal";
@@ -31,52 +31,86 @@ import Csat from "./AddSurvey/SurveyScreens/TemplatesScreen/Csat";
 import Nps from "./AddSurvey/SurveyScreens/TemplatesScreen/Nps";
 import Favourate from "./AddSurvey/SurveyScreens/TemplatesScreen/Favourate";
 import Promote from "./AddSurvey/SurveyScreens/TemplatesScreen/Promote";
-import Login from "./login/Login"
+// import Login from "./login/Login";
+// import SignUp from "./SignUp/SignUp";
+import Register from "./CopyRegister/Register";
+import axios from "axios";
+import LoginCopy from "./CopyLogin/LoginCopy";
+import Preview from "./AddSurvey/PreviewScreens/Preview";
+import AllTeam from "./AllTeams/AllTeam";
+import { AllTeams } from "./Teams";
+// import Tmap from "./Experiments/Tmap";
 
-
-
-
-
+axios.defaults.withCredentials = true;
 
 function App() {
-
-  const [components, setComponents] = useState([{id: uuid(),question: { type: "Boolean", title: ""}}]);
+  const [components, setComponents] = useState([
+    { id: uuid(), question: { type: "YesNo", title: "" } },
+  ]);
+  const [teams, setTeams] = useState(AllTeams);
   
-  
-
   return (
     <>
-    <div>
-      <Router>
-      
-        <Routes>
-          <Route path="/"  element={<Login/>}/>
-          <Route path="/Profile"  element={<Profile/>}/>
-          <Route path="/AddSurveys" element={<AddSurveys/>}/>
-          <Route path="/Dashboard" element={<Dashboard />}/>
-          <Route path="/MyPlan" element={<MyPlan/>}/>
-          <Route path="/Usermanagement" element={<Usermanagement/>}/>
-          <Route path="/IdeaBoards" element={<IdeaBoards/>}/>
-          <Route path="/ActivityLog" element={<ActivityLog/>}/>
-          <Route path="/Setting" element={<Setting/>}/>
-          <Route path="/Customers" element={<Customers/>}/>
-          <Route path="/Internal" element={<Internal/>}/>
-          <Route path="/Template" element={<Template/>}/>
-          <Route path="/Scratch" element={<Scratch components={components} setComponents={setComponents}/>} />
-          <Route path="/Excel" element={<Excel/>} />
-          <Route path="/Copy" element={<Copy/>}/>
-          <Route path="/Format" element={<Format/>}/>
-          <Route path="/FullPageView" element={<FullPageView components={components} setComponents={setComponents}/>} />
-          <Route path="/PageTwo" element={<PageTwo components={components} setComponents={setComponents}/>} />
-          <Route path="/PageThree" element={<PageThree/>} />
-          <Route path="/Favourate" element={<Favourate/>} />
-          <Route path="/Csat" element={<Csat/>} />
-          <Route path="/Promote" element={<Promote/>} />
-          <Route path="/Nps" element={<Nps/>} />
-          <Route path="/Hear" element={<Hear/>} />
-        </Routes>
-    
-      </Router>
+      <div>
+        <Router>
+          <Routes>
+            <Route path="/" element={<LoginCopy />} />
+            <Route 
+            path="/Preview"
+            element={
+            <Preview  components={components} setComponents={setComponents}/>} />
+            <Route path="/AllTeam" element={<AllTeam teams={teams} setTeams={setTeams} />} />
+            <Route path="/Usermanagement" element={<Usermanagement />} />
+            <Route path="/Register" element={<Register />} />
+            <Route path="/Profile" element={<Profile />} />
+            <Route path="/AddSurveys" element={<AddSurveys />} />
+            <Route path="/Dashboard" element={<Dashboard />} />
+            <Route path="/MyPlan" element={<MyPlan />} />
+            <Route path="/IdeaBoards" element={<IdeaBoards />} />
+            <Route path="/ActivityLog" element={<ActivityLog />} />
+            <Route path="/Setting" element={<Setting />} />
+            <Route path="/Customers" element={<Customers />} />
+            <Route path="/Internal" element={<Internal />} />
+            <Route path="/Template" element={<Template />} />
+            <Route
+              path="/Scratch"
+              element={
+                <Scratch
+                  components={components}
+                  setComponents={setComponents}
+                  teams={teams}
+                />
+              }
+            />
+            <Route path="/Excel" element={<Excel />} />
+            <Route path="/Copy" element={<Copy />} />
+            <Route path="/Format" element={<Format />} />
+            <Route
+              path="/FullPageView"
+              element={
+                <FullPageView
+                  components={components}
+                  setComponents={setComponents}
+                />
+              }
+            />
+            <Route
+              path="/PageTwo"
+              element={
+                <PageTwo
+                  components={components}
+                  setComponents={setComponents}
+                />
+              }
+            />
+            <Route path="/PageThree" element={<PageThree />} />
+            <Route path="/Favourate" element={<Favourate />} />
+            <Route path="/Csat" element={<Csat />} />
+            <Route path="/Promote" element={<Promote />} />
+            <Route path="/Nps" element={<Nps />} />
+            <Route path="/Hear" element={<Hear />} />
+          </Routes>
+        </Router>
       </div>
     </>
   );

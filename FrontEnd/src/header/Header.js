@@ -1,55 +1,56 @@
-import React, { useDebugValue } from "react";
+import React, {useState } from "react";
 import { Settings, PlusCircle, Edit  } from "react-feather";
 import { Navbar, Container, Nav, ListGroup, NavDropdown, Accordion } from "react-bootstrap";
 import {Link} from "react-router-dom";
 import "./Header.css";
-// extra
 import { NavLink, useNavigate } from "react-router-dom";
 // import { IoPerson, IoPricetag, IoHome, IoLogOut } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { LoginUser, LogOut, reset } from "../ReduxLogin/authSlice";
-// import Setting from "../Settings/Setting";
+// import { LogOut, reset } from "../ReduxLogin/authSlice";
+
 
 function Header() {
+  
+    const {user: currentUser} = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  // const { user } = useSelector((state) => state);
-  // const {user} = useSelector((state) => state);
-  const { user: currentUser} = useSelector((state) => state.auth);
+ 
 
 
-  const logout = () => {
-    dispatch(LogOut());
-    dispatch(reset());
-    navigate("/");
-  };
+  //  const logout = () => {
+  //   dispatch(LogOut());
+  //   dispatch(reset());
+  //   navigate("/");
+  // };
 
 
   const htmlCode = () => {
 
     return (
-
+       
       <span className="user-setting d-inline-block">
-      <h3 className="username">{currentUser}</h3>
+      <h3 className="username"></h3>
       <span className="usericon">S</span>
       </span>
 
     )
   }
+
   return (
     
     <ListGroup bsPrefix className="ft_header">
       <Navbar collapseOnSelect expand="lg" variant="light">
         <Container fluid>
-        <Navbar.Brand> <img src="../images/logo.png" alt="Logo" />
+        <Navbar.Brand> <img src="../images/logo.png" alt="Logo"/>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
                 <ListGroup as="ul" bsPrefix className="me-auto navbar-nav">
-                <ListGroup.Item bsPrefix as="li"><Nav.Link as={Link} to="/Dashboard">FaceBoard</Nav.Link></ListGroup.Item>
+                <ListGroup.Item bsPrefix as="li"><Nav.Link as={Link} to="/Dashboard">DashBoard</Nav.Link></ListGroup.Item>
                 <ListGroup.Item bsPrefix as="li"><Nav.Link as={Link} to="/AddSurveys"> Add Surveys</Nav.Link></ListGroup.Item>
                 <ListGroup.Item bsPrefix as="li"><Nav.Link  as={Link} to="/IdeaBoards"> IdeaBoards</Nav.Link></ListGroup.Item>
+  {/*  <ListGroup.Item bsPrefix as="li"><Nav.Link  as={Link} to="/Tmap">Tmap</Nav.Link></ListGroup.Item>*/}
                 </ListGroup>
             </Navbar.Collapse>
             <ListGroup bsPrefix className="right_menu">
@@ -64,7 +65,7 @@ function Header() {
                         <ListGroup bsPrefix className="d-flex">
                           <span as="span" className="text-sea">G</span>
                           <h6 as="h6" className="mb-0">
-                          <p as="p" className="d-block mb-1 text-black">{currentUser}</p></h6>
+                          <p as="p" className="d-block mb-1 text-black">{currentUser && currentUser.email}</p></h6>
                           </ListGroup>
                          <a className="text-black"> <Edit /></a>
                      </ListGroup>
@@ -83,9 +84,9 @@ function Header() {
                             </Accordion.Body>
                         </Accordion>
                         </ListGroup.Item>   
-                      <ListGroup.Item bsPrefix as="li" className="profile-item"><a >My Teams</a></ListGroup.Item>
+                      <ListGroup.Item bsPrefix as="li" className="profile-item"><Nav.Link as={Link} to="/AllTeam">Teams</Nav.Link></ListGroup.Item>
                       <ListGroup.Item bsPrefix as="li" className="profile-item"><a >Help</a></ListGroup.Item>
-                      <button onClick={logout} className="profile-item"> Logout</button>
+                      <button  className="profile-item"> Logout</button>
                       
                      
                       {/* <ListGroup.Item bsPrefix as="li" className="profile-item" className="button is-white"><a >Logout</a></ListGroup.Item> */}

@@ -8,7 +8,7 @@ import { BiAlignLeft } from "react-icons/bi";
 import "./Yesno.css";
 // import { BiGitBranch } from "react-icons/bi";
 
-function Boolean({ id, components, setComponents }) {
+function Yesno({ id, components, setComponents }) {
 
      const [yes,setYes] = useState();
     //  const [no,setNo] = useState();
@@ -123,4 +123,4 @@ function Boolean({ id, components, setComponents }) {
   );
 }
 
-export default Boolean;
+export default Yesno;

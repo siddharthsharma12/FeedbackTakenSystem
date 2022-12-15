@@ -5,6 +5,7 @@ import session from "express-session";
 import dotenv from "dotenv";
 import db from "./config/Database.js";
 import UserLogin from "./routes/UserLogin.js";
+import Usermanagement from "./routes/Usermanagement.js"
 
 dotenv.config();
 const app = express();
@@ -17,7 +18,7 @@ const app = express();
 app.use(cors({
 
     credentials: true,
-    origin: 'http://localhost:3000'
+    origin: ['http://localhost:3000'],
 }))
 
 
@@ -27,7 +28,6 @@ app.use(session({
     saveUninitialized: true,
     cookie: {
         secure: 'auto',
-        maxAge: 1000 * 60 * 15
     }
 }))
 
@@ -35,6 +35,8 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(UserLogin);
+app.use(Usermanagement);
+
 
 
 

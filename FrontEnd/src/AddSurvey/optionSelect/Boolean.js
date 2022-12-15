@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,7 +7,19 @@ import { BiAlignLeft } from "react-icons/bi";
 // import { BiGitBranch } from "react-icons/bi";
 
 function Boolean({ id, components, setComponents }) {
+
+  // const win = window.sessionStorage;
   
+  // useEffect(() => {
+  //   if (win.getItem("components"))
+  //   setComponents(win.getItem("components"))
+  // },[])
+  
+  // useEffect(() => {
+  //   win.setItem('components',components)
+  // }, [])
+
+
   const onChange = (e) => {
     setComponents((prev) => {
       return prev.map((component) => {

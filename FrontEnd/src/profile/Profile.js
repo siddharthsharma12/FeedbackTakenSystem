@@ -7,6 +7,7 @@ import "./Profile.css";
 import { BsPersonFill } from "react-icons/bs";
 import Formextra from "../Validation/Formextra.js"
 import Header from "../header/Header";
+import {useSelector} from "react-redux";
 
 
 // import Formextra from "./Validation"
@@ -17,6 +18,9 @@ function Profile() {
   // image preview part start===============================>
    const [imgPreview, setImgPreview] = useState(null);
   const [error, setError] = useState(false);
+
+  const {user: currentUser} = useSelector((state) => state.auth);
+  // const {user: currentUser} = useSelector((state) => state.auth);
  
   const handleImageChange = (e) => {
     const selected = e.target.files[0];
@@ -54,9 +58,11 @@ function Profile() {
                 <ListGroup bsPrefix="my-profile">
                   <Row>
                     <Col>
+                   
                       <h2 className="text-skyblue heading-22 font-bold mt-10 mb-30 sm-heading">My Profile</h2>
                     </Col>
                   </Row>
+                  
                   <Row>
                     <div className="myprotab">
                       <Tabs defaultActiveKey="mydetails" id="uncontrolled-tab-example" className="myprofiletab">
@@ -132,14 +138,14 @@ function Profile() {
                             <Col xl={6} lg={6} md={12} sm={6} xs={12}>
                               <Form.Group className="form-group">
                                 <Form.Label className="text-lightblack font-14">Registered Email </Form.Label>
-                                <Form.Control id="" type="text" placeholder="User Email" />
+                                <Form.Control id="" type="text" placeholder="enter mail" />
                               </Form.Group>
                             </Col>
                             <Col xl={6} lg={6} md={12} sm={6} xs={12}>
                               <Form.Group className="form-group position-relative">
                                 <Form.Label className="text-lightblack font-14"> Password
                                   <span className="edituser"><Edit /> </span>  </Form.Label>
-                                <Form.Control id="" type="password" placeholder="Password" />
+                                <Form.Control id="" type="password" placeholder="enter password" />
                                 <span className="changepassword" onClick={handleShow}>Change Password</span></Form.Group>
                             </Col>
                             <Col xl={12} lg={12} md={12} sm={12} xs={12}>

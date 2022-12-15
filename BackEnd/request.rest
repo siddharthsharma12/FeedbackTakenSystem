@@ -1,15 +1,19 @@
-POST  http://localhost:5000/SignupUser
+POST  http://localhost:5000/signup
 Content-Type: application/json
 
 {
-   "firstName": "",
-   "lastName": "",
-   "email": "test123@gmail.com",
-   "password": "test",
-   "confirmpassword": "test",
+   "firstName": "six",
+   "lastName": "kumar",
+   "email": "six@gmail.com",
+   "password": "six",
+   "confirmpassword": "six",
    "image": "",
-   "role": "human"
+   "role": "root"
+  
 }
+############################################ login part
+GET   http://localhost:5000/edit/87acb8f6-dd3d-4270-a38d-26f442613d25
+# Content-Type: application/json
 
 
 ############################################ login part
@@ -17,6 +21,40 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-   "email": "admin@gmail.com",
-   "password": "admin"
+   "email": "test12345@gmail.com",
+   "password": "test"
 }
+
+######
+
+GET http://localhost:5000/logout
+
+############################################cookie demo
+POST http://localhost:5000/cookie-demo
+Content-Type: application/json
+
+
+############################################cookie demo
+GET  http://localhost:5000/Usermanagement
+
+
+
+####
+GET http://localhost:5000/edit/50e910b1-2a34-4b60-8979-d1719ba5082b
+
+
+
+#########
+
+PATCH  http://localhost:5000/47a7d3c2-39e3-4467-a48c-aa7a35f71b1b
+
+
+Content-Type: application/json
+{
+   "email":"amanupdated@gmail.com",
+   "role": "superseupar"
+}
+#########
+DELETE   http://localhost:5000/607145a3-8d69-44e1-adc7-e5c0ed7a9af4
+
+

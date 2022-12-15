@@ -117,9 +117,9 @@ export default function TeamTwoFilter() {
   // all actions perform here========================>
 
   return (
+    
     <>
-     
-        {/* filter start ======================================>*/}
+     {/* filter start ======================================>*/}
         <div className="flower d-flex">
           <div className="brand-filter-two">
            {/* <div className="designation">

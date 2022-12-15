@@ -1,0 +1,9 @@
+.full{
+    background-color: rgb(243, 241, 241);
+}
+.All p {
+    color: #4db3e4 !important;
+    font-size: 15px !important;
+    padding: 10px 0px;
+    font-weight: bold;
+}

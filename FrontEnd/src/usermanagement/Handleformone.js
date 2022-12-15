@@ -10,29 +10,29 @@ const HandleFormOne = ({handleAddPost,handleChange,handleClose}) => {
          <form onSubmit={handleAddPost}>
            <div className="mb-3">
              <label className="form-label">
-               Title
+              Email
              </label>
              <input
                type="text"
                className="form-control"
-               name="title"
-               placeholder="title"
-               onChange={handleChange("title")}
+               name="email"
+               placeholder="Email"
+               onChange={handleChange("email")}
                required
              />
            </div>
            <div className="mb-3">
              <label className="form-label">
-               Body
+               Role
              </label>
              <textarea
                rows="4"
                cols="50"
                className="form-control"
-               name="body"
-               placeholder="body"
+               name="role"
+               placeholder="Role"
                required
-               onChange={handleChange("body")}
+               onChange={handleChange("role")}
              ></textarea>
             </div>
             <div className="modal-footer d-block">
