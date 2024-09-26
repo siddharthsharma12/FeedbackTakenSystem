@@ -3,16 +3,15 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import session from "express-session";
 import dotenv from "dotenv";
-import db from "./config/Database.js";
 import UserLogin from "./routes/UserLogin.js";
-import Usermanagement from "./routes/Usermanagement.js"
+import Usermanagement from "./routes/Usermanagement.js";
+// import Components from "./routes/Components.js"
+import questions from "./routes/questions.js";
 
 dotenv.config();
 const app = express();
 
-(async()=>{
-    await db.sync()
-})();
+
 
 
 app.use(cors({
@@ -21,9 +20,9 @@ app.use(cors({
     origin: ['http://localhost:3000'],
 }))
 
-
+app.use(express.json())
 app.use(session({
-    secret: process.env.SESS_SECRET,
+    secret: 'iamsecretkeyoffeedbacktaken',
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -31,11 +30,17 @@ app.use(session({
     }
 }))
 
+// app.use('/', (req, res)=>{
+//     res.json('welcome to feedback is running')
+// })
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(UserLogin);
 app.use(Usermanagement);
+app.use(questions)
+// app.use(Components);
 
 
 

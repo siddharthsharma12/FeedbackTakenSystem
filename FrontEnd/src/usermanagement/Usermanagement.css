@@ -1,5 +1,5 @@
 .width-fix.col {
-  background-color: var(--bglight);
+  /* background-color: var(--bglight); */
   width: 100%;
   max-width: 230px;
   flex: 0 0 230px;
@@ -27,7 +27,7 @@
 .edituser svg {
   width: 15px;
   height: 15px;
-  color: var(--lightblack);
+  /* color: var(--lightblack); */
   margin-left: 3px;
   display: inline-block;
   margin-top: -4px;
@@ -36,16 +36,16 @@
 .set-profile {
   padding-right: 200px;
 }
-
-.verify-email {
+/* .verify-email {
   position: absolute;
   right: 15px;
   top: 56%;
   cursor: pointer;
   text-decoration: underline;
-}
+} */
+
 .myprofiletab{
-  background-color: #FBFBFB;
+  /* background-color: #FBFBFB; */
   width: auto;
   border-radius: 5px;
   padding: 5px;
@@ -173,7 +173,7 @@ button#test-table-xls-button {
 }
 i.fa-solid.fa-pen-to-square {
   font-size: 16px;
-  color: #00000096;
+  /* color: #00000096; */
 }
 .Reset{
   cursor: pointer;

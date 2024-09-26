@@ -1,0 +1,21 @@
+
+.chart-two{
+    margin-left: 30px;
+    margin-top: 60px;
+}
+.fee-result h1{
+     font-size: 22px !important;
+     font-weight: 600;
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+.block-dash h4{
+    font-size: 15px;
+
+}
+
+.block-dash {
+    padding: 27px 10px;
+    margin:12px 0px ;
+    border: 1px solid rgb(97, 94, 94);
+}

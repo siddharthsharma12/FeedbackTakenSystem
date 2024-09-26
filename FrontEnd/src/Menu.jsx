@@ -1,9 +1,7 @@
-// Image gallery project start======================================================>
-import { Container, Row, Col, Offcanvas, Button } from "react-bootstrap";
+// Image gallery API start======================================================>
+import { Container, Row } from "react-bootstrap";
 import "./Menu.css";
-// import {Modal} from "react-bootstrap";
-// import Combine from "./AddSurvey/combine/Combine";
-// import Modal from "./Modals/Modal";
+
 const Menu = [
    
       {
@@ -11,9 +9,7 @@ const Menu = [
         image: "../images/pre1.png",
         title : "lorem alupis ad",
         para : "lorta esiu",
-        // questions: [{
-             
-        // }],
+      
         preview :
         <div className="orange">
         <Container>

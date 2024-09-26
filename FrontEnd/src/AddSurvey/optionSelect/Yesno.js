@@ -6,19 +6,11 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Boolean.css";
 import { BiAlignLeft } from "react-icons/bi";
 import "./Yesno.css";
-// import { BiGitBranch } from "react-icons/bi";
 
-function Yesno({ id, components, setComponents }) {
-
-     const [yes,setYes] = useState();
-    //  const [no,setNo] = useState();
-
-    //  const handleChange =(e) => {
-         
-    //  }
+function Yesno({ id, question, setquestion }) {
   
   const onChange = (e) => {
-    setComponents((prev) => {
+    setquestion((prev) => {
       return prev.map((component) => {
         if (component.id === id) {
           return {
@@ -33,7 +25,7 @@ function Yesno({ id, components, setComponents }) {
 
 
   const getQuestion = () => {
-    const foundComponent = components.find((component) => component.id === id);
+    const foundComponent = question.find((component) => component.id === id);
     return foundComponent.question.title;
   };
 
@@ -76,7 +68,7 @@ function Yesno({ id, components, setComponents }) {
                       </div>
                     </form>
             {/*   yes no part start================================= */}
-            <div className="input-extra">
+              <div className="input-extra">
             <form>
               <Row>
                 <Col md={6} lg={6}>
@@ -88,7 +80,7 @@ function Yesno({ id, components, setComponents }) {
                       type="radio"
                       name="Yes"
                       value="Yes"
-                      onChange={(e) => setYes(e.target.value)}
+                      // onChange={(e) => setYes(e.target.value)}
                     />
                     Yes
                   </div>
@@ -98,7 +90,7 @@ function Yesno({ id, components, setComponents }) {
                       type="radio"
                       name="Yes"
                       value="No"
-                      onChange={(e) => setYes(e.target.value)}
+                      // onChange={(e) => setYes(e.target.value)}
                     />
                       NO
                     </div>

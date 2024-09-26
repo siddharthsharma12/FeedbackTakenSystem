@@ -1,12 +1,8 @@
-/* .flex-flex{
-    display: flex !important;
-} */
+
 input.firstinput {
   height: 35px;
 }
-/* input.firstin {
-  height: 35px;
-} */
+
 .firstinputediv{
   margin-left: 20px;
   margin-bottom: 28px;
@@ -66,9 +62,3 @@ button.next {
 .container {
   position: relative;
 }
-
-/* rating design start============================== */
-
-
-
-/* rating design ends=============================== */

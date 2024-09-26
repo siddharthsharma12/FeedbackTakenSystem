@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ListGroup,
   Container,
@@ -14,9 +14,11 @@ import { Link, NavLink } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Logic from "../Logic/Logic";
+import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 
 
-const Review = ({ components, setComponents, selectedRecepients }) => {
+const Review = ({ question, setquestion, selectedRecepients }) => {
   const [showreview, setShowReview] = useState(false);
   const [showpreview, setShowPreview] = useState(false);
   const handleCloseReview = () => setShowReview(false);
@@ -27,9 +29,9 @@ const Review = ({ components, setComponents, selectedRecepients }) => {
   }
   // remove user starts========================>
   const removeUser = (index) => {
-    const filtered = [...components];
+    const filtered = [...question];
     filtered.splice(index, 1);
-    setComponents(filtered);
+    setquestion(filtered);
   };
   //   remove user ends=============================>
 
@@ -48,19 +50,18 @@ const Review = ({ components, setComponents, selectedRecepients }) => {
     }
 
     const reorderedItems = reorder(
-      components,
+      question,
       result.source.index,
       result.destination.index
     );
 
-    setComponents(reorderedItems);
+    setquestion(reorderedItems);
   };
 
   /* drag and drop functionality ends===========================> */
 
-  {
-    /*  preview part ends=============================>  */
-  }
+
+  { /*  preview part ends=============================>  */ }
 
   return (
     <>
@@ -84,8 +85,8 @@ const Review = ({ components, setComponents, selectedRecepients }) => {
             <Col md={6} lg={6}>
               <div className="left-ques">
                 <p>
-                  <span className="ten">{components.length}</span>Total
-                  Questions
+                  <span className="ten">{question.length}</span><p className="total">Total
+                    Questions</p>
                 </p>
               </div>
             </Col>
@@ -105,7 +106,7 @@ const Review = ({ components, setComponents, selectedRecepients }) => {
                 >
                   <Modal.Header closeButton>
                     <Modal.Title id="example-custom-modal-styling-title">
-                    The Final Preview
+                      The Final Preview
                     </Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
@@ -124,7 +125,7 @@ const Review = ({ components, setComponents, selectedRecepients }) => {
                                   {...provided.droppableProps}
                                   ref={provided.innerRef}
                                 >
-                                  {components.map((component, index) => (
+                                  {question.map((component, index) => (
                                     <Draggable
                                       draggableId={component.id}
                                       key={component.id}
@@ -140,8 +141,8 @@ const Review = ({ components, setComponents, selectedRecepients }) => {
                                           <Logic
                                             removeUser={removeUser}
                                             id={component.id}
-                                            components={components}
-                                            setComponents={setComponents}
+                                            question={question}
+                                            setquestion={setquestion}
                                             key={component.id}
                                           />
                                         </div>
@@ -165,7 +166,6 @@ const Review = ({ components, setComponents, selectedRecepients }) => {
                   </Modal.Body>
                 </Modal>
 
-                {/*  <a><Nav.Link as={Link} to="/Preview">Preview</Nav.Link></a> */}
                 {/*   preview pop up start =====================>*/}
               </div>
             </Col>
@@ -198,25 +198,25 @@ const Review = ({ components, setComponents, selectedRecepients }) => {
                     <div className="review-para">
                       {/*review modal start ========================>*/}
                       <a variant="primary" onClick={() => setShowReview(true)}>
-                      Review
-                    </a>
-                  {/*  <a onClick={handleShowReview}>Review</a> */}
+                        Review
+                      </a>
+
                       {/*review modal ends ========================>*/}
 
                       {/*   modalbody start ================================>*/}
                       <Modal
-                      show={showreview}
-                      onHide={() => setShowReview(false)}
-                      dialogClassName="modal-90w"
-                      aria-labelledby="example-custom-modal-styling-title"
-                    >
-                    <Modal.Header closeButton>
-                  
-                  </Modal.Header>
+                        show={showreview}
+                        onHide={() => setShowReview(false)}
+                        dialogClassName="modal-90w"
+                        aria-labelledby="example-custom-modal-styling-title"
+                      >
+                        <Modal.Header closeButton>
+
+                        </Modal.Header>
                         <Modal.Body>
-                        <div className="reci-head">
-                        <h5>Selected Recepients</h5>
-                        </div>
+                          <div className="reci-head">
+                            <h5>Selected Recepients</h5>
+                          </div>
                           <Table striped bordered hover>
                             <thead>
                               <tr>
@@ -238,7 +238,7 @@ const Review = ({ components, setComponents, selectedRecepients }) => {
                             </tbody>
                           </Table>
                         </Modal.Body>
-                        </Modal>
+                      </Modal>
 
                       {/*   modalbody ends ================================>*/}
                     </div>
@@ -311,7 +311,8 @@ const Review = ({ components, setComponents, selectedRecepients }) => {
         <ListGroup>
           <Row>
             <div className="flat-btn">
-              <Button className="button-confirm">Confirm and Send</Button>
+
+              <Button className="button-confirm" >Confirm and Send</Button>
               <Button className="button-confirm-one">
                 Confirm and Schedule
               </Button>

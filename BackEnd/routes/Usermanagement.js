@@ -3,6 +3,7 @@ import users from "../models/UserModel.js";
 // import router from "./UserLogin.js";
 const router = express.Router();
 
+
 router.get("/usermanagement", async (req, res) => {
   try {
     const found = await users.findAll();
@@ -11,6 +12,8 @@ router.get("/usermanagement", async (req, res) => {
     res.status(404).json({ msg: "User does not exist" });
   }
 });
+
+
 
 router.get("/:id", async (req, res) => {
   try {

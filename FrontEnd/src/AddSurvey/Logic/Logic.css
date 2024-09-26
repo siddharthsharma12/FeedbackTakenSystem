@@ -1,38 +1,42 @@
-/* .dflexo {
-   display: -webkit-inline-box !important ;
-} */
-span.span-logic {
+.addlogic.span-logic {
    font-weight: 700;
 }
-a.addlogic {
-   /* margin-left: 36px; */
-   color: #494545c7;
+
+.addlogic {
    text-decoration: none !important;
    cursor: pointer;
-   
 }
-a.mat {
-   color: #494545c7;
+
+.removef {
+   display: flex;
+}
+
+.removef.mat {
    cursor: pointer;
 }
-span.span-logic {
+
+.addlogic.span-logic {
    margin-left: 10px;
+   font-weight: 500;
 }
+
 .logic {
-   background: #fbfbfb;
    margin-bottom: 20px;
+   border: 1px solid white;
 }
-.right-logic{
+
+.right-logic {
    display: flex;
    justify-content: center;
 }
+
 select.form-select-dropdown {
    border: none;
    height: 30px;
-   background: #00000005;
 }
+
 .material-symbols-outlined {
-   color: white;
+   color: white !important;
    background: #4db3e4;
    font-family: 'Material Symbols Outlined';
    height: 36%;
@@ -50,11 +54,9 @@ select.form-select-dropdown {
    margin-left: 3px;
    margin-right: 8px;
 }
+
 .material-symbols-apps {
-   color: rgb(179, 170, 170);
-  
    font-family: 'Material Symbols Outlined';
-   
    font-weight: normal;
    font-style: normal;
    font-size: 28px;
@@ -65,6 +67,6 @@ select.form-select-dropdown {
    white-space: nowrap;
    word-wrap: normal;
    direction: ltr;
-   
-  
+
+
 }

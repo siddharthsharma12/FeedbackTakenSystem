@@ -1,114 +1,182 @@
-import React, { useState } from "react";
-import Header from "./header/Header";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
   Routes,
 } from "react-router-dom";
-import { v4 as uuid } from "uuid";
 import Profile from "./profile/Profile";
-import Dashboard from "./DashBoard/Dashboard";
+import DashBoard from "./DashBoard/DashBoard";
 import MyPlan from "./Plan/MyPlan";
 import Usermanagement from "./usermanagement/Usermanagement";
-import Footer from "./footer/Footer";
-import IdeaBoards from "./IdeaBoard.js/IdeaBoards";
 import ActivityLog from "./ActivityLog/ActivityLog";
 import Setting from "./Settings/Setting";
-import Template from "./AddSurvey/SurveyScreens/Template";
 import Scratch from "./AddSurvey/SurveyScreens/Scratch";
-import Excel from "./AddSurvey/SurveyScreens/Excel";
-import Copy from "./AddSurvey/SurveyScreens/Copy";
-import Format from "./AddSurvey/SurveyScreens/Format";
-import FullPageView from "./AddSurvey/Pagination/FullPageView";
-import PageTwo from "./AddSurvey/Pagination/PageTwo";
-import PageThree from "./AddSurvey/Pagination/PageThree";
 import AddSurveys from "./AddSurvey/OuterSurveyScreens/AddSurveys";
 import Customers from "./AddSurvey/OuterSurveyScreens/Customers";
-import Internal from "./AddSurvey/OuterSurveyScreens/Internal";
-import Hear from "./AddSurvey/SurveyScreens/TemplatesScreen/Hear";
-import Csat from "./AddSurvey/SurveyScreens/TemplatesScreen/Csat";
-import Nps from "./AddSurvey/SurveyScreens/TemplatesScreen/Nps";
-import Favourate from "./AddSurvey/SurveyScreens/TemplatesScreen/Favourate";
-import Promote from "./AddSurvey/SurveyScreens/TemplatesScreen/Promote";
-// import Login from "./login/Login";
-// import SignUp from "./SignUp/SignUp";
-import Register from "./CopyRegister/Register";
 import axios from "axios";
-import LoginCopy from "./CopyLogin/LoginCopy";
-import Preview from "./AddSurvey/PreviewScreens/Preview";
 import AllTeam from "./AllTeams/AllTeam";
 import { AllTeams } from "./Teams";
-// import Tmap from "./Experiments/Tmap";
+import ViewInsights from "./viewinsights/ViewInsights";
+import Ques from "./zcomponents/components"
+// import { v4 as uuid } from 'uuid';
 
 axios.defaults.withCredentials = true;
 
-function App() {
-  const [components, setComponents] = useState([
-    { id: uuid(), question: { type: "YesNo", title: "" } },
-  ]);
+
+
+function App({ }) {
+
+  // const unique_id = uuid();
   const [teams, setTeams] = useState(AllTeams);
-  
+  const [theme, setTheme] = useState(
+    localStorage.getItem('theme') || 'light'
+  );
+
+  const [question, setquestion] = useState(getSessionStoragequestion('question', Ques));
+  const [format, setFormat] = useState(getSessionStorageSelectFormat('format', false));
+  const [selectquestion, setselectquestion] = useState(getSessionStorageQuestion('selectquestion', false));
+  const [required, setRequired] = useState(getSessionStorageRequired('required', false));
+  const [selectedtemplate, setSelectedTemplate] = useState(getSessionStorageSelectTemplate('selectedtemplate', false));
+  const [selectedRecepients, setSelectedRecepeients] = useState(getSessionStorageRecepeients('selectedRecepients', []));
+
+
+
+  //  question session storage starts============================================>
+  function getSessionStoragequestion(question, defaultValue) {
+    const stored = sessionStorage.getItem(question);
+    if (!stored) {
+      return defaultValue;
+    }
+    return JSON.parse(stored);
+  }
+  useEffect(() => {
+    sessionStorage.setItem('question', JSON.stringify(question));
+
+  }, [question]);
+  //question session storage ends================================>
+
+
+
+  //select format session storage starts============================================>
+  function getSessionStorageSelectFormat(key, defaultValue) {
+    const stored = sessionStorage.getItem(key);
+    if (!stored) {
+      return defaultValue;
+    }
+    return JSON.parse(stored);
+  }
+
+  useEffect(() => {
+    sessionStorage.setItem('format', JSON.stringify(format));
+  }, [format]);
+  //select format session storage ends================================>
+
+
+  //select selectquestion type session storage starts============================================>
+  function getSessionStorageQuestion(key, defaultValue) {
+    const stored = sessionStorage.getItem(key);
+    if (!stored) {
+      return defaultValue;
+    }
+    return JSON.parse(stored);
+  }
+
+  useEffect(() => {
+    sessionStorage.setItem('selectquestion', JSON.stringify(selectquestion));
+  }, [selectquestion]);
+  //select selectquestion type session storage ends================================>
+
+
+  //select Required type session storage starts============================================>
+  function getSessionStorageRequired(key, defaultValue) {
+    const stored = sessionStorage.getItem(key);
+    if (!stored) {
+      return defaultValue;
+    }
+    return JSON.parse(stored);
+  }
+
+  useEffect(() => {
+    sessionStorage.setItem('required', JSON.stringify(required));
+  }, [required]);
+  //select Required type session storage ends================================>
+
+  //Select template session storage starts============================================>
+  function getSessionStorageSelectTemplate(key, defaultValue) {
+    const stored = sessionStorage.getItem(key);
+    if (!stored) {
+      return defaultValue;
+    }
+    return JSON.parse(stored);
+  }
+
+  useEffect(() => {
+    sessionStorage.setItem('selectedtemplate', JSON.stringify(selectedtemplate));
+  }, [selectedtemplate]);
+  //Select Template session storage ends================================>
+
+
+  //Recepeients session storage starts============================================>
+  function getSessionStorageRecepeients(key, defaultValue) {
+    const stored = sessionStorage.getItem(key);
+    if (!stored) {
+      return defaultValue;
+    }
+    return JSON.parse(stored);
+  }
+
+  useEffect(() => {
+    sessionStorage.setItem('selectedRecepients', JSON.stringify(selectedRecepients));
+  }, [selectedRecepients]);
+  //Recepeients session storage ends============================================>
+
   return (
     <>
-      <div>
+      <div className={`App ${theme}`}>
         <Router>
           <Routes>
-            <Route path="/" element={<LoginCopy />} />
-            <Route 
-            path="/Preview"
-            element={
-            <Preview  components={components} setComponents={setComponents}/>} />
-            <Route path="/AllTeam" element={<AllTeam teams={teams} setTeams={setTeams} />} />
+            {/* <Route path="/" element={<Login/>} /> */}
+            <Route exact path="/" element={<MyPlan />} />
             <Route path="/Usermanagement" element={<Usermanagement />} />
-            <Route path="/Register" element={<Register />} />
+            <Route path="/ViewInsights" element={<ViewInsights />} />
+
+
+            <Route path="/AllTeam" element={<AllTeam teams={teams} setTeams={setTeams} />} />
+
+            {/* <Route path="/Register" element={<Register />} /> */}
             <Route path="/Profile" element={<Profile />} />
             <Route path="/AddSurveys" element={<AddSurveys />} />
-            <Route path="/Dashboard" element={<Dashboard />} />
-            <Route path="/MyPlan" element={<MyPlan />} />
-            <Route path="/IdeaBoards" element={<IdeaBoards />} />
+            <Route path="/DashBoard" element={<DashBoard />} />
+
             <Route path="/ActivityLog" element={<ActivityLog />} />
-            <Route path="/Setting" element={<Setting />} />
+            <Route path="/Setting" element={<Setting
+              theme={theme}
+              setTheme={setTheme}
+            />} />
             <Route path="/Customers" element={<Customers />} />
-            <Route path="/Internal" element={<Internal />} />
-            <Route path="/Template" element={<Template />} />
+
             <Route
               path="/Scratch"
               element={
                 <Scratch
-                  components={components}
-                  setComponents={setComponents}
+                  question={question}
+                  setquestion={setquestion}
                   teams={teams}
+                  selectedRecepients={selectedRecepients}
+                  setSelectedRecepeients={setSelectedRecepeients}
+                  selectedtemplate={selectedtemplate}
+                  setSelectedTemplate={setSelectedTemplate}
+                  format={format}
+                  setFormat={setFormat}
+                  selectquestion={selectquestion}
+                  setselectquestion={setselectquestion}
+                  required={required}
+                  setRequired={setRequired}
+
                 />
               }
             />
-            <Route path="/Excel" element={<Excel />} />
-            <Route path="/Copy" element={<Copy />} />
-            <Route path="/Format" element={<Format />} />
-            <Route
-              path="/FullPageView"
-              element={
-                <FullPageView
-                  components={components}
-                  setComponents={setComponents}
-                />
-              }
-            />
-            <Route
-              path="/PageTwo"
-              element={
-                <PageTwo
-                  components={components}
-                  setComponents={setComponents}
-                />
-              }
-            />
-            <Route path="/PageThree" element={<PageThree />} />
-            <Route path="/Favourate" element={<Favourate />} />
-            <Route path="/Csat" element={<Csat />} />
-            <Route path="/Promote" element={<Promote />} />
-            <Route path="/Nps" element={<Nps />} />
-            <Route path="/Hear" element={<Hear />} />
+
           </Routes>
         </Router>
       </div>

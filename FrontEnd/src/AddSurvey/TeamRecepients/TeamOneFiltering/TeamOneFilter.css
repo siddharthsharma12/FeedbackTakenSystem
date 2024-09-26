@@ -1,20 +1,20 @@
+.brand-filter-one {
+  display: flex;
+  margin-bottom: 17px;
+  margin-left: 15px;
+}
 
-  .brand-filter-one {
-    display: flex;
-    margin-bottom: 17px;
-    margin-left: 15px;
-  }
- 
-  
-  .team-pick{
-    background: #00000005;
-  }
-  
-    .company {
-      font-size: 13px;
-      font-weight: 700;
-      color: #000000a6;
-  }
-  select.form-select-extra {
-    border: 0;
+
+.team-pick {
+  background: #00000005;
+}
+
+.company {
+  font-size: 13px;
+  font-weight: 700;
+  color: #000000a6;
+}
+
+select.form-select-extra {
+  border: 0;
 }

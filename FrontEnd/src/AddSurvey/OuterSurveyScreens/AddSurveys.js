@@ -1,17 +1,14 @@
 import React from "react";
 import "./AddSurvey.css";
 import { ListGroup, Container, Row, Nav } from "react-bootstrap";
-// import { Navbar, Container, Nav, ListGroup, NavDropdown, Accordion } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FcReadingEbook, FcOnlineSupport } from "react-icons/fc";
 import Header from "../../header/Header";
 
-
-
 const AddSurveys = () => {
   return (
     <>
-    <Header/>
+      <Header />
       <Container fluid>
         <Row>
           <ListGroup bsPrefix="addsurvey-section">
@@ -21,7 +18,7 @@ const AddSurveys = () => {
               </ListGroup>
               {/* two bracket part start======================================> */}
               <ListGroup bsPrefix="Two-Brackets">
-                <ListGroup bsPrefix="customer">
+                <ListGroup bsPrefix="customer" id="outone">
                   <div className="icon-customer text-center">
                     <FcOnlineSupport />
                   </div>
@@ -30,19 +27,19 @@ const AddSurveys = () => {
                       Customers
                     </Nav.Link>
                   </p>
-                  {/*<p>Customers</p>*/}
+
                 </ListGroup>
 
-                <ListGroup bsPrefix="internal">
+                {/* <ListGroup bsPrefix="internal">
                   <div className="icon-internal text-center">
                     <FcReadingEbook />
                   </div>
                   <p>
-                    <Nav.Link as={Link} to="/Internal">
+                    <Nav.Link as={Link} to="/Internal" id="outtwo">
                       Internal
                     </Nav.Link>
                   </p>
-                </ListGroup>
+                </ListGroup> */}
               </ListGroup>
               {/* two bracket part ======================================> */}
             </ListGroup>

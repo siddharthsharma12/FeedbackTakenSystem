@@ -1,5 +1,6 @@
 .usermanagement{
     margin: 20px 0px;
+    display: flex;
 }
 .search-right{
     margin: 20px 0px;
@@ -20,11 +21,9 @@ button.dan.me-3.btn.ml-auto.d-block.mb-2{
     padding: 10px;
 }
 table.table {
-    border: 1px solid #00000042;
+    border: 1px solid white;
 }
-.team-pick{
-    background: #00000005;
-}
+
 .dflexo {
     display: -webkit-inline-box !important ;
  }
@@ -39,12 +38,10 @@ select.form-select-extra {
     font-weight: 600;
 }
 .team p{
-    color: #00000082 !important;
     font-weight: 600;
 }
 
 th{
-    color: #00000082 !important;
     font-weight: 600;
 }
 input.unique {

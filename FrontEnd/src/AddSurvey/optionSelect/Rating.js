@@ -5,7 +5,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Boolean.css";
 import { BiAlignLeft } from "react-icons/bi";
-// import { BiGitBranch } from "react-icons/bi";
 import { FaStar } from "react-icons/fa";
 
 const colors = {
@@ -38,7 +37,7 @@ const styles = {
   },
 };
 
-function Rating({ id, components, setComponents }) {
+function Rating({ id, question, setquestion }) {
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
   const stars = Array(5).fill(0);
@@ -59,7 +58,7 @@ function Rating({ id, components, setComponents }) {
   // rating part ends=============================>
 
   const onChange = (e) => {
-    setComponents((prev) => {
+    setquestion((prev) => {
       return prev.map((component) => {
         if (component.id === id) {
           return {
@@ -73,7 +72,7 @@ function Rating({ id, components, setComponents }) {
   };
 
   const getQuestion = () => {
-    const foundComponent = components.find((component) => component.id === id);
+    const foundComponent = question.find((component) => component.id === id);
     return foundComponent.question.title;
   };
 
@@ -115,7 +114,7 @@ function Rating({ id, components, setComponents }) {
 
                     {/*rating part start=============================*/}
                     <div style={styles.container}>
-                   
+
                       <div style={styles.stars}>
                         {stars.map((_, index) => {
                           return (
@@ -138,12 +137,7 @@ function Rating({ id, components, setComponents }) {
                           );
                         })}
                       </div>
-                   {/*   <textarea
-                        placeholder="What's your experience?"
-                        style={styles.textarea}
-                      />
 
-                   <button style={styles.button}>Submit</button> */}
                     </div>
 
                     {/*rating part start=============================*/}

@@ -34,7 +34,7 @@
   transition: 0.2s ease-in-out;
 }
 .left-sidebar ul.user-menu > li:hover {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   -webkit-transition: 0.2s ease-in-out;
   -o-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
@@ -87,7 +87,7 @@
 .left-sidebar ul.user-menu > li:hover a #myplan #Path_172,
 .left-sidebar ul.user-menu > li:hover a #myplan #Path_173,
 .left-sidebar ul.user-menu > li:hover a #myplan #Path_174 {
-  fill: var(--skyblue) !important;
+  /* fill: var(--skyblue) !important; */
   -webkit-transition: 0.2s ease-in-out;
   -o-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
@@ -96,7 +96,7 @@
 .sidebar_heading {
   font-size: 14px;
   font-weight: 400;
-  color: #afafaf;
+  /* color: #afafaf; */
   padding: 15px 20px;
   margin-bottom: 0;
 }

@@ -21,7 +21,7 @@ const styles = {
   stars: {
     display: "flex",
     flexDirection: "row",
-    
+
   },
   textarea: {
     border: "1px solid #a9a9a9",
@@ -40,7 +40,7 @@ const styles = {
 };
 
 function RatingDemo({ question }) {
-const stars = Array(5).fill(0);
+  const stars = Array(5).fill(0);
   return (
     <>
       <ToastContainer />
@@ -62,7 +62,7 @@ const stars = Array(5).fill(0);
                 <div className="flex-flex">
                   <form>
                     <div className="firstinputedivdemo">
-                    
+
 
                       <input
                         className="firstinputr"
@@ -77,7 +77,7 @@ const stars = Array(5).fill(0);
 
                     {/*rating part start=============================*/}
                     <div style={styles.container}>
-                   
+
                       <div style={styles.stars}>
                         {stars.map((_, index) => {
                           return (
@@ -92,7 +92,7 @@ const stars = Array(5).fill(0);
                           );
                         })}
                       </div>
-                  
+
                     </div>
 
                     {/*rating part start=============================*/}

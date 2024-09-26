@@ -1,5 +1,4 @@
 .width-fix.col {
-  background-color: var(--bglight);
   width: 100%;
   max-width: 230px;
   flex: 0 0 230px;
@@ -15,9 +14,6 @@
 .changepassword {
   display: flex !important;
   justify-content: flex-end !important;
-	/* position: absolute;
-	right: 0;
-	bottom: -22px; */
 	color: var(--skyblue);
 	font-size: 12px;
 	text-decoration: underline !important;
@@ -28,7 +24,6 @@
 .edituser svg {
   width: 15px;
   height: 15px;
-  color: var(--lightblack);
   margin-left: 3px;
   display: inline-block;
   margin-top: -4px;
@@ -38,7 +33,6 @@
   padding-right: 200px;
 }
 .myprofiletab{
-  background-color: #FBFBFB;
   width: auto;
   border-radius: 5px;
   padding: 5px;
@@ -51,13 +45,12 @@
 	border: none;
 	border-radius: 5px;
 	font-size: 16px;
-	color: #474747;
   padding: .5rem 2.5rem;
 }
 .myprofiletab.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-  color: #474747;
-  background-color: #DEDEDE !important;
+  background-color: #2e8bcd !important;
   border-color: transparent;
+  color:white !important
 }
 .myprotab .tab-content {
 	padding-top: 35px; 
@@ -66,6 +59,14 @@
 .verify-email {
   position: absolute;
   right: 15px;
+  top: 56%;
+  cursor: pointer;
+  text-decoration: underline;
+} 
+
+.verify-email {
+  position: absolute;
+  right: 15%;
   top: 56%;
   cursor: pointer;
   text-decoration: underline;
@@ -216,14 +217,7 @@ a.probtn {
   background: #189fdf;
   padding: 10px 23px;
 }
-/* label.customfileupload{
-  position: absolute;
-  left: 16%;
-  top: 39%;
-} */
-/* label.customfileupload {
-  background: #0066ff;
-} */
+
 label.customfileupload {
   position: absolute;
   border-radius: 4px;

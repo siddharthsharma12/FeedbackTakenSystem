@@ -1,0 +1,60 @@
+.view-flex {
+    display: flex;
+}
+
+.unsub-flex {
+    display: flex;
+}
+
+.result-flex {
+    display: flex;
+}
+.heading-responses {
+    padding: 6px 0px;
+    margin: 10px 0px;
+}
+.block h4{
+    font-size: 15px;
+}
+.heading-responses h4{
+    font-size: 18px;
+}
+.block {
+    /* background: white; */
+    padding: 27px 10px;
+    margin:12px 0px ;
+    border: 1px solid rgb(142, 140, 140);
+}
+.response-two p{
+font-size: 17px !important;
+
+}
+.response-two{
+    padding: 15px 20px;
+    border: 1px solid;
+    margin: 10px 0px;
+}
+.View-Tab{
+    margin: 40px;
+    border-bottom: 1px solid rgb(166, 163, 163);
+}
+.insights{
+    display: flex;
+    justify-content: center !important;
+}
+.insights h4{
+    font-size: 22px;
+    /* color: rgb(90, 86, 86); */
+    font-weight: 700;
+}
+.one{
+    margin-top: 27px;
+}
+.ques-table h4{
+    font-size: 22px;
+    /* color: black; */
+    font-weight: 600;
+}
+.ques-table {
+    margin: 20px 0px;
+}

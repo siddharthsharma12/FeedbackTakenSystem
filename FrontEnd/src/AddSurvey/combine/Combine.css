@@ -23,14 +23,14 @@
 }
 .boolean-heading h4{
   font-size: 16px;
-  font-weight: 700;
-  color: rgb(43 42 42 / 68%);
+  font-weight: 600;
+  /* color: rgb(43 42 42 / 68%); */
 }
 
 .offcanvas-title.h5 {
   font-size: 19px;
-  font-weight: 600;
-  color: rgb(43 42 42 / 68%);
+  font-weight: 500;
+  /* color: rgb(43 42 42 / 68%); */
   font-family: sans-serif;
 }
 .offcanvas-header {
@@ -89,7 +89,7 @@ button.AddButton {
   display: flex;
   justify-content: center;
   margin: 30px 0px;
-  background: #0000000a;
+  /* background: #0000000a; */
 }
 
 .removef {
@@ -117,8 +117,8 @@ h4.multi {
   font-size: 18px;
 }
 
-a.side-plus {
-  color: #000000ca;
+.side-plus {
+  /* color: #000000ca; */
   cursor: pointer;
 }
 .dobar{
@@ -170,7 +170,7 @@ a.pagination_links {
 }
 
 .bscircle{
-  background: #00000014;
+  /* background: #00000014; */
   border-radius: 48px;
   height: 32px;
   width: 34px;
@@ -222,7 +222,7 @@ input.unique-first{
 
 a.usethisone {
   color: #0d2e4f;
-  background: #00000017;
+  /* background: #00000017; */
   padding: 5px 43px;
   border-radius: 5px;
   cursor: pointer;
@@ -230,7 +230,7 @@ a.usethisone {
 
 a.usethistwo {
   color: white;
-  background: #0d2e4f;
+  /* background: #0d2e4f; */
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
@@ -251,10 +251,7 @@ a.usethistwo {
   aspect-ratio: 16/9;
   
 }
-.ques-one h5 {
-  color: white;
-  
-}
+
 .ques-one {
   margin-left: 50px;
   margin-top: 150px;
@@ -265,12 +262,12 @@ a.usethistwo {
     padding: 5px 26px;
     border-radius: 6px;
     margin-left: 120px;
-    background: navajowhite;
+    /* background: navajowhite; */
     margin-top: 30px !important;
 }
 .black-one input.first {
   /* width: 46px !important; */
-  color: white;
+  /* color: white; */
   font-size: 12px;
   cursor: pointer;
 
@@ -294,8 +291,8 @@ button.select.btn.btn-primary {
   margin-left: 10px;
 }
 button.usethis.btn.btn-primary {
-  background: #000000b8;
-  border: 1px solid  #181818b8 !important;
+  /* background: #000000b8; */
+  /* border: 1px solid  #181818b8 !important; */
   margin-top: 4px;
 }
 /* button.btn.btn-primary {
@@ -305,7 +302,7 @@ button.usethis.btn.btn-primary {
 } */
 button.add-all.btn.btn-primary {
   background: #4d82e4;
-  color: white;
+  /* color: white; */
   border: 1px solid #4db3e4 !important;
   font-weight: 700;
 }
@@ -317,4 +314,7 @@ button.add-all.btn.btn-primary {
 }
 .add-all {
   margin-top: 70px;
+}
+label.form-check-label-u h4{
+    font-size: 15px !important;
 }

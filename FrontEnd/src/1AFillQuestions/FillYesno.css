@@ -1,0 +1,89 @@
+.input-extra {
+    margin-left: 30px;
+    padding-bottom: 12px;
+}
+
+.firstinputediv h1 {
+    font-size: 22px;
+}
+
+/* lorem heading ends======================================== */
+
+
+/* input one start=============================================> */
+
+.flexo {
+    display: flex;
+}
+
+.input-one {
+    border: 1px solid #0000002e;
+    cursor: pointer;
+    padding: 5px 26px;
+    border-radius: 6px;
+}
+
+.input-one:hover {
+    border: 1px solid #4db3e4 !important;
+    cursor: pointer;
+}
+
+.input-one input.first {
+    width: 12px !important;
+}
+
+/* input one over==============================================> */
+
+
+/* input two start=============================================> */
+.input-two {
+    margin-left: 81px;
+    border: 1px solid #0000002e;
+    cursor: pointer;
+    padding: 5px 26px;
+    border-radius: 6px;
+}
+
+input.second {
+    margin: 0px 8px;
+}
+
+.input-two input.second {
+    width: 12px !important;
+}
+
+/* input two end=============================================> */
+
+
+/* extra css start=============================================> */
+input.next {
+    margin: 0px 8px;
+    width: 12px !important;
+}
+
+.secondrow {
+    margin: 40px 0px;
+}
+
+.special-button {
+    margin: 10px 0px;
+}
+
+button {
+    border-radius: 0px !important;
+    background: #0066ff;
+    border: white;
+}
+
+button.next {
+    padding: 4px 20px;
+    border-radius: 6px !important;
+    background: #0066ff;
+    border: white;
+}
+
+.special-button {
+    margin: 39px 0px;
+}
+
+/*  extra css ends=============================================> */

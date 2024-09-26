@@ -1,22 +1,19 @@
 import React from "react";
 import Logic from "../Logic/Logic";
-// import Logic from "../AddSurvey/Logic/Logic";
-import {Container ,Row} from "react-bootstrap"
+import { Container, Row } from "react-bootstrap"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import "./Preview.css";
 import Header from "../../header/Header";
 
+const Preview = ({ question, setquestion }) => {
 
-
-const Preview = ({ components, setComponents }) => {
-
-    // remove user starts========================>
-    const removeUser = (index) => {
-    const filtered = [...components];
+  // remove user starts============================================>
+  const removeUser = (index) => {
+    const filtered = [...question];
     filtered.splice(index, 1);
-    setComponents(filtered);
+    setquestion(filtered);
   };
-//   remove user ends=============================>
+  //   remove user ends======================================================>
 
   /* drag and drop functionality start===========================> */
 
@@ -33,64 +30,64 @@ const Preview = ({ components, setComponents }) => {
     }
 
     const reorderedItems = reorder(
-      components,
+      question,
       result.source.index,
       result.destination.index
     );
 
-    setComponents(reorderedItems);
+    setquestion(reorderedItems);
   };
 
   /* drag and drop functionality ends===========================> */
 
   return (
     <>
-    <Header/>
-    <Container>
-    <div className="All"><p>Final Preview Of All The Questions</p></div>
-    <Row>
-      <div className="col-md-12 col-lg-12">
-        {/*  Mapping start ======================================*/}
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="droppable">
-            {(provided) => (
-              <div {...provided.droppableProps} ref={provided.innerRef}>
-                {components.map((component, index) => (
-                  <Draggable
-                    draggableId={component.id}
-                    key={component.id}
-                    index={index}
-                  >
-                    {(provided) => (
-                      <div
-                        className="flex-flex"
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
+      <Header />
+      <Container>
+        <div className="All"><p>Final Preview Of All The Questions</p></div>
+        <Row>
+          <div className="col-md-12 col-lg-12">
+            {/*  Mapping start ======================================*/}
+            <DragDropContext onDragEnd={onDragEnd}>
+              <Droppable droppableId="droppable">
+                {(provided) => (
+                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                    {question.map((component, index) => (
+                      <Draggable
+                        draggableId={component.id}
+                        key={component.id}
+                        index={index}
                       >
-                        <Logic
-                          removeUser={removeUser}
-                          id={component.id}
-                          components={components}
-                          setComponents={setComponents}
-                          key={component.id}
-                        />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
+                        {(provided) => (
+                          <div
+                            className="flex-flex"
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          >
+                            <Logic
+                              removeUser={removeUser}
+                              id={component.id}
+                              question={question}
+                              setquestion={setquestion}
+                              key={component.id}
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
 
-                {/*  dropsection starts======================================================> */}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+                    {/*  dropsection starts======================================================> */}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
 
-        {/*add component part  Mapping ends =======================================*/}
-      </div>
-      </Row>
-    </Container>
+            {/*add component part  Mapping ends =======================================*/}
+          </div>
+        </Row>
+      </Container>
     </>
   );
 };

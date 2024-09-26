@@ -61,7 +61,7 @@ button.add-c.btn.btn-primary {
 
 /* sidebar part start ===============================================>*/
 .width-fix.col {
-    background-color: var(--bglight);
+    /* background-color: var(--bglight); */
     width: 100%;
     max-width: 230px;
     flex: 0 0 230px;
@@ -88,16 +88,14 @@ button.add-new.btn.btn-primary {
     max-width: 100% !important;
     margin: 1.75rem auto !important;
   }
-  /* a.edit-css {
-    margin: 100px 0px !important;
-  } */
+ 
   i.fa-solid.fa-pen-to-square {
-    /* margin: 10px; */
+    
     cursor: pointer;
 }
 .modal-91w {
     max-width: 50% !important;
-    /* margin: 1.75rem auto !important; */
+  
   }
   label.unilabel {
     margin: 12px 6px;

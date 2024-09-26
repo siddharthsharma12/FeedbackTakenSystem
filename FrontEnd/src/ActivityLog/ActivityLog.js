@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react";
-import { ListGroup, Container, Row, Col, Table ,Form} from "react-bootstrap";
-// import { CloseCircleOutline, CheckmarkCircleOutline } from "react-ionicons";
+import { ListGroup, Container, Row, Col, Table, Form } from "react-bootstrap";
 import Sidebar from "../sidebar/Sidebar";
 import "./ActivityLog.css";
 import Header from "../header/Header";
 
 
 const ActivityLog = () => {
- 
+
   const employeeList = [
     {
       id: 1,
       type: "360",
       date: "26.01.2022",
       name: "sid-one",
-      sname:"null",
+      sname: "null",
       email: "tysonlee23@gmail.com",
-      status:"completed"
+      status: "completed"
     },
 
     {
@@ -24,9 +23,9 @@ const ActivityLog = () => {
       type: "customer",
       date: "26.01.2022",
       name: "sid-two",
-      sname:"null",
+      sname: "null",
       email: "brucelee23@gmail.com",
-      status:"notcompleted"
+      status: "notcompleted"
     },
 
     {
@@ -34,9 +33,9 @@ const ActivityLog = () => {
       type: "nps",
       date: "28.02.2022",
       name: "sid-three",
-      sname:"null",
+      sname: "null",
       email: "brucelee23@gmail.com",
-      status:"completed"
+      status: "completed"
     },
 
     {
@@ -44,76 +43,73 @@ const ActivityLog = () => {
       type: "online",
       date: "26.01.2022",
       name: "sid-four",
-      sname:"null",
+      sname: "null",
       email: "brucelee23@gmail.com",
-      status:"notcompleted"
+      status: "notcompleted"
     },
     {
       id: 5,
       type: "online",
       date: "26.01.2022",
       name: "sid-five",
-      sname:"null",
+      sname: "null",
       email: "brucelee23@gmail.com",
-      status:"notcompleted"
+      status: "notcompleted"
     },
     {
       id: 6,
       type: "online",
       date: "26.01.2022",
       name: "sid-six",
-      sname:"null",
+      sname: "null",
       email: "brucelee23@gmail.com",
-      status:"notcompleted"
+      status: "notcompleted"
     },
     {
       id: 7,
       type: "online",
       date: "26.01.2022",
       name: "sid-seven",
-      sname:"null",
+      sname: "null",
       email: "brucelee23@gmail.com",
-      status:"completed"
+      status: "completed"
     },
     {
       id: 8,
       type: "nps",
       date: "28.02.2022",
       name: "sid-eight",
-      sname:"null",
+      sname: "null",
       email: "brucelee23@gmail.com",
-      status:" notcompleted"
+      status: " notcompleted"
     },
     {
       id: 9,
       type: "nps",
       date: "28.02.2022",
       name: "sid-nine",
-      sname:"null",
+      sname: "null",
       email: "brucelee23@gmail.com",
-      status:" notcompleted"
+      status: " notcompleted"
     },
   ];
 
-  // List of all cars satisfing all the filters
+  // List of all cars satisfing all the filters========================>
   const [filteredList, setFilteredList] = useState(employeeList);
   const [selectedType, setSelectedType] = useState("");
   const [setstatus, setSelectedStatus] = useState("");
-  // const [setdate,setSelectedDate]= useState("");
-  
-
 
   // filterby type start===================================>
   const filterByType = (filteredData) => {
     if (!selectedType) {
-    return filteredData;
+      return filteredData;
     }
-   const filteredSurveyType = filteredData.filter(
-       (item) =>
-       item.type.split(" ").indexOf(selectedType) !== -1
+    const filteredSurveyType = filteredData.filter(
+      (item) =>
+        item.type.split(" ").indexOf(selectedType) !== -1
     );
     return filteredSurveyType;
-   };
+  };
   // filterby type  ends===================================>
 
 
@@ -121,7 +117,7 @@ const ActivityLog = () => {
   // filterby status start===================================>
   const filterByStatus = (filteredData) => {
     if (!setstatus) {
-     return filteredData;
+      return filteredData;
     }
     const filteredStatusType = filteredData.filter(
       (item) => item.status.split(" ").indexOf(setstatus) !== -1
@@ -140,12 +136,12 @@ const ActivityLog = () => {
   const handleStatusChange = (event) => {
     setSelectedStatus(event.target.value);
   };
- // all actions perform here========================>
+  // all actions perform here========================>
   useEffect(() => {
     var filteredData = filterByType(employeeList);
     filteredData = filterByStatus(filteredData);
     setFilteredList(filteredData);
-  }, [selectedType,setstatus]);
+  }, [selectedType, setstatus]);
 
   // all actions perform here========================>
 
@@ -155,7 +151,7 @@ const ActivityLog = () => {
 
   return (
     <>
-    <Header/>
+      <Header />
       <ListGroup bsPrefix="my-activity">
         <Container fluid>
           <Row>
@@ -167,101 +163,97 @@ const ActivityLog = () => {
               <ListGroup bsPrefix="rightside-content">
                 {/* Activity table HTML start=====================================> */}
                 {/*  searching functionality start ==========================*/}
-               
-                <ListGroup bsPrefix="activity-head">
-                <Row>
-                <Col md={6} lg={6} >
-                <div className="left-heading">
-                <h3>Activity Log</h3>
-                </div>
-                </Col>
 
-                <Col md={6} lg={6} className="right-search">
-                <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-               />
-                </Col>
-                </Row>
+                <ListGroup bsPrefix="activity-head">
+                  <Row>
+                    <Col md={6} lg={6} >
+                      <div className="left-heading">
+                        <h3>Activity Log</h3>
+                      </div>
+                    </Col>
+
+                    <Col md={6} lg={6} className="right-search">
+                      <Form.Control
+                        type="search"
+                        placeholder="Search"
+                        className="me-2"
+                        aria-label="Search"
+                      />
+                    </Col>
+                  </Row>
                 </ListGroup>
 
-               {/*  searching functionalityends ==========================*/}
+                {/*  searching functionality ends ==========================*/}
 
                 {/* filter start ======================================>*/}
                 <div className="flower d-flex">
                   <div className="brand-filter">
                     <div className="filter-designation">
-                    <p>Survey Type</p>
+                      <p>Survey Type</p>
                     </div>
                     <div>
-                    <select
-                      id="state"
-                      value={selectedType}
-                      onChange={handleTypeChange}
-                    >
-                      <option value="">All</option>
-                      <option value="online">online</option>
-                      <option value="nps">nps</option>
-                     
-                    </select>
+                      <select
+                        id="state"
+                        value={selectedType}
+                        onChange={handleTypeChange}
+                      >
+                        <option value="">All</option>
+                        <option value="online">online</option>
+                        <option value="nps">nps</option>
+
+                      </select>
                     </div>
                   </div>
 
                   <div className="brand-filter">
                     <div className="sent-on">
-                    <p>Sent On</p>
+                      <p>Sent On</p>
                     </div>
                     <div>
-                    <select
-                      id="state-one"
-                      // value={selectedCompany}
-                      // onChange={handleCompanyChange}
-                    >
-                      <option value="">All</option>
-                      <option value="">26.02.2022 </option>
-                      <option value="">28.02.2022</option>
-                    </select>
+                      <select
+                        id="state-one"
+                      >
+                        <option value="">All</option>
+                        <option value="">26.02.2022 </option>
+                        <option value="">28.02.2022</option>
+                      </select>
                     </div>
                   </div>
 
                   <div className="brand-filter">
                     <div className="sent-on">
-                    <p>Sent By Name</p>
+                      <p>Sent By Name</p>
                     </div>
                     <div>
-                    <select
-                      id="state-four"
-                      // value={selectedCompany}
-                      // onChange={handleCompanyChange}
-                    >
-                      <option value="">All</option>
-                      <option value="">Sid </option>
-                      <option value="">Hrx</option>
-                    </select>
+                      <select
+                        id="state-four"
+                      >
+                        <option value="">All</option>
+                        <option value="">Sid </option>
+                        <option value="">Hrx</option>
+                      </select>
                     </div>
                   </div>
                   <div className="brand-filter">
                     <div className="sent-on">
-                    <p>Status</p>
+                      <p>Status</p>
                     </div>
                     <div>
-                    <select
-                      id="state-five"
-                      value={setstatus}
-                      onChange={handleStatusChange}
-                    >
-                      <option value="">All</option>
-                      <option value="completed">completed</option>
-                      <option value="notcompleted">not completed</option>
-                    </select>
+                      <select
+                        id="state-five"
+                        value={setstatus}
+                        onChange={handleStatusChange}
+                      >
+                        <option value="">All</option>
+                        <option value="completed">completed</option>
+                        <option value="notcompleted">not completed</option>
+                      </select>
                     </div>
                   </div>
                 </div>
                 {/* filter ends======================================>*/}
 
-                <table class="table">
+                <Table striped bordered hover variant="light">
                   <thead>
                     <tr className="active-row">
                       <th scope="col" >
@@ -291,7 +283,7 @@ const ActivityLog = () => {
                       </tr>
                     ))}
                   </tbody>
-                </table>
+                </Table>
 
                 {/* second part ends ================================================ */}
 

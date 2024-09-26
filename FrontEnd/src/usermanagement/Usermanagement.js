@@ -30,12 +30,10 @@ import { Navigate } from "react-router-dom";
 import Handleformtwo from "../usermanagement/Handleformtwo";
 
 
-// currentPosts, setCurrentPosts,searchQuery, setSearchQuery,order, setorder,currentPage, setCurrentPage,posts, setPosts,addPost, setAddPost,editPostId, setEditPostId,editFormData, setEditFormData,selectedItem, setSelectedItem
 const PER_PAGE = 5;
 
-function Usermanagement({}) {
-  // const [clicked, setClicked] = useState(null);
- 
+function Usermanagement({ }) {
+
   const [show, setShow] = useState(false);
 
   {
@@ -73,7 +71,7 @@ function Usermanagement({}) {
   // Global Form functionality ends==================================>
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
- 
+
   // sorting part start================================>
   const sorting = (col) => {
     if (order === "ASC") {
@@ -104,6 +102,7 @@ function Usermanagement({}) {
   useEffect(() => {
     getAdministrator();
   }, []);
+
 
   const DeleteUser = async () => {
     //  e.preventDefault();
@@ -139,8 +138,6 @@ function Usermanagement({}) {
   };
   //Get Form Values ends=============================>
 
-  
-  
 
   // searching part using useEffect=============================>
   useEffect(() => {
@@ -180,10 +177,13 @@ function Usermanagement({}) {
   console.log("hello i am current posts", currentPosts);
   //  Pagination part ends=====================================>
 
+
   // Global form handling start============================>
+
   const handleOnChange = (e) => {
     setForms(e.target.value);
   };
+
   // Global from handling ends================================>
   {
     /* usermanagement coding part ends ========================================>*/
@@ -260,7 +260,7 @@ function Usermanagement({}) {
     console.log(user.id);
 
     const formValues = {
-     
+
       email: user.email,
       role: user.role,
     };
@@ -402,7 +402,7 @@ function Usermanagement({}) {
                                               // }
                                               onClick={() => DeleteUser()}
                                             >
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                              <i class="fa fa-trash" aria-hidden="true"></i>
                                             </a>
                                             <span className="ed">Delete</span>
                                           </div>
@@ -507,7 +507,7 @@ function Usermanagement({}) {
                                 {/*Add Modal ends=========================================*/}
 
                                 {/*Edit Row Modal===================================*/}
-                                 {/*<div
+                                {/*<div
                                   className="modal fade"
                                   id="editModalForm"
                                   tabIndex="-1"
@@ -852,7 +852,7 @@ function Usermanagement({}) {
 
 
                     {/* Individuals table start============================================= */}
-                  
+
                     <div className="common-tab">
                       {/* second table start==================================================> */}
                       <Accordion>
@@ -1087,7 +1087,7 @@ function Usermanagement({}) {
                       {/*  third table  part ends================================================================> */}
                     </div>
                     {/* Individuals table ends==================================>*/}
-                  
+
                   </Tab>
                   {/* first tab ends ===============================================================*/}
 
@@ -1099,10 +1099,7 @@ function Usermanagement({}) {
                   {/*============   Roles part start =========================*/}
                   <Tab eventKey="senderdetail" title="Roles">
                     <Table
-                      striped
-                      bordered
-                      hover
-                      variant="blue"
+                      striped bordered hover variant="light"
                       className="roles-table"
                     >
                       <thead>
@@ -1247,7 +1244,10 @@ function Usermanagement({}) {
                   </Tab>
                   {/*============   Roles part start ========*/}
 
-                  <Tab eventKey="senderdetailtwo" title="Deactivated"></Tab>
+                  <Tab eventKey="senderdetailtwo" title="Deactivated">
+
+                  </Tab>
+
                 </Tabs>
 
                 {/* usermanagement Tabs part ends ================================*/}

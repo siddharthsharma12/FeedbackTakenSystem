@@ -2,11 +2,11 @@ POST  http://localhost:5000/signup
 Content-Type: application/json
 
 {
-   "firstName": "six",
+   "firstName": "sixone",
    "lastName": "kumar",
-   "email": "six@gmail.com",
-   "password": "six",
-   "confirmpassword": "six",
+   "email": "sixone@gmail.com",
+   "password": "sixone",
+   "confirmpassword": "sixone",
    "image": "",
    "role": "root"
   
@@ -21,8 +21,8 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-   "email": "test12345@gmail.com",
-   "password": "test"
+   "email": "sixone@gmail.com",
+   "password": "sixone"
 }
 
 ######
@@ -40,7 +40,8 @@ GET  http://localhost:5000/Usermanagement
 
 
 ####
-GET http://localhost:5000/edit/50e910b1-2a34-4b60-8979-d1719ba5082b
+GET   http://localhost:5000/getcomponents
+
 
 
 
@@ -56,5 +57,19 @@ Content-Type: application/json
 }
 #########
 DELETE   http://localhost:5000/607145a3-8d69-44e1-adc7-e5c0ed7a9af4
+
+
+
+############################################cookie demo
+POST   http://localhost:5000/addquestion
+Content-Type: application/json
+
+{
+    "question": " siddharth"
+}
+
+
+
+
 
 

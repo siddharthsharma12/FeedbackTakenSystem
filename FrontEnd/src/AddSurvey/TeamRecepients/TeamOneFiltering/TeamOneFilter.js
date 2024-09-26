@@ -80,7 +80,7 @@ export default function TeamOneFilter() {
       mobile: "7509785432",
     },
   ];
-   
+
   // select all functionalities start===========================>
   // const [isCheckAll, setIsCheckAll] = useState(false);
 
@@ -93,7 +93,7 @@ export default function TeamOneFilter() {
   const [selectedDesignation, setSelectedDesignation] = useState("");
   const [selectedCompany, setSelectedCompany] = useState("");
 
-  
+
 
   // filterby Designation start===================================>
   const filterByDesignation = (filteredData) => {
@@ -140,95 +140,94 @@ export default function TeamOneFilter() {
 
   // all actions perform here========================>
   // select all functionality start===================>
-  const handleChange=(e)=>{ 
-    const { name, checked}= e.target;
-  if(name==="allselect")
-  {
-  const checkedvalue = filteredList.map( (item)=>{ return {...item, isChecked:checked}});
-  console.log(checkedvalue);
-  setFilteredList(checkedvalue);
-  } else{
-   const checkedvalue = filteredList.map( (item)=>
-   item.name ===name? {...item, isChecked:checked}:item);
-   console.log(checkedvalue);
-   setFilteredList(checkedvalue);
+  const handleChange = (e) => {
+    const { name, checked } = e.target;
+    if (name === "allselect") {
+      const checkedvalue = filteredList.map((item) => { return { ...item, isChecked: checked } });
+      console.log(checkedvalue);
+      setFilteredList(checkedvalue);
+    } else {
+      const checkedvalue = filteredList.map((item) =>
+        item.name === name ? { ...item, isChecked: checked } : item);
+      console.log(checkedvalue);
+      setFilteredList(checkedvalue);
+    }
   }
-}
   // slect all functionality ends=====================>
   return (
     <>
-      
-        {/* filter start ======================================>*/}
-        <div className="flower d-flex">
-          <div className="brand-filter-one">
-          
-            <select
-              className="form-select-extra"
-              value={selectedDesignation}
-              onChange={handleDesignationChange}
-            >
-              <option value="">Designation</option>
-              <option value="react">react </option>
-              <option value="salesforce">salesforce</option>
-              <option value="sales">sales</option>
-            </select>
-          </div>
 
-          <div className="brand-filter-one">
-          
-            <select
+      {/* filter start ======================================>*/}
+      <div className="flower d-flex">
+        <div className="brand-filter-one">
+
+          <select
             className="form-select-extra"
-              value={selectedCompany}
-              onChange={handleCompanyChange}
-            >
-              <option value="">Company</option>
-              <option value="meta">meta </option>
-              <option value="transfunnel">transfunnel</option>
-            </select>
-          </div>
+            value={selectedDesignation}
+            onChange={handleDesignationChange}
+          >
+            <option value="">Designation</option>
+            <option value="react">react </option>
+            <option value="salesforce">salesforce</option>
+            <option value="sales">sales</option>
+          </select>
         </div>
-        {/* filter ends======================================>*/}
 
-        <table class="table">
-          <thead>
-            <tr className="team-pick">
-              <th scope="col">
+        <div className="brand-filter-one">
+
+          <select
+            className="form-select-extra"
+            value={selectedCompany}
+            onChange={handleCompanyChange}
+          >
+            <option value="">Company</option>
+            <option value="meta">meta </option>
+            <option value="transfunnel">transfunnel</option>
+          </select>
+        </div>
+      </div>
+      {/* filter ends======================================>*/}
+
+      <table class="table">
+        <thead>
+          <tr className="team-pick">
+            <th scope="col">
+              <input type="checkbox"
+                name="allselect"
+                onChange={handleChange}
+                checked={!filteredList.some((item) => item?.isChecked !== true)}
+              />
+            </th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Designation</th>
+            <th scope="col">Company</th>
+            <th scope="col">Mobile</th>
+          </tr>
+        </thead>
+        {/* second part start ==============================================*/}
+        <tbody>
+          {filteredList.map((item) => (
+            <tr key={item.id}>
+              <th scope="row">
                 <input type="checkbox"
-                  name="allselect"
+                  name={item.name}
+                  checked={item?.isChecked || false}
                   onChange={handleChange}
-                  checked={!filteredList.some((item) => item?.isChecked !== true)}
-                  />
+                />
               </th>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Designation</th>
-              <th scope="col">Company</th>
-              <th scope="col">Mobile</th>
+              <td>{item.name}</td>
+              <td>{item.email}</td>
+              <td>{item.designation}</td>
+              <td>{item.company}</td>
+              <td>{item.mobile}</td>
             </tr>
-          </thead>
-          {/* second part start ==============================================*/}
-          <tbody>
-            {filteredList.map((item) => (
-              <tr key={item.id}>
-                <th scope="row">
-                  <input type="checkbox"
-                    name={item.name}   
-                    checked={item?.isChecked || false}
-                    onChange={handleChange}
-                  />
-                </th>
-                <td>{item.name}</td>
-                <td>{item.email}</td>
-                <td>{item.designation}</td>
-                <td>{item.company}</td>
-                <td>{item.mobile}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          ))}
+        </tbody>
+      </table>
 
-        {/* second part ends ================================================ */}
-     
+      {/* second part ends ================================================ */}
+
     </>
   );
 }

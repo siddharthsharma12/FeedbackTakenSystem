@@ -1,18 +1,17 @@
 import React from "react";
 import Logic from "../Logic/Logic";
-// import Logic from "../AddSurvey/Logic/Logic";
 import {Container ,Row} from "react-bootstrap"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import "./FullPageView.css";
 import Header from "../../header/Header";
 
 
-const FullPageView = ({ components, setComponents }) => {
+const FullPageView = ({question, setquestion}) => {
 
   const removeUser = (index) => {
-    const filtered = [...components];
+    const filtered = [...question];
     filtered.splice(index, 1);
-    setComponents(filtered);
+    setquestion(filtered);
   };
 
   /* drag and drop functionality start===========================> */
@@ -30,12 +29,12 @@ const FullPageView = ({ components, setComponents }) => {
     }
 
     const reorderedItems = reorder(
-      components,
+      question,
       result.source.index,
       result.destination.index
     );
 
-    setComponents(reorderedItems);
+    setquestion(reorderedItems);
   };
 
   /* drag and drop functionality ends===========================> */
@@ -51,7 +50,7 @@ const FullPageView = ({ components, setComponents }) => {
           <Droppable droppableId="droppable">
             {(provided) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
-                {components.map((component, index) => (
+                {question.map((component, index) => (
                   <Draggable
                     draggableId={component.id}
                     key={component.id}
@@ -67,8 +66,8 @@ const FullPageView = ({ components, setComponents }) => {
                         <Logic
                           removeUser={removeUser}
                           id={component.id}
-                          components={components}
-                          setComponents={setComponents}
+                          question={question}
+                          setquestion={setquestion}
                           key={component.id}
                         />
                       </div>

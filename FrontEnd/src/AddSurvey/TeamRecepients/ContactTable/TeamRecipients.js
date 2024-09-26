@@ -2,19 +2,31 @@ import { useEffect, useState } from "react";
 import { Container, Row, Col,ListGroup } from "react-bootstrap";
 import "./TeamRecipients.css";
 import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 
-const TeamRecipients = ({ teams, selectedRecepients, setSelectedRecepeients }) => {
+const TeamRecipients = ({setValidated, teams, selectedRecepients, setSelectedRecepeients }) => {
+
   const [selectedTeam, setSelectedTeam] = useState(teams[0]?.id);
   const [isSelectAll, setIsSelectAll] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  
 
   const getTeamEmployees = () => {
        const team = teams.find( team => team.id === selectedTeam);
-       if(!team) return [];
+       if(!team)
+       return [];
        return team.employees;
   }
 
+
   const handleSelectAll = () => {
+
       if(isSelectAll) {
           handleChange("UnselectAll");
           setIsSelectAll(false);
@@ -24,23 +36,28 @@ const TeamRecipients = ({ teams, selectedRecepients, setSelectedRecepeients }) =
       }
   }
 
+// select all functionality start==========================>
 
- // select all functionality start===================>
  const handleChange=(value) => { 
+
       if( value === "SelectAll")
       {
         setSelectedRecepeients(getTeamEmployees());
+
       } else if(value === "UnselectAll"){
         setSelectedRecepeients([]);
+             
       } else{
         setSelectedRecepeients( prev => {
           const employeeFound = prev.find( recepient => recepient.id === value.id);
-          if(employeeFound)  return prev.filter(item => item.id !== value.id);
+          if(employeeFound)
+          return prev.filter(item => item.id !== value.id);
           return [...prev, value];
         })
       }
 }
 // slect all functionality ends=====================>
+
   return (
     <>
     <Container>
@@ -51,6 +68,22 @@ const TeamRecipients = ({ teams, selectedRecepients, setSelectedRecepeients }) =
       <Col  md={6} lg={6}>
         <div className="usermanagement">
           <h4>Receipients</h4>
+         {/*get link pop up start================================> */}
+         <a classname="dip" onClick={handleShow}>
+         <i class="fa-solid fa-copy"></i>
+         </a>
+ 
+       <Modal show={show} onHide={handleClose}>
+         <Modal.Header closeButton>
+          <h4>Get Survey link</h4>
+         </Modal.Header>
+         <Modal.Body>
+        
+         <p>{window.location.origin + "/Surveyfill"}</p>
+         </Modal.Body>
+       
+       </Modal>
+           {/*get link pop up ends================================> */}
         </div>
         </Col>
 
@@ -100,7 +133,7 @@ const TeamRecipients = ({ teams, selectedRecepients, setSelectedRecepeients }) =
             </div>
           </div>
           {/*dropdown part ends ==============================================*/}
-          <table class="table">
+          <Table striped bordered hover variant="light">
             <thead >
               <tr className="team-pick">
                 <th scope="col">Teams</th>
@@ -117,17 +150,17 @@ const TeamRecipients = ({ teams, selectedRecepients, setSelectedRecepeients }) =
               ))
             }             
             </tbody>
-          </table>
+          </Table>
         </Col>
 
         {/* first table part ends ================================================ */}
         <Col md={10} lg={10}>
-        <Table className="rec" striped bordered hover>
+        <Table className="rec" striped bordered hover variant="light">
         <thead>
           <tr>
             <th>
             <input
-             className="unique"
+              className="unique"
               type="checkbox"
               name="allselect"
               onChange={() => handleSelectAll()}
@@ -141,7 +174,7 @@ const TeamRecipients = ({ teams, selectedRecepients, setSelectedRecepeients }) =
         </thead>
         <tbody>
 
-         {   getTeamEmployees().map( employee => {
+         {getTeamEmployees().map( employee => {
             return (
               <tr key={employee.id}>
               <td>
@@ -152,17 +185,14 @@ const TeamRecipients = ({ teams, selectedRecepients, setSelectedRecepeients }) =
                 checked={!!selectedRecepients.find(item => item.id === employee.id)}
                 onChange={() => handleChange(employee)}
               />
-                </td>
+              </td>
               <td>{employee.name}</td>
               <td>{employee.email}</td>
               <td>{employee.jobtitle}</td>
             </tr>
             )
          })
-          
-         }
-        
-         
+          }
         </tbody>
       </Table>
         </Col>
@@ -174,4 +204,4 @@ const TeamRecipients = ({ teams, selectedRecepients, setSelectedRecepeients }) =
   )
 }
 
-export default TeamRecipients
+export default TeamRecipients;

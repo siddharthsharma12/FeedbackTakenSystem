@@ -1,27 +1,32 @@
-.bestbtn{
-    background-color: rgb(17, 16, 16);
+.bestbtn {
+    /* background-color: rgb(17, 16, 16); */
     padding: 0;
 }
+
 input {
     margin: 0px 5px;
     width: 100% !important;
 }
+
 .meter {
-  
+
     margin-right: 25px;
     margin-left: 5px;
 }
 
-input.form-input{
+input.form-input {
     position: relative;
 }
-.out{
+
+.out {
     position: relative;
     right: 14%;
 }
-.button-d{
+
+.button-d {
     margin-top: 10px;
 }
+
 button.farm {
     list-style: none !important;
     text-decoration: none !important;
@@ -35,48 +40,58 @@ button.farm {
     border-radius: none !important;
     border-radius: none;
 }
-.pich{
+
+.pich {
     margin-top: 30px;
 }
-.pich .farm{
+
+.pich .farm {
     border-radius: 5px !important;
 }
+
 label.form-label {
     margin-left: 6px;
     font-size: 15px;
-    color: #00000087;
+    /* color: #00000087 !important; */
     font-weight: 600;
 }
+
 .form-inputs {
     margin: 10px 0px;
 }
+
 p.metererror {
     margin-left: 1px;
 }
-.form-inputs .emailerror{
-    color: rgb(230, 54, 54);
-    margin-left: 5px;
-}
-.form-inputs .usererror{
+
+.form-inputs .emailerror {
     color: rgb(230, 54, 54);
     margin-left: 5px;
 }
 
-.form-inputs .pass2error{
+.form-inputs .usererror {
+    color: rgb(230, 54, 54);
+    margin-left: 5px;
+}
+
+.form-inputs .pass2error {
     color: rgb(230, 54, 54);
     margin-left: 5px;
 
 }
-.form-inputs .passworderror{
-    color:rgb(230, 54, 54);
+
+.form-inputs .passworderror {
+    color: rgb(230, 54, 54);
     margin-left: 5px;
 }
+
 input.form-input {
     font-size: 17px !important;
 }
-button.btn-two{
-    background: #4eaed5;
-    color: white;
+
+button.btn-two {
+    /* background: #4eaed5; */
+    color: white !important;
     font-size: 15px;
     font-size: bold;
     font-weight: 600;

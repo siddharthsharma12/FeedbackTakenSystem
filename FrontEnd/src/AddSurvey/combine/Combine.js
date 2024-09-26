@@ -18,11 +18,13 @@ import MultipleChoiceDemo from "../../QuestionsDemo/MultipleChoiceDemo";
 import RatingDemo from "../../QuestionsDemo/RatingDemo";
 import YesNoDemo from "../../QuestionsDemo/YesNoDemo";
 import QuestionsSet from "../../Set";
+import axios from "axios";
 
 const PER_PAGE = 2;
 
-function App({ components, setComponents,selectedtemplate,setSelectedTemplate }) {
+function App({ question, setquestion, selectedtemplate, setSelectedTemplate }) {
   // view all questions pop-up start======>
+  const [msg, setMsg] = useState("");
   const [questionsSet, setQuestionsSet] = useState(QuestionsSet);
   const [showsi, setShowsi] = useState(undefined);
   // view all questions pop-up ends======>
@@ -50,7 +52,6 @@ function App({ components, setComponents,selectedtemplate,setSelectedTemplate })
   // xxx
 
   // off canvas functionality start===========================>
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   // off canvas functionality start==============================>
@@ -78,50 +79,28 @@ function App({ components, setComponents,selectedtemplate,setSelectedTemplate })
   ]);
   const [selectedPosts, setSelectedPosts] = useState([]);
 
-  // post data with post selection part ends==========================================================>
-
-  const validateQuestionInputs = () => {
-    let validatAll = false;
-    //  // for loop of components;
-    //  for (let i = 0; i < components.length; i++) {
-    //       if(component[i].question.title) {
-    //            if((component[i].question.type === "MultipleChoice") {
-
-    //            }
-
-    //       }
-    // }
-
-    //
+  const handleSelectTemplate = (id) => {
+    console.log(id);
+    setSelectedTemplate(id);
+    toast.success("Template Selected SuccessFully");
   };
- 
-const handleSelectTemplate = (id) => {
-  console.log(id)
-       setSelectedTemplate(id)
-       toast.success("Template Selected SuccessFully");
-}
-  // function for adding all the predefined questions of a set
+  // function for adding all the predefined questions of a set=========================>
   const addAllQuestionsOfSet = (predefinedQuestions) => {
-      setComponents(((prev) => [
-        ...prev,
-        ...predefinedQuestions
-      ]));
-      setShowsi(undefined);
-      setLgShowtwo(false);
-      toast.success("All Questions Added Successfully");
-  }
+    setquestion((prev) => [...prev, ...predefinedQuestions]);
+    setShowsi(undefined);
+    setLgShowtwo(false);
+    toast.success("All Questions Added Successfully");
+  };
 
 
   function addComponent() {
-    //
-    setComponents((prev) => [
+    setquestion((prev) => [
       ...prev,
       { id: uuid(), question: { type: "YesNo", title: "" } },
     ]);
-    // win.clear();
-    console.log(components);
-  }
 
+    console.log(question);
+  }
   /* drag and drop functionality start===========================> */
 
   const reorder = (list, startIndex, endIndex) => {
@@ -137,11 +116,11 @@ const handleSelectTemplate = (id) => {
     }
 
     const reorderedItems = reorder(
-      components,
+      question,
       result.source.index,
       result.destination.index
     );
-    setComponents(reorderedItems);
+    setquestion(reorderedItems);
   };
 
   /* drag and drop functionality ends===================================> */
@@ -150,7 +129,7 @@ const handleSelectTemplate = (id) => {
   const handleData = (e) => {
     e.preventDefault();
     setSelectedPosts([]);
-    setComponents((prev) => [...prev, ...selectedPosts]);
+    setquestion((prev) => [...prev, ...selectedPosts]);
     toast.success("Questions Added Successfully");
   };
   //on submit functionality ends=====================================>
@@ -171,20 +150,7 @@ const handleSelectTemplate = (id) => {
   };
   //select functionality ends================================================>
 
-  //pagination start========================================================>
-  //  const handlePageClick = ({ selected: selectedPage }) => {
-  //   console.log("selectedPage", selectedPage);
-  //   setCurrentPage(selectedPage);
-  //   };
-  // const offset = currentPage * PER_PAGE;
-
-  // const current = components.slice(offset, offset + PER_PAGE);
-
-  // const pageCount = Math.ceil(components.length / PER_PAGE);
-  // pagination ends===========================================================>
-  // template mapping part start=================================>
-
-  // template mapping part ends===================================>
+  
   return (
     <>
       <ToastContainer />
@@ -245,51 +211,43 @@ const handleSelectTemplate = (id) => {
                             </Modal.Title>
                           </Modal.Header>
                           <Modal.Body className="first-set">
-                          <Container>
-                            {questions.map(({ id, question }) => {
-                              if (
-                                question.type === "MultipleChoice"
-                              ) {
-                                return (
-                                
-                                  <div className="MultipleChoiceDemo">
-                                  <MultipleChoiceDemo
-                                    key={id}
-                                    question={question}
-                                  />
-                                 </div>
-                                
-                                
-                                );
-                              } else if (question.type === "Rating") {
-                                return (
-                                
-                                  <div className="RatingDemo">
-                                    <RatingDemo
-                                      key={id}
-                                      question={question}
-                                    />
-                                  </div>
-                                
-                                  
-                                );
-                              } else if (question.type === "YesNo") {
-                                return (
-                                
-                                  <div  className ="YesNoDemo">
-                                  <YesNoDemo
-                                    key={id}
-                                    question={question}
-                                  />
-                                  </div>
-                               
-                                 
-                                );
-                              }
-                            })}
-                            <Button className="add-all" type="submit" onClick={() => addAllQuestionsOfSet(questions)} >Add ALL Questions</Button>
+                            <Container>
+                              {questions.map(({ id, question }) => {
+                                if (question.type === "MultipleChoice") {
+                                  return (
+                                    <div className="MultipleChoiceDemo">
+                                      <MultipleChoiceDemo
+                                        key={id}
+                                        question={question}
+                                      />
+                                    </div>
+                                  );
+                                } else if (question.type === "Rating") {
+                                  return (
+                                    <div className="RatingDemo">
+                                      <RatingDemo
+                                        key={id}
+                                        question={question}
+                                      />
+                                    </div>
+                                  );
+                                } else if (question.type === "YesNo") {
+                                  return (
+                                    <div className="YesNoDemo">
+                                      <YesNoDemo key={id} question={question} />
+                                    </div>
+                                  );
+                                }
+                              })}
+                              <Button
+                                className="add-all"
+                                type="submit"
+                                onClick={() => addAllQuestionsOfSet(questions)}
+                              >
+                                Add ALL Questions
+                              </Button>
                             </Container>
-                            </Modal.Body>
+                          </Modal.Body>
                         </Modal>
                       </>
                     );
@@ -360,12 +318,17 @@ const handleSelectTemplate = (id) => {
                               >
                                 Preview
                               </Button>
-                              
-                      {/* use this template button start==============> */}
 
-                       <Button className="usethis" onClick={() => handleSelectTemplate(id)}>Use This Template</Button>
+                              {/* use this template button start==============> */}
 
-                      {/* use this template button ends==============> */}
+                              <Button
+                                className="usethis"
+                                onClick={() => handleSelectTemplate(id)}
+                              >
+                                Use This Template
+                              </Button>
+
+                              {/* use this template button ends==============> */}
 
                               <Modal
                                 show={shows === id}
@@ -427,23 +390,7 @@ const handleSelectTemplate = (id) => {
                 </NavLink>
               </div>
 
-              {/*  pagination starts ==========================*/}
-              {/*  <div className="pagtwo">
-              <Col lg={2} md={2} className="react-pag">
-                <ReactPaginate
-                  // previousLabel={"<"}
-                  // nextLabel={">"}
-                  pageCount={pageCount}
-                  onPageChange={handlePageClick}
-                  containerClassName={"paginations"}
-                  previousLinkClassName={"pagination_links"}
-                  nextLinkClassName={"pagination_links"}
-                  disabledClassName={"pagination_link--disabled"}
-                  activeClassName={"pagination_link--actives"}
-                />
-              </Col>
-          </div> */}
-              {/*  pagination ends ===========================================*/}
+
             </div>
             {/* side navbar part ends========================================*/}
 
@@ -451,8 +398,8 @@ const handleSelectTemplate = (id) => {
             <Dragdrop
               //  questions={current}
               onDragEnd={onDragEnd}
-              components={components}
-              setComponents={setComponents}
+              question={question}
+              setquestion={setquestion}
               addComponent={addComponent}
             />
             {/* question drag and drop part ends ==============================>*/}
@@ -461,9 +408,9 @@ const handleSelectTemplate = (id) => {
 
             <div className="canvas">
               <div className=" pls-ques">
-                <a className="side-plus" onClick={handleShow}>
+                <div className="side-plus" onClick={handleShow}>
                   <AiOutlinePlusCircle />
-                </a>
+                </div>
               </div>
 
               <Offcanvas show={show} onHide={handleClose}>
@@ -506,10 +453,10 @@ const handleSelectTemplate = (id) => {
                                   }
                                 />
                                 <label
-                                  class="form-check-label"
+                                  class="form-check-label-u"
                                   for="flexCheckDefault"
                                 >
-                                  {postItem.question.title}
+                                  <h4> {postItem.question.title}</h4>
                                 </label>
                               </div>
                             ))}

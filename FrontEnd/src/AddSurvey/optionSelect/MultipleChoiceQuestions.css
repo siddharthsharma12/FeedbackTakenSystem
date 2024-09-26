@@ -1,12 +1,9 @@
 
 .firstinputdiv{
-  
     margin-bottom: 28px;
-    display: flex;
-   
+    display: flex;   
 }
 .material-symbols-outlined-two{
-    /* color: white; */
     color: rgb(179, 170, 170);
     font-family: 'Material Symbols Outlined';
     height: 36%;
@@ -63,9 +60,6 @@ span.material-icons {
     margin-top: 0px !important;
 }
 
-/* .flexkrdoone{
-    display: flex;
-} */
 .flexkrdotwo{
     display: flex;
 }

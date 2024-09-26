@@ -3,10 +3,8 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import verify from "hcaptcha";
 import users from "../models/UserModel.js";
-// import axios from "axios";
+
 const router = express.Router();
-
-
 
 // sign up start=================================================>
 
@@ -36,11 +34,13 @@ router.post("/signup", async (req, res) => {
       password: hashpassword,
       // role: role,
     });
+
     const token = jwt.sign(
       { id: result.id, email: result.email },
       process.env.SECRET,
       {expiresIn: "1h" }
     );
+
     return res
       .status(201)
       .json({ email,  msg: "user created successfully", token: token });

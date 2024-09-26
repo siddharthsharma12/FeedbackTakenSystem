@@ -5,7 +5,7 @@ import TeamOne from "../ContactTable/TeamOne";
 import TeamTwo from "../ContactTable/TeamTwo";
 
 function Contacttable() {
-  // const [team, setTeam] = useState("Teams");
+  
   const [team, setTeam] = useState("team one");
   const [TeamONeVisible, setTeamOneVisible] = useState(false);
   const [TeamTwoVisible, setTeamTwoVisible] = useState(false);
@@ -19,7 +19,6 @@ function Contacttable() {
     setTeam(e.target.value);
   };
 
-  //Search Filter Data
 
   return (
     <>

@@ -1,5 +1,5 @@
 .width-fix.col {
-    background-color: var(--bglight);
+    /* background-color: var(--bglight); */
     width: 100%;
     max-width: 230px;
     flex: 0 0 230px;
@@ -12,3 +12,22 @@
     padding-bottom: 20px !important;
     padding-left: 15px !important;
   }
+  .dark {
+    background: #333;
+    /*   background: #333; */
+    /*   color: #fff; */
+    color: #fff;
+    /* font-size: 3px !important; */
+    }
+    .light {
+      background: #fff;
+    /*   background: #fff; */
+      color:rgb(82, 79, 79)
+    /*   color: #333; */
+    }
+    button.toggle{
+      background: blueviolet;
+      color: rgb(250, 244, 244);
+      padding: 15px 10px;
+      border-radius: 50px !important;
+    }
